@@ -13,11 +13,13 @@
     // locate you.
 
     function initMap() {
+
         var map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: -30.944932, lng: -61.562566 },
             zoom: 17
         });
-        
+
+        //getEvents(map);
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -40,6 +42,26 @@
             // Browser doesn't support Geolocation
             handleLocationError(false, infoWindow, map.getCenter());
         }
+
+
+        var data = [];
+        $.ajax({
+            url: '@Url.Content("~/Home/GetEvents")',
+            dataType: 'json',
+            async: true,
+            success: function(info) {
+                info.forEach(function(x) {
+                    var marker = new google.maps.Marker({
+                        position: {
+                            lat: parseFloat(x.lat),
+                            lng: parseFloat(x.lng)
+                        },
+                        map: map,
+                        title: x.Event
+                    });
+                });              
+            }
+        });
     }
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -48,6 +70,7 @@
             'Error: The Geolocation service failed.' :
             'Error: Your browser doesn\'t support geolocation.');
     }
+
 
 
 </script>
