@@ -46,7 +46,7 @@
 
         var data = [];
         $.ajax({
-            url: '@Url.Content("~/Home/GetEvents")',
+            url: '@Url.Content("~/Events/GetEvents")',
             dataType: 'json',
             async: true,
             success: function(info) {
@@ -57,7 +57,7 @@
                             lng: parseFloat(x.lng)
                         },
                         map: map,
-                        title: x.Event
+                        title: x.EventName
                     });
                 });              
             }
