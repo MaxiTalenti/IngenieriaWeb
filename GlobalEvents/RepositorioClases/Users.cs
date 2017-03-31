@@ -6,7 +6,7 @@ namespace RepositorioClases
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Users
+    public class Users
     {
         public long Id { get; set; }
 
@@ -20,6 +20,7 @@ namespace RepositorioClases
 
         [Required]
         [StringLength(20)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         public int IdRol { get; set; }

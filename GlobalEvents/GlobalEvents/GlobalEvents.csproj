@@ -198,6 +198,7 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\_CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -230,6 +231,10 @@
     <ProjectReference Include="..\Servicios\Servicios.csproj">
       <Project>{3a4ec6da-e48f-4f37-9cd1-96a22abee68b}</Project>
       <Name>Servicios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+      <Project>{e615d0b7-5b48-4267-831d-10ff6ace4453}</Project>
+      <Name>ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

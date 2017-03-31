@@ -1,4 +1,4 @@
-﻿@model RepositorioClases.Users
+﻿@*@model RepositorioClases.Users
 
 @{
     ViewBag.Title = "Create";
@@ -65,4 +65,29 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
+</div>*@
+@model ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Crear usuario";
+}
+
+<h2>Crear</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Usuario</legend>
+
+        @Html.Partial("_CreateOrEdit", Model)
+
+        <p>
+            <input type="submit" value="Crear" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index")
 </div>

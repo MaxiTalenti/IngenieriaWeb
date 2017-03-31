@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RepositorioClases;
+using Servicios;
 
 namespace GlobalEvents.Controllers
 {
@@ -15,113 +16,133 @@ namespace GlobalEvents.Controllers
         private Modelo db = new Modelo();
 
         // GET: Users
-        public ActionResult Index()
-        {
-            return View(db.Users.ToList());
+        public ViewResult Index()
+        {    
+            return View(UserService.Get(null).Select(u => new ViewModels.ListUserViewModel()
+            {
+                Email = u.Email,
+                Id = u.Id,
+                Name = u.Name,
+                Password = u.Password,
+                IdRol = u.IdRol
+            }).ToList());
         }
 
-        // GET: Users/Details/5
-        public ActionResult Details(long? id)
+        //
+        // GET: /User/Details/5
+
+        public ViewResult Details(int id)
         {
-            if (id == null)
+            ViewModels.ListUserViewModel user = UserService.Get(id).Select(u => new ViewModels.ListUserViewModel()
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Users users = db.Users.Find(id);
-            if (users == null)
-            {
-                return HttpNotFound();
-            }
-            return View(users);
+                Email = u.Email,
+                Id = u.Id,
+                Name = u.Name,
+                Password = u.Password,
+                IdRol = u.IdRol
+            }).FirstOrDefault();
+
+            return View(user);
         }
 
-        // GET: Users/Create
+        //
+        // GET: /User/Create
+
         public ActionResult Create()
         {
-            return View();
+            return View(new ViewModels.UserViewModel());
         }
 
-        // POST: Users/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        //
+        // POST: /User/Create
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Email,Password,IdRol,DeletedDate")] Users users)
+        public ActionResult Create(ViewModels.UserViewModel user)
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(users);
-                db.SaveChanges();
+                UserService.Create(new Users()
+                {
+                    Email = user.Email,
+                    Name = user.Name,
+                    Password = user.Password,
+                    IdRol = user.IdRol
+                });
                 return RedirectToAction("Index");
             }
 
-            return View(users);
+            return View(user);
         }
 
-        // GET: Users/Edit/5
-        public ActionResult Edit(long? id)
+        //
+        // GET: /User/Edit/5
+
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            Users user = UserService.Get(id).Select(u => new Users()
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Users users = db.Users.Find(id);
-            if (users == null)
-            {
-                return HttpNotFound();
-            }
-            return View(users);
+                Email = u.Email,
+                Id = u.Id,
+                Name = u.Name,
+                Password = u.Password,
+                IdRol = u.IdRol
+            }).FirstOrDefault();
+
+            return View(user);
         }
 
-        // POST: Users/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        //
+        // POST: /User/Edit/5
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Email,Password,IdRol,DeletedDate")] Users users)
+        public ActionResult Edit(Users user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(users).State = EntityState.Modified;
-                db.SaveChanges();
+                UserService.Edit(new RepositorioClases.Users()
+                {
+                    Email = user.Email,
+                    Id = user.Id,
+                    Name = user.Name,
+                    Password = user.Password,
+                    IdRol = user.IdRol
+                });
+
                 return RedirectToAction("Index");
             }
-            return View(users);
+            return View(user);
         }
 
-        // GET: Users/Delete/5
-        public ActionResult Delete(long? id)
+        //
+        // GET: /User/Delete/5
+
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            Users user = UserService.Get(id).Select(u => new Users()
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Users users = db.Users.Find(id);
-            if (users == null)
-            {
-                return HttpNotFound();
-            }
-            return View(users);
+                Email = u.Email,
+                Id = u.Id,
+                Name = u.Name,
+                Password = u.Password,
+                IdRol = u.IdRol
+            }).FirstOrDefault();
+
+            return View(user);
         }
 
-        // POST: Users/Delete/5
+        //
+        // POST: /User/Delete/5
+
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Users users = db.Users.Find(id);
-            db.Users.Remove(users);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            UserService.Delete(new RepositorioClases.Users()
             {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+                Id = id,
+                DeletedDate = DateTime.Now
+            });
+
+            return RedirectToAction("Index");
         }
     }
 }

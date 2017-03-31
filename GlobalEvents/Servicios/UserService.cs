@@ -16,6 +16,7 @@ namespace Servicios
             {
                 context.Users.Add(new Users()
                 {
+                    IdRol = user.IdRol,
                     Email = user.Email,
                     Name = user.Name,
                     Password = user.Password
@@ -33,13 +34,28 @@ namespace Servicios
                 // la expresión id.HasValue ? id.Value == u.Id : true
                 // equivale a (id.HasValue && id.Value == u.Id) || (!id.HasValue)
                 // lo que hacen es filtrar solo cuando viene un valor en la variable, ahorrándonos hacer un if antes y repetir la consulta.
-                return context.Users.Where(u => !u.DeletedDate.HasValue && (id.HasValue ? id.Value == u.Id : true)).Select(u => new Users()
-                {
-                    Email = u.Email,
-                    Id = u.Id,
-                    Name = u.Name,
-                    Password = u.Password
-                }).ToList();
+
+
+                //var detalle = (from d in context.Users
+                //              select  new Users
+                //{
+                //    Email = d.Email,
+                //    Id = d.Id,
+                //    Name = d.Name,
+                //    Password = d.Password
+                //}).ToList();
+
+                //return context.Users.ToList();
+
+                //return new List<Users>();
+
+                return context.Users.Where(u => !u.DeletedDate.HasValue && (id.HasValue ? id.Value == u.Id : true)).ToList();// Select(u => new Users()
+                //{
+                //    Email = u.Email,
+                //    Id = u.Id,
+                //    Name = u.Name,
+                //    Password = u.Password
+                //}).ToList();
             }
         }
 
@@ -87,11 +103,8 @@ namespace Servicios
                 // la expresión id.HasValue ? id.Value == u.Id : true
                 // equivale a (id.HasValue && id.Value == u.Id) || (!id.HasValue)
                 // lo que hacen es filtrar solo cuando viene un valor en la variable, ahorrándonos hacer un if antes y repetir la consulta.
-                return context.Roles.Where(r => id.HasValue ? id.Value == r.Id : true).Select(r => new Roles()
-                {
-                    Description = r.Description,
-                    Id = r.Id
-                }).ToList();
+                return context.Roles.Where(r => id.HasValue ? id.Value == r.Id : true).ToList();
+               
             }
         }
     }
