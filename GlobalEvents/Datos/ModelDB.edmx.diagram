@@ -6,6 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="45436ae1f8f443b2a79accf391496857" Name="Diagram1" >
         <EntityTypeShape EntityType="EventsModel.Events" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EventsModel.Roles" Width="1.5" PointX="3.375" PointY="1.375" />
+        <EntityTypeShape EntityType="EventsModel.Users" Width="1.5" PointX="5.625" PointY="1" />
+        <AssociationConnector Association="EventsModel.UsersRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
