@@ -1,4 +1,4 @@
-﻿using Datos;
+﻿
 using RepositorioClases;
 using System;
 using System.Collections.Generic;
@@ -10,9 +10,9 @@ namespace Servicios
 {
     public static class UserService
     {
-        public static void Create(User user)
+        public static void Create(Users user)
         {
-            using (Entities context = new Entities())
+            using (Modelo context = new Modelo())
             {
                 context.Users.Add(new Users()
                 {
@@ -25,15 +25,15 @@ namespace Servicios
             }
         }
 
-        public static List<User> Get(int? id)
+        public static List<Users> Get(int? id)
         {
-            using (Entities context = new Entities())
+            using (Modelo context = new Modelo())
             {
                 // la propiedad HasValue de los objetos que son Nullables o permiten tomar valores nulos, equivale a hacer la pregunta if (valor != null)
                 // la expresión id.HasValue ? id.Value == u.Id : true
                 // equivale a (id.HasValue && id.Value == u.Id) || (!id.HasValue)
                 // lo que hacen es filtrar solo cuando viene un valor en la variable, ahorrándonos hacer un if antes y repetir la consulta.
-                return context.Users.Where(u => !u.DeletedDate.HasValue && (id.HasValue ? id.Value == u.Id : true)).Select(u => new User()
+                return context.Users.Where(u => !u.DeletedDate.HasValue && (id.HasValue ? id.Value == u.Id : true)).Select(u => new Users()
                 {
                     Email = u.Email,
                     Id = u.Id,
@@ -43,9 +43,9 @@ namespace Servicios
             }
         }
 
-        public static void Edit(User user)
+        public static void Edit(Users user)
         {
-            using (Entities context = new Entities())
+            using (Modelo context = new Modelo())
             {
                 Users users = context.Users.Where(u => u.Id == user.Id).FirstOrDefault();
 
@@ -63,9 +63,9 @@ namespace Servicios
             }
         }
 
-        public static void Delete(User user)
+        public static void Delete(Users user)
         {
-            using (Entities context = new Entities())
+            using (Modelo context = new Modelo())
             {
                 Users users = context.Users.Where(u => u.Id == user.Id).FirstOrDefault();
 
@@ -79,15 +79,15 @@ namespace Servicios
             }
         }
 
-        public static List<Rol> GetRole(int? id)
+        public static List<Roles> GetRole(int? id)
         {
-            using (Entities context = new Entities())
+            using (Modelo context = new Modelo())
             {
                 // la propiedad HasValue de los objetos que son Nullables o permiten tomar valores nulos, equivale a hacer la pregunta if (valor != null)
                 // la expresión id.HasValue ? id.Value == u.Id : true
                 // equivale a (id.HasValue && id.Value == u.Id) || (!id.HasValue)
                 // lo que hacen es filtrar solo cuando viene un valor en la variable, ahorrándonos hacer un if antes y repetir la consulta.
-                return context.Roles.Where(r => id.HasValue ? id.Value == r.Id : true).Select(r => new Rol()
+                return context.Roles.Where(r => id.HasValue ? id.Value == r.Id : true).Select(r => new Roles()
                 {
                     Description = r.Description,
                     Id = r.Id

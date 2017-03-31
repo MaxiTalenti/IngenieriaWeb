@@ -1,4 +1,4 @@
-﻿@model RepositorioClases.User
+﻿@model RepositorioClases.Users
 
 @{
     ViewBag.Title = "Details";
@@ -8,7 +8,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>User</h4>
+    <h4>Users</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -36,19 +36,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DeletedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DeletedDate)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.IdRol)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.IdRol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedDate)
         </dd>
 
     </dl>

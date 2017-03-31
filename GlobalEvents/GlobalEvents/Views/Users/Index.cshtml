@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RepositorioClases.User>
+﻿@model IEnumerable<RepositorioClases.Users>
 
 @{
     ViewBag.Title = "Index";
@@ -22,10 +22,10 @@
             @Html.DisplayNameFor(model => model.Password)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DeletedDate)
+            @Html.DisplayNameFor(model => model.IdRol)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdRol)
+            @Html.DisplayNameFor(model => model.DeletedDate)
         </th>
         <th></th>
     </tr>
@@ -42,10 +42,10 @@
             @Html.DisplayFor(modelItem => item.Password)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DeletedDate)
+            @Html.DisplayFor(modelItem => item.IdRol)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IdRol)
+            @Html.DisplayFor(modelItem => item.DeletedDate)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
