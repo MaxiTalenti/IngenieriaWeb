@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="container m-auto">
+@using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bootstrap-admin-login-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+        <div class="col-sm-auto col-md-auto col-md-offset-1">
+            <h1 class="text-center login-title">Ingresa</h1>
+            <div class="account-wall">
+                    <input type="text" name="Email" class="form-control" placeholder="Email" required autofocus>
+                    <input type="password" name="Password" class="form-control" placeholder="Contraseña" required>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        Ingresar
+                    </button>
+                    <label class="checkbox">
+                        <input type="checkbox" value="remember-me">
+                        Recordarme
+                    </label>
+            </div>
+            <a href="#" class="text-center new-account">Crearse una cuenta</a> | 
+            <a href="#" class="pull-right need-help">¿Necesita ayuda?</a><span class="clearfix"></span>
+        </div>
+}
+</div>

@@ -23,6 +23,7 @@ namespace ViewModels
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
         [Required]
@@ -88,5 +89,16 @@ namespace ViewModels
 
             set { }
         }
+    }
+
+    public class LoginModel
+    {
+        [Required]
+        [Display(Name = "Correo electrónico")]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
     }
 }

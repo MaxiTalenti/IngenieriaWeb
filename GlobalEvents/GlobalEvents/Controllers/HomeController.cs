@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ViewModels;
 
 namespace GlobalEvents.Controllers
 {
@@ -25,6 +26,25 @@ namespace GlobalEvents.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            var model = new LoginModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Hacer autenticación.
+            }
+
+            return View(model);
         }
     }
 }
