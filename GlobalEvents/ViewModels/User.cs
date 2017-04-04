@@ -9,6 +9,7 @@ namespace ViewModels
 {
     public class UserViewModel
     {
+        [Key]
         public long Id { get; set; }
 
         [Required]
@@ -16,6 +17,7 @@ namespace ViewModels
         public string Name { get; set; }
 
         [Required]
+        [EmailAddress]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
 

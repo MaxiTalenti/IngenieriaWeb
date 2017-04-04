@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace Servicios
 {
+    /// <summary>
+    /// Acciones comunes sobre usuarios.
+    /// </summary>
     public static class UserService
     {
+        /// <summary>
+        /// Creación de usuario
+        /// </summary>
+        /// <param name="user"></param>
         public static void Create(Users user)
         {
             using (Modelo context = new Modelo())
@@ -26,6 +33,11 @@ namespace Servicios
             }
         }
 
+        /// <summary>
+        /// Obtiene usuarios
+        /// </summary>
+        /// <param name="id">Busca por id (opcional)</param>
+        /// <returns>Lista de usuario/s</returns>
         public static List<Users> Get(int? id)
         {
             using (Modelo context = new Modelo())
@@ -59,6 +71,10 @@ namespace Servicios
             }
         }
 
+        /// <summary>
+        /// Editar usuario
+        /// </summary>
+        /// <param name="user">Usuario a editar</param>
         public static void Edit(Users user)
         {
             using (Modelo context = new Modelo())
@@ -79,6 +95,10 @@ namespace Servicios
             }
         }
 
+        /// <summary>
+        /// Eliminar usuario (Marca con fecha actual)
+        /// </summary>
+        /// <param name="user">Usuario a eliminar</param>
         public static void Delete(Users user)
         {
             using (Modelo context = new Modelo())
@@ -95,6 +115,11 @@ namespace Servicios
             }
         }
 
+        /// <summary>
+        /// Obtiene el rol del usuario
+        /// </summary>
+        /// <param name="id">Id del usuario</param>
+        /// <returns>Roles otorgados</returns>
         public static List<Roles> GetRole(int? id)
         {
             using (Modelo context = new Modelo())

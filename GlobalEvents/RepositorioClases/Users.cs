@@ -15,6 +15,7 @@ namespace RepositorioClases
         public string Name { get; set; }
 
         [Required]
+        [EmailAddress]
         [StringLength(50)]
         public string Email { get; set; }
 
