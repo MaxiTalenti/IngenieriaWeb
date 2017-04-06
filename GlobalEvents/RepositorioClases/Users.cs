@@ -8,27 +8,21 @@ namespace RepositorioClases
 
     public class Users
     {
-        public long Id { get; set; }
+        public Int32 Id { get; set; }
 
         [Required]
         [StringLength(20)]
-        public string Name { get; set; }
+        public string Nombre { get; set; }
+
+        public string Usuario { get; set; }
+
+        public string Apellido { get; set; }
 
         [Required]
         [EmailAddress]
         [StringLength(50)]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(20)]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        public int IdRol { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? DeletedDate { get; set; }
-
-        public virtual Roles Roles { get; set; }
+        //public virtual Roles Roles { get; set; }
     }
 }

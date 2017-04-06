@@ -13,16 +13,6 @@ namespace RepositorioClases
         }
 
         public virtual DbSet<Events> Events { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Roles>()
-                .HasMany(e => e.Users)
-                .WithRequired(e => e.Roles)
-                .HasForeignKey(e => e.IdRol)
-                .WillCascadeOnDelete(false);
-        }
     }
 }

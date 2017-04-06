@@ -4,31 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ViewModels;
+using WebMatrix.WebData;
 
 namespace GlobalEvents.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             var model = new LoginModel();
@@ -37,14 +27,22 @@ namespace GlobalEvents.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Login(LoginModel model)
         {
-            if (ModelState.IsValid)
+            if (!WebSecurity.Initialized)
             {
-                // Hacer autenticación.
+                WebSecurity.InitializeDatabaseConnection("Modelo", "Users", "Id", "Usuario", true);
             }
-
-            return View(model);
+            WebSecurity.Logout();
+            if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, true))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -45,16 +45,46 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.7\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.3.0-beta3\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.3.0-beta3\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.3.0-beta3\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.3.0-beta3\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.3.0-beta3\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.3.0-beta3\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebHelpers.3.2.3\lib\net45\Microsoft.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -108,39 +138,14 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.3\lib\net45\WebMatrix.Data.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationInsights">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.Agent.Intercept">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.DependencyCollector">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.PerfCounterCollector">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.ServerTelemetryChannel">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.WindowsServer">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.Web">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.3\lib\net45\WebMatrix.WebData.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -162,879 +167,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-1-pinterest.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-10-wordpress.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-11-instapaper.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-12-evernote.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-13-xing.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-14-e-mail-envelope.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-15-dribbble.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-16-deviantart.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-17-read-it-later.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-18-linked-in.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-19-gmail.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-2-dropbox.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-20-pinboard.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-21-behance.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-22-github.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-23-youtube.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-24-open-id.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-25-foursquare.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-26-quora.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-27-badoo.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-28-spotify.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-29-stumbleupon.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-3-google-plus.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-30-readability.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-31-facebook.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-32-twitter.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-33-instagram.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-34-posterous-spaces.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-35-vimeo.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-36-flickr.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-37-last-fm.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-38-rss.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-39-skype.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-4-jolicloud.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-40-e-mail.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-41-vine.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-42-myspace.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-43-goodreads.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-44-apple.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-45-windows.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-46-yelp.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-47-playstation.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-48-xbox.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-49-android.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-5-yahoo.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-50-ios.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-51-wikipedia.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-52-pocket.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-53-steam.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-54-soundcloud.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-55-slideshare.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-56-netflix.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-57-paypal.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-58-google-drive.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-59-linux-foundation.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-6-blogger.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-60-ebay.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-61-bitbucket.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-62-whatsapp.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-63-buffer.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-64-medium.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-65-stackoverflow.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-66-linux.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-67-vk.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-68-snapchat.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-69-etsy.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-7-picasa.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-70-stackexchange.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-8-amazon.png" />
-    <Content Include="Content\glyphicons-social\glyphicons-social-9-tumblr.png" />
-    <Content Include="Content\glyphicons\glyphicons-1-glass.png" />
-    <Content Include="Content\glyphicons\glyphicons-10-magic.png" />
-    <Content Include="Content\glyphicons\glyphicons-100-vector-path-all.png" />
-    <Content Include="Content\glyphicons\glyphicons-101-font.png" />
-    <Content Include="Content\glyphicons\glyphicons-102-italic.png" />
-    <Content Include="Content\glyphicons\glyphicons-103-bold.png" />
-    <Content Include="Content\glyphicons\glyphicons-104-text-underline.png" />
-    <Content Include="Content\glyphicons\glyphicons-105-text-strike.png" />
-    <Content Include="Content\glyphicons\glyphicons-106-text-height.png" />
-    <Content Include="Content\glyphicons\glyphicons-107-text-width.png" />
-    <Content Include="Content\glyphicons\glyphicons-108-text-resize.png" />
-    <Content Include="Content\glyphicons\glyphicons-109-left-indent.png" />
-    <Content Include="Content\glyphicons\glyphicons-11-envelope.png" />
-    <Content Include="Content\glyphicons\glyphicons-110-right-indent.png" />
-    <Content Include="Content\glyphicons\glyphicons-111-align-left.png" />
-    <Content Include="Content\glyphicons\glyphicons-112-align-center.png" />
-    <Content Include="Content\glyphicons\glyphicons-113-align-right.png" />
-    <Content Include="Content\glyphicons\glyphicons-114-justify.png" />
-    <Content Include="Content\glyphicons\glyphicons-115-list.png" />
-    <Content Include="Content\glyphicons\glyphicons-116-text-smaller.png" />
-    <Content Include="Content\glyphicons\glyphicons-117-text-bigger.png" />
-    <Content Include="Content\glyphicons\glyphicons-118-embed.png" />
-    <Content Include="Content\glyphicons\glyphicons-119-embed-close.png" />
-    <Content Include="Content\glyphicons\glyphicons-12-camera.png" />
-    <Content Include="Content\glyphicons\glyphicons-120-table.png" />
-    <Content Include="Content\glyphicons\glyphicons-121-message-full.png" />
-    <Content Include="Content\glyphicons\glyphicons-122-message-empty.png" />
-    <Content Include="Content\glyphicons\glyphicons-123-message-in.png" />
-    <Content Include="Content\glyphicons\glyphicons-124-message-out.png" />
-    <Content Include="Content\glyphicons\glyphicons-125-message-plus.png" />
-    <Content Include="Content\glyphicons\glyphicons-126-message-minus.png" />
-    <Content Include="Content\glyphicons\glyphicons-127-message-ban.png" />
-    <Content Include="Content\glyphicons\glyphicons-128-message-flag.png" />
-    <Content Include="Content\glyphicons\glyphicons-129-message-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-13-heart.png" />
-    <Content Include="Content\glyphicons\glyphicons-130-message-new.png" />
-    <Content Include="Content\glyphicons\glyphicons-131-inbox.png" />
-    <Content Include="Content\glyphicons\glyphicons-132-inbox-plus.png" />
-    <Content Include="Content\glyphicons\glyphicons-133-inbox-minus.png" />
-    <Content Include="Content\glyphicons\glyphicons-134-inbox-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-135-inbox-in.png" />
-    <Content Include="Content\glyphicons\glyphicons-136-inbox-out.png" />
-    <Content Include="Content\glyphicons\glyphicons-137-cogwheel.png" />
-    <Content Include="Content\glyphicons\glyphicons-138-cogwheels.png" />
-    <Content Include="Content\glyphicons\glyphicons-139-picture.png" />
-    <Content Include="Content\glyphicons\glyphicons-14-beach-umbrella.png" />
-    <Content Include="Content\glyphicons\glyphicons-140-adjust-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-141-database-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-142-database-plus.png" />
-    <Content Include="Content\glyphicons\glyphicons-143-database-minus.png" />
-    <Content Include="Content\glyphicons\glyphicons-144-database-ban.png" />
-    <Content Include="Content\glyphicons\glyphicons-145-folder-open.png" />
-    <Content Include="Content\glyphicons\glyphicons-146-folder-plus.png" />
-    <Content Include="Content\glyphicons\glyphicons-147-folder-minus.png" />
-    <Content Include="Content\glyphicons\glyphicons-148-folder-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-149-folder-flag.png" />
-    <Content Include="Content\glyphicons\glyphicons-15-train.png" />
-    <Content Include="Content\glyphicons\glyphicons-150-folder-new.png" />
-    <Content Include="Content\glyphicons\glyphicons-151-edit.png" />
-    <Content Include="Content\glyphicons\glyphicons-152-new-window.png" />
-    <Content Include="Content\glyphicons\glyphicons-153-check.png" />
-    <Content Include="Content\glyphicons\glyphicons-154-unchecked.png" />
-    <Content Include="Content\glyphicons\glyphicons-155-more-windows.png" />
-    <Content Include="Content\glyphicons\glyphicons-156-show-big-thumbnails.png" />
-    <Content Include="Content\glyphicons\glyphicons-157-show-thumbnails.png" />
-    <Content Include="Content\glyphicons\glyphicons-158-show-thumbnails-with-lines.png" />
-    <Content Include="Content\glyphicons\glyphicons-159-show-lines.png" />
-    <Content Include="Content\glyphicons\glyphicons-16-print.png" />
-    <Content Include="Content\glyphicons\glyphicons-160-playlist.png" />
-    <Content Include="Content\glyphicons\glyphicons-161-imac.png" />
-    <Content Include="Content\glyphicons\glyphicons-162-macbook.png" />
-    <Content Include="Content\glyphicons\glyphicons-163-ipad.png" />
-    <Content Include="Content\glyphicons\glyphicons-164-iphone.png" />
-    <Content Include="Content\glyphicons\glyphicons-165-iphone-transfer.png" />
-    <Content Include="Content\glyphicons\glyphicons-166-iphone-exchange.png" />
-    <Content Include="Content\glyphicons\glyphicons-167-ipod.png" />
-    <Content Include="Content\glyphicons\glyphicons-168-ipod-shuffle.png" />
-    <Content Include="Content\glyphicons\glyphicons-169-ear-plugs.png" />
-    <Content Include="Content\glyphicons\glyphicons-17-bin.png" />
-    <Content Include="Content\glyphicons\glyphicons-170-record.png" />
-    <Content Include="Content\glyphicons\glyphicons-171-step-backward.png" />
-    <Content Include="Content\glyphicons\glyphicons-172-fast-backward.png" />
-    <Content Include="Content\glyphicons\glyphicons-173-rewind.png" />
-    <Content Include="Content\glyphicons\glyphicons-174-play.png" />
-    <Content Include="Content\glyphicons\glyphicons-175-pause.png" />
-    <Content Include="Content\glyphicons\glyphicons-176-stop.png" />
-    <Content Include="Content\glyphicons\glyphicons-177-forward.png" />
-    <Content Include="Content\glyphicons\glyphicons-178-fast-forward.png" />
-    <Content Include="Content\glyphicons\glyphicons-179-step-forward.png" />
-    <Content Include="Content\glyphicons\glyphicons-18-music.png" />
-    <Content Include="Content\glyphicons\glyphicons-180-eject.png" />
-    <Content Include="Content\glyphicons\glyphicons-181-facetime-video.png" />
-    <Content Include="Content\glyphicons\glyphicons-182-download-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-183-mute.png" />
-    <Content Include="Content\glyphicons\glyphicons-184-volume-down.png" />
-    <Content Include="Content\glyphicons\glyphicons-185-volume-up.png" />
-    <Content Include="Content\glyphicons\glyphicons-186-screenshot.png" />
-    <Content Include="Content\glyphicons\glyphicons-187-move.png" />
-    <Content Include="Content\glyphicons\glyphicons-188-more.png" />
-    <Content Include="Content\glyphicons\glyphicons-189-brightness-reduce.png" />
-    <Content Include="Content\glyphicons\glyphicons-19-music-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-190-brightness-increase.png" />
-    <Content Include="Content\glyphicons\glyphicons-191-plus-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-192-minus-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-193-remove-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-194-ok-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-195-question-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-196-info-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-197-exclamation-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-198-remove-circle.png" />
-    <Content Include="Content\glyphicons\glyphicons-199-ok-circle.png" />
-    <Content Include="Content\glyphicons\glyphicons-2-leaf.png" />
-    <Content Include="Content\glyphicons\glyphicons-20-heart-empty.png" />
-    <Content Include="Content\glyphicons\glyphicons-200-ban-circle.png" />
-    <Content Include="Content\glyphicons\glyphicons-201-download.png" />
-    <Content Include="Content\glyphicons\glyphicons-202-upload.png" />
-    <Content Include="Content\glyphicons\glyphicons-203-shopping-cart.png" />
-    <Content Include="Content\glyphicons\glyphicons-204-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-205-unlock.png" />
-    <Content Include="Content\glyphicons\glyphicons-206-electricity.png" />
-    <Content Include="Content\glyphicons\glyphicons-207-ok.png" />
-    <Content Include="Content\glyphicons\glyphicons-208-remove.png" />
-    <Content Include="Content\glyphicons\glyphicons-209-cart-in.png" />
-    <Content Include="Content\glyphicons\glyphicons-21-home.png" />
-    <Content Include="Content\glyphicons\glyphicons-210-cart-out.png" />
-    <Content Include="Content\glyphicons\glyphicons-211-arrow-left.png" />
-    <Content Include="Content\glyphicons\glyphicons-212-arrow-right.png" />
-    <Content Include="Content\glyphicons\glyphicons-213-arrow-down.png" />
-    <Content Include="Content\glyphicons\glyphicons-214-arrow-up.png" />
-    <Content Include="Content\glyphicons\glyphicons-215-resize-small.png" />
-    <Content Include="Content\glyphicons\glyphicons-216-resize-full.png" />
-    <Content Include="Content\glyphicons\glyphicons-217-circle-arrow-left.png" />
-    <Content Include="Content\glyphicons\glyphicons-218-circle-arrow-right.png" />
-    <Content Include="Content\glyphicons\glyphicons-219-circle-arrow-top.png" />
-    <Content Include="Content\glyphicons\glyphicons-22-snowflake.png" />
-    <Content Include="Content\glyphicons\glyphicons-220-circle-arrow-down.png" />
-    <Content Include="Content\glyphicons\glyphicons-221-play-button.png" />
-    <Content Include="Content\glyphicons\glyphicons-222-unshare.png" />
-    <Content Include="Content\glyphicons\glyphicons-223-share.png" />
-    <Content Include="Content\glyphicons\glyphicons-224-chevron-right.png" />
-    <Content Include="Content\glyphicons\glyphicons-225-chevron-left.png" />
-    <Content Include="Content\glyphicons\glyphicons-226-bluetooth.png" />
-    <Content Include="Content\glyphicons\glyphicons-227-euro.png" />
-    <Content Include="Content\glyphicons\glyphicons-228-usd.png" />
-    <Content Include="Content\glyphicons\glyphicons-229-gbp.png" />
-    <Content Include="Content\glyphicons\glyphicons-23-fire.png" />
-    <Content Include="Content\glyphicons\glyphicons-230-retweet-2.png" />
-    <Content Include="Content\glyphicons\glyphicons-231-moon.png" />
-    <Content Include="Content\glyphicons\glyphicons-232-sun.png" />
-    <Content Include="Content\glyphicons\glyphicons-233-cloud.png" />
-    <Content Include="Content\glyphicons\glyphicons-234-direction.png" />
-    <Content Include="Content\glyphicons\glyphicons-235-brush.png" />
-    <Content Include="Content\glyphicons\glyphicons-236-pen.png" />
-    <Content Include="Content\glyphicons\glyphicons-237-zoom-in.png" />
-    <Content Include="Content\glyphicons\glyphicons-238-zoom-out.png" />
-    <Content Include="Content\glyphicons\glyphicons-239-pin.png" />
-    <Content Include="Content\glyphicons\glyphicons-24-magnet.png" />
-    <Content Include="Content\glyphicons\glyphicons-240-albums.png" />
-    <Content Include="Content\glyphicons\glyphicons-241-rotation-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-242-flash.png" />
-    <Content Include="Content\glyphicons\glyphicons-243-map-marker.png" />
-    <Content Include="Content\glyphicons\glyphicons-244-anchor.png" />
-    <Content Include="Content\glyphicons\glyphicons-245-conversation.png" />
-    <Content Include="Content\glyphicons\glyphicons-246-chat.png" />
-    <Content Include="Content\glyphicons\glyphicons-247-note-empty.png" />
-    <Content Include="Content\glyphicons\glyphicons-248-note.png" />
-    <Content Include="Content\glyphicons\glyphicons-249-asterisk.png" />
-    <Content Include="Content\glyphicons\glyphicons-25-parents.png" />
-    <Content Include="Content\glyphicons\glyphicons-250-divide.png" />
-    <Content Include="Content\glyphicons\glyphicons-251-snorkel-diving.png" />
-    <Content Include="Content\glyphicons\glyphicons-252-scuba-diving.png" />
-    <Content Include="Content\glyphicons\glyphicons-253-oxygen-bottle.png" />
-    <Content Include="Content\glyphicons\glyphicons-254-fins.png" />
-    <Content Include="Content\glyphicons\glyphicons-255-fishes.png" />
-    <Content Include="Content\glyphicons\glyphicons-256-boat.png" />
-    <Content Include="Content\glyphicons\glyphicons-257-delete.png" />
-    <Content Include="Content\glyphicons\glyphicons-258-sheriffs-star.png" />
-    <Content Include="Content\glyphicons\glyphicons-259-qrcode.png" />
-    <Content Include="Content\glyphicons\glyphicons-26-binoculars.png" />
-    <Content Include="Content\glyphicons\glyphicons-260-barcode.png" />
-    <Content Include="Content\glyphicons\glyphicons-261-pool.png" />
-    <Content Include="Content\glyphicons\glyphicons-262-buoy.png" />
-    <Content Include="Content\glyphicons\glyphicons-263-spade.png" />
-    <Content Include="Content\glyphicons\glyphicons-264-bank.png" />
-    <Content Include="Content\glyphicons\glyphicons-265-vcard.png" />
-    <Content Include="Content\glyphicons\glyphicons-266-electrical-plug.png" />
-    <Content Include="Content\glyphicons\glyphicons-267-flag.png" />
-    <Content Include="Content\glyphicons\glyphicons-268-credit-card.png" />
-    <Content Include="Content\glyphicons\glyphicons-269-keyboard-wireless.png" />
-    <Content Include="Content\glyphicons\glyphicons-27-road.png" />
-    <Content Include="Content\glyphicons\glyphicons-270-keyboard-wireless.png" />
-    <Content Include="Content\glyphicons\glyphicons-271-shield.png" />
-    <Content Include="Content\glyphicons\glyphicons-272-ring.png" />
-    <Content Include="Content\glyphicons\glyphicons-273-cake.png" />
-    <Content Include="Content\glyphicons\glyphicons-274-drink.png" />
-    <Content Include="Content\glyphicons\glyphicons-275-beer.png" />
-    <Content Include="Content\glyphicons\glyphicons-276-fast-food.png" />
-    <Content Include="Content\glyphicons\glyphicons-277-cutlery.png" />
-    <Content Include="Content\glyphicons\glyphicons-278-pizza.png" />
-    <Content Include="Content\glyphicons\glyphicons-279-birthday-cake.png" />
-    <Content Include="Content\glyphicons\glyphicons-28-search.png" />
-    <Content Include="Content\glyphicons\glyphicons-280-tablet.png" />
-    <Content Include="Content\glyphicons\glyphicons-281-settings.png" />
-    <Content Include="Content\glyphicons\glyphicons-282-bullets.png" />
-    <Content Include="Content\glyphicons\glyphicons-283-cardio.png" />
-    <Content Include="Content\glyphicons\glyphicons-284-t-shirt.png" />
-    <Content Include="Content\glyphicons\glyphicons-285-pants.png" />
-    <Content Include="Content\glyphicons\glyphicons-286-sweater.png" />
-    <Content Include="Content\glyphicons\glyphicons-287-fabric.png" />
-    <Content Include="Content\glyphicons\glyphicons-288-leather.png" />
-    <Content Include="Content\glyphicons\glyphicons-289-scissors.png" />
-    <Content Include="Content\glyphicons\glyphicons-29-cars.png" />
-    <Content Include="Content\glyphicons\glyphicons-290-bomb.png" />
-    <Content Include="Content\glyphicons\glyphicons-291-skull.png" />
-    <Content Include="Content\glyphicons\glyphicons-292-celebration.png" />
-    <Content Include="Content\glyphicons\glyphicons-293-tea-kettle.png" />
-    <Content Include="Content\glyphicons\glyphicons-294-french-press.png" />
-    <Content Include="Content\glyphicons\glyphicons-295-coffee-cup.png" />
-    <Content Include="Content\glyphicons\glyphicons-296-pot.png" />
-    <Content Include="Content\glyphicons\glyphicons-297-grater.png" />
-    <Content Include="Content\glyphicons\glyphicons-298-kettle.png" />
-    <Content Include="Content\glyphicons\glyphicons-299-hospital.png" />
-    <Content Include="Content\glyphicons\glyphicons-3-dog.png" />
-    <Content Include="Content\glyphicons\glyphicons-30-notes-2.png" />
-    <Content Include="Content\glyphicons\glyphicons-300-hospital-h.png" />
-    <Content Include="Content\glyphicons\glyphicons-301-microphone.png" />
-    <Content Include="Content\glyphicons\glyphicons-302-webcam.png" />
-    <Content Include="Content\glyphicons\glyphicons-303-temple-christianity-church.png" />
-    <Content Include="Content\glyphicons\glyphicons-304-temple-islam.png" />
-    <Content Include="Content\glyphicons\glyphicons-305-temple-hindu.png" />
-    <Content Include="Content\glyphicons\glyphicons-306-temple-buddhist.png" />
-    <Content Include="Content\glyphicons\glyphicons-307-bicycle.png" />
-    <Content Include="Content\glyphicons\glyphicons-308-life-preserver.png" />
-    <Content Include="Content\glyphicons\glyphicons-309-share-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-31-pencil.png" />
-    <Content Include="Content\glyphicons\glyphicons-310-comments.png" />
-    <Content Include="Content\glyphicons\glyphicons-311-flower.png" />
-    <Content Include="Content\glyphicons\glyphicons-312-baseball.png" />
-    <Content Include="Content\glyphicons\glyphicons-313-rugby.png" />
-    <Content Include="Content\glyphicons\glyphicons-314-ax.png" />
-    <Content Include="Content\glyphicons\glyphicons-315-table-tennis.png" />
-    <Content Include="Content\glyphicons\glyphicons-316-bowling.png" />
-    <Content Include="Content\glyphicons\glyphicons-317-tree-conifer.png" />
-    <Content Include="Content\glyphicons\glyphicons-318-tree-deciduous.png" />
-    <Content Include="Content\glyphicons\glyphicons-319-more-items.png" />
-    <Content Include="Content\glyphicons\glyphicons-32-bus.png" />
-    <Content Include="Content\glyphicons\glyphicons-320-sort.png" />
-    <Content Include="Content\glyphicons\glyphicons-321-filter.png" />
-    <Content Include="Content\glyphicons\glyphicons-322-gamepad.png" />
-    <Content Include="Content\glyphicons\glyphicons-323-playing-dices.png" />
-    <Content Include="Content\glyphicons\glyphicons-324-calculator.png" />
-    <Content Include="Content\glyphicons\glyphicons-325-tie.png" />
-    <Content Include="Content\glyphicons\glyphicons-326-wallet.png" />
-    <Content Include="Content\glyphicons\glyphicons-327-piano.png" />
-    <Content Include="Content\glyphicons\glyphicons-328-sampler.png" />
-    <Content Include="Content\glyphicons\glyphicons-329-podium.png" />
-    <Content Include="Content\glyphicons\glyphicons-33-wifi-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-330-soccer-ball.png" />
-    <Content Include="Content\glyphicons\glyphicons-331-blog.png" />
-    <Content Include="Content\glyphicons\glyphicons-332-dashboard.png" />
-    <Content Include="Content\glyphicons\glyphicons-333-certificate.png" />
-    <Content Include="Content\glyphicons\glyphicons-334-bell.png" />
-    <Content Include="Content\glyphicons\glyphicons-335-candle.png" />
-    <Content Include="Content\glyphicons\glyphicons-336-pushpin.png" />
-    <Content Include="Content\glyphicons\glyphicons-337-iphone-shake.png" />
-    <Content Include="Content\glyphicons\glyphicons-338-pin-flag.png" />
-    <Content Include="Content\glyphicons\glyphicons-339-turtle.png" />
-    <Content Include="Content\glyphicons\glyphicons-34-luggage.png" />
-    <Content Include="Content\glyphicons\glyphicons-340-rabbit.png" />
-    <Content Include="Content\glyphicons\glyphicons-341-globe.png" />
-    <Content Include="Content\glyphicons\glyphicons-342-briefcase.png" />
-    <Content Include="Content\glyphicons\glyphicons-343-hdd.png" />
-    <Content Include="Content\glyphicons\glyphicons-344-thumbs-up.png" />
-    <Content Include="Content\glyphicons\glyphicons-345-thumbs-down.png" />
-    <Content Include="Content\glyphicons\glyphicons-346-hand-right.png" />
-    <Content Include="Content\glyphicons\glyphicons-347-hand-left.png" />
-    <Content Include="Content\glyphicons\glyphicons-348-hand-up.png" />
-    <Content Include="Content\glyphicons\glyphicons-349-hand-down.png" />
-    <Content Include="Content\glyphicons\glyphicons-35-old-man.png" />
-    <Content Include="Content\glyphicons\glyphicons-350-fullscreen.png" />
-    <Content Include="Content\glyphicons\glyphicons-351-shopping-bag.png" />
-    <Content Include="Content\glyphicons\glyphicons-352-book-open.png" />
-    <Content Include="Content\glyphicons\glyphicons-353-nameplate.png" />
-    <Content Include="Content\glyphicons\glyphicons-354-nameplate-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-355-vases.png" />
-    <Content Include="Content\glyphicons\glyphicons-356-bullhorn.png" />
-    <Content Include="Content\glyphicons\glyphicons-357-dumbbell.png" />
-    <Content Include="Content\glyphicons\glyphicons-358-suitcase.png" />
-    <Content Include="Content\glyphicons\glyphicons-359-file-import.png" />
-    <Content Include="Content\glyphicons\glyphicons-36-woman.png" />
-    <Content Include="Content\glyphicons\glyphicons-360-file-export.png" />
-    <Content Include="Content\glyphicons\glyphicons-361-bug.png" />
-    <Content Include="Content\glyphicons\glyphicons-362-crown.png" />
-    <Content Include="Content\glyphicons\glyphicons-363-smoking.png" />
-    <Content Include="Content\glyphicons\glyphicons-364-cloud-upload.png" />
-    <Content Include="Content\glyphicons\glyphicons-365-cloud-download.png" />
-    <Content Include="Content\glyphicons\glyphicons-366-restart.png" />
-    <Content Include="Content\glyphicons\glyphicons-367-security-camera.png" />
-    <Content Include="Content\glyphicons\glyphicons-368-expand.png" />
-    <Content Include="Content\glyphicons\glyphicons-369-collapse.png" />
-    <Content Include="Content\glyphicons\glyphicons-37-file.png" />
-    <Content Include="Content\glyphicons\glyphicons-370-collapse-top.png" />
-    <Content Include="Content\glyphicons\glyphicons-371-globe-af.png" />
-    <Content Include="Content\glyphicons\glyphicons-372-global.png" />
-    <Content Include="Content\glyphicons\glyphicons-373-spray.png" />
-    <Content Include="Content\glyphicons\glyphicons-374-nails.png" />
-    <Content Include="Content\glyphicons\glyphicons-375-claw-hammer.png" />
-    <Content Include="Content\glyphicons\glyphicons-376-classic-hammer.png" />
-    <Content Include="Content\glyphicons\glyphicons-377-hand-saw.png" />
-    <Content Include="Content\glyphicons\glyphicons-378-riflescope.png" />
-    <Content Include="Content\glyphicons\glyphicons-379-electrical-socket-eu.png" />
-    <Content Include="Content\glyphicons\glyphicons-38-coins.png" />
-    <Content Include="Content\glyphicons\glyphicons-380-electrical-socket-us.png" />
-    <Content Include="Content\glyphicons\glyphicons-381-message-forward.png" />
-    <Content Include="Content\glyphicons\glyphicons-382-coat-hanger.png" />
-    <Content Include="Content\glyphicons\glyphicons-383-dress.png" />
-    <Content Include="Content\glyphicons\glyphicons-384-bathrobe.png" />
-    <Content Include="Content\glyphicons\glyphicons-385-shirt.png" />
-    <Content Include="Content\glyphicons\glyphicons-386-underwear.png" />
-    <Content Include="Content\glyphicons\glyphicons-387-log-in.png" />
-    <Content Include="Content\glyphicons\glyphicons-388-log-out.png" />
-    <Content Include="Content\glyphicons\glyphicons-389-exit.png" />
-    <Content Include="Content\glyphicons\glyphicons-39-plane.png" />
-    <Content Include="Content\glyphicons\glyphicons-390-new-window-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-391-video-sd.png" />
-    <Content Include="Content\glyphicons\glyphicons-392-video-hd.png" />
-    <Content Include="Content\glyphicons\glyphicons-393-subtitles.png" />
-    <Content Include="Content\glyphicons\glyphicons-394-sound-stereo.png" />
-    <Content Include="Content\glyphicons\glyphicons-395-sound-dolby.png" />
-    <Content Include="Content\glyphicons\glyphicons-396-sound-5-1.png" />
-    <Content Include="Content\glyphicons\glyphicons-397-sound-6-1.png" />
-    <Content Include="Content\glyphicons\glyphicons-398-sound-7-1.png" />
-    <Content Include="Content\glyphicons\glyphicons-399-copyright-mark.png" />
-    <Content Include="Content\glyphicons\glyphicons-4-user.png" />
-    <Content Include="Content\glyphicons\glyphicons-40-notes.png" />
-    <Content Include="Content\glyphicons\glyphicons-400-registration-mark.png" />
-    <Content Include="Content\glyphicons\glyphicons-401-radar.png" />
-    <Content Include="Content\glyphicons\glyphicons-402-skateboard.png" />
-    <Content Include="Content\glyphicons\glyphicons-403-golf-course.png" />
-    <Content Include="Content\glyphicons\glyphicons-404-sorting.png" />
-    <Content Include="Content\glyphicons\glyphicons-405-sort-by-alphabet.png" />
-    <Content Include="Content\glyphicons\glyphicons-406-sort-by-alphabet-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-407-sort-by-order.png" />
-    <Content Include="Content\glyphicons\glyphicons-408-sort-by-order-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-409-sort-by-attributes.png" />
-    <Content Include="Content\glyphicons\glyphicons-41-stats.png" />
-    <Content Include="Content\glyphicons\glyphicons-410-sort-by-attributes-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-411-compressed.png" />
-    <Content Include="Content\glyphicons\glyphicons-412-package.png" />
-    <Content Include="Content\glyphicons\glyphicons-413-cloud-plus.png" />
-    <Content Include="Content\glyphicons\glyphicons-414-cloud-minus.png" />
-    <Content Include="Content\glyphicons\glyphicons-415-disk-save.png" />
-    <Content Include="Content\glyphicons\glyphicons-416-disk-open.png" />
-    <Content Include="Content\glyphicons\glyphicons-417-disk-saved.png" />
-    <Content Include="Content\glyphicons\glyphicons-418-disk-remove.png" />
-    <Content Include="Content\glyphicons\glyphicons-419-disk-import.png" />
-    <Content Include="Content\glyphicons\glyphicons-42-charts.png" />
-    <Content Include="Content\glyphicons\glyphicons-420-disk-export.png" />
-    <Content Include="Content\glyphicons\glyphicons-421-tower.png" />
-    <Content Include="Content\glyphicons\glyphicons-422-send.png" />
-    <Content Include="Content\glyphicons\glyphicons-423-git-branch.png" />
-    <Content Include="Content\glyphicons\glyphicons-424-git-create.png" />
-    <Content Include="Content\glyphicons\glyphicons-425-git-private.png" />
-    <Content Include="Content\glyphicons\glyphicons-426-git-delete.png" />
-    <Content Include="Content\glyphicons\glyphicons-427-git-merge.png" />
-    <Content Include="Content\glyphicons\glyphicons-428-git-pull-request.png" />
-    <Content Include="Content\glyphicons\glyphicons-429-git-compare.png" />
-    <Content Include="Content\glyphicons\glyphicons-43-pie-chart.png" />
-    <Content Include="Content\glyphicons\glyphicons-430-git-commit.png" />
-    <Content Include="Content\glyphicons\glyphicons-431-construction-cone.png" />
-    <Content Include="Content\glyphicons\glyphicons-432-shoe-steps.png" />
-    <Content Include="Content\glyphicons\glyphicons-433-plus.png" />
-    <Content Include="Content\glyphicons\glyphicons-434-minus.png" />
-    <Content Include="Content\glyphicons\glyphicons-435-redo.png" />
-    <Content Include="Content\glyphicons\glyphicons-436-undo.png" />
-    <Content Include="Content\glyphicons\glyphicons-437-golf.png" />
-    <Content Include="Content\glyphicons\glyphicons-438-hockey.png" />
-    <Content Include="Content\glyphicons\glyphicons-439-pipe.png" />
-    <Content Include="Content\glyphicons\glyphicons-44-group.png" />
-    <Content Include="Content\glyphicons\glyphicons-440-wrench.png" />
-    <Content Include="Content\glyphicons\glyphicons-441-folder-closed.png" />
-    <Content Include="Content\glyphicons\glyphicons-442-phone-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-443-earphone.png" />
-    <Content Include="Content\glyphicons\glyphicons-444-floppy-disk.png" />
-    <Content Include="Content\glyphicons\glyphicons-445-floppy-saved.png" />
-    <Content Include="Content\glyphicons\glyphicons-446-floppy-remove.png" />
-    <Content Include="Content\glyphicons\glyphicons-447-floppy-save.png" />
-    <Content Include="Content\glyphicons\glyphicons-448-floppy-open.png" />
-    <Content Include="Content\glyphicons\glyphicons-449-translate.png" />
-    <Content Include="Content\glyphicons\glyphicons-45-keys.png" />
-    <Content Include="Content\glyphicons\glyphicons-450-fax.png" />
-    <Content Include="Content\glyphicons\glyphicons-451-factory.png" />
-    <Content Include="Content\glyphicons\glyphicons-452-shop-window.png" />
-    <Content Include="Content\glyphicons\glyphicons-453-shop.png" />
-    <Content Include="Content\glyphicons\glyphicons-454-kiosk.png" />
-    <Content Include="Content\glyphicons\glyphicons-455-kiosk-wheels.png" />
-    <Content Include="Content\glyphicons\glyphicons-456-kiosk-light.png" />
-    <Content Include="Content\glyphicons\glyphicons-457-kiosk-food.png" />
-    <Content Include="Content\glyphicons\glyphicons-458-transfer.png" />
-    <Content Include="Content\glyphicons\glyphicons-459-money.png" />
-    <Content Include="Content\glyphicons\glyphicons-46-calendar.png" />
-    <Content Include="Content\glyphicons\glyphicons-460-header.png" />
-    <Content Include="Content\glyphicons\glyphicons-461-blacksmith.png" />
-    <Content Include="Content\glyphicons\glyphicons-462-saw-blade.png" />
-    <Content Include="Content\glyphicons\glyphicons-463-basketball.png" />
-    <Content Include="Content\glyphicons\glyphicons-464-server.png" />
-    <Content Include="Content\glyphicons\glyphicons-465-server-plus.png" />
-    <Content Include="Content\glyphicons\glyphicons-466-server-minus.png" />
-    <Content Include="Content\glyphicons\glyphicons-467-server-ban.png" />
-    <Content Include="Content\glyphicons\glyphicons-468-server-flag.png" />
-    <Content Include="Content\glyphicons\glyphicons-469-server-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-47-router.png" />
-    <Content Include="Content\glyphicons\glyphicons-470-server-new.png" />
-    <Content Include="Content\glyphicons\glyphicons-471-charging-station.png" />
-    <Content Include="Content\glyphicons\glyphicons-472-gas-station.png" />
-    <Content Include="Content\glyphicons\glyphicons-473-target.png" />
-    <Content Include="Content\glyphicons\glyphicons-474-bed.png" />
-    <Content Include="Content\glyphicons\glyphicons-475-mosquito.png" />
-    <Content Include="Content\glyphicons\glyphicons-476-dining-set.png" />
-    <Content Include="Content\glyphicons\glyphicons-477-plate-of-food.png" />
-    <Content Include="Content\glyphicons\glyphicons-478-hygiene-kit.png" />
-    <Content Include="Content\glyphicons\glyphicons-479-blackboard.png" />
-    <Content Include="Content\glyphicons\glyphicons-48-camera-small.png" />
-    <Content Include="Content\glyphicons\glyphicons-480-marriage.png" />
-    <Content Include="Content\glyphicons\glyphicons-481-bucket.png" />
-    <Content Include="Content\glyphicons\glyphicons-482-none-color-swatch.png" />
-    <Content Include="Content\glyphicons\glyphicons-483-bring-forward.png" />
-    <Content Include="Content\glyphicons\glyphicons-484-bring-to-front.png" />
-    <Content Include="Content\glyphicons\glyphicons-485-send-backward.png" />
-    <Content Include="Content\glyphicons\glyphicons-486-send-to-back.png" />
-    <Content Include="Content\glyphicons\glyphicons-487-fit-frame-to-image.png" />
-    <Content Include="Content\glyphicons\glyphicons-488-fit-image-to-frame.png" />
-    <Content Include="Content\glyphicons\glyphicons-489-multiple-displays.png" />
-    <Content Include="Content\glyphicons\glyphicons-49-star-empty.png" />
-    <Content Include="Content\glyphicons\glyphicons-490-handshake.png" />
-    <Content Include="Content\glyphicons\glyphicons-491-child.png" />
-    <Content Include="Content\glyphicons\glyphicons-492-baby-formula.png" />
-    <Content Include="Content\glyphicons\glyphicons-493-medicine.png" />
-    <Content Include="Content\glyphicons\glyphicons-494-atv-vehicle.png" />
-    <Content Include="Content\glyphicons\glyphicons-495-motorcycle.png" />
-    <Content Include="Content\glyphicons\glyphicons-496-bed-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-497-tent.png" />
-    <Content Include="Content\glyphicons\glyphicons-498-glasses.png" />
-    <Content Include="Content\glyphicons\glyphicons-499-sunglasses.png" />
-    <Content Include="Content\glyphicons\glyphicons-5-girl.png" />
-    <Content Include="Content\glyphicons\glyphicons-50-star.png" />
-    <Content Include="Content\glyphicons\glyphicons-500-family.png" />
-    <Content Include="Content\glyphicons\glyphicons-501-education.png" />
-    <Content Include="Content\glyphicons\glyphicons-502-shoes.png" />
-    <Content Include="Content\glyphicons\glyphicons-503-map.png" />
-    <Content Include="Content\glyphicons\glyphicons-504-cd.png" />
-    <Content Include="Content\glyphicons\glyphicons-505-alert.png" />
-    <Content Include="Content\glyphicons\glyphicons-506-piggy-bank.png" />
-    <Content Include="Content\glyphicons\glyphicons-507-star-half.png" />
-    <Content Include="Content\glyphicons\glyphicons-508-cluster.png" />
-    <Content Include="Content\glyphicons\glyphicons-509-flowchart.png" />
-    <Content Include="Content\glyphicons\glyphicons-51-link.png" />
-    <Content Include="Content\glyphicons\glyphicons-510-commodities.png" />
-    <Content Include="Content\glyphicons\glyphicons-511-duplicate.png" />
-    <Content Include="Content\glyphicons\glyphicons-512-copy.png" />
-    <Content Include="Content\glyphicons\glyphicons-513-paste.png" />
-    <Content Include="Content\glyphicons\glyphicons-514-bath-bathtub.png" />
-    <Content Include="Content\glyphicons\glyphicons-515-bath-shower.png" />
-    <Content Include="Content\glyphicons\glyphicons-516-shower.png" />
-    <Content Include="Content\glyphicons\glyphicons-517-menu-hamburger.png" />
-    <Content Include="Content\glyphicons\glyphicons-518-option-vertical.png" />
-    <Content Include="Content\glyphicons\glyphicons-519-option-horizontal.png" />
-    <Content Include="Content\glyphicons\glyphicons-52-eye-open.png" />
-    <Content Include="Content\glyphicons\glyphicons-520-currency-conversion.png" />
-    <Content Include="Content\glyphicons\glyphicons-521-user-ban.png" />
-    <Content Include="Content\glyphicons\glyphicons-522-user-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-523-user-flag.png" />
-    <Content Include="Content\glyphicons\glyphicons-524-user-asterisk.png" />
-    <Content Include="Content\glyphicons\glyphicons-525-user-alert.png" />
-    <Content Include="Content\glyphicons\glyphicons-526-user-key.png" />
-    <Content Include="Content\glyphicons\glyphicons-527-user-conversation.png" />
-    <Content Include="Content\glyphicons\glyphicons-528-database.png" />
-    <Content Include="Content\glyphicons\glyphicons-529-database-search.png" />
-    <Content Include="Content\glyphicons\glyphicons-53-eye-close.png" />
-    <Content Include="Content\glyphicons\glyphicons-530-list-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-531-hazard-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-532-hazard.png" />
-    <Content Include="Content\glyphicons\glyphicons-533-stop-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-534-lab.png" />
-    <Content Include="Content\glyphicons\glyphicons-535-lab-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-536-ice-cream.png" />
-    <Content Include="Content\glyphicons\glyphicons-537-ice-lolly.png" />
-    <Content Include="Content\glyphicons\glyphicons-538-ice-lolly-tasted.png" />
-    <Content Include="Content\glyphicons\glyphicons-539-invoice.png" />
-    <Content Include="Content\glyphicons\glyphicons-54-alarm.png" />
-    <Content Include="Content\glyphicons\glyphicons-540-cart-tick.png" />
-    <Content Include="Content\glyphicons\glyphicons-541-hourglass.png" />
-    <Content Include="Content\glyphicons\glyphicons-542-cat.png" />
-    <Content Include="Content\glyphicons\glyphicons-543-lamp.png" />
-    <Content Include="Content\glyphicons\glyphicons-544-scale-classic.png" />
-    <Content Include="Content\glyphicons\glyphicons-545-eye-plus.png" />
-    <Content Include="Content\glyphicons\glyphicons-546-eye-minus.png" />
-    <Content Include="Content\glyphicons\glyphicons-547-quote.png" />
-    <Content Include="Content\glyphicons\glyphicons-548-bitcoin.png" />
-    <Content Include="Content\glyphicons\glyphicons-549-yen.png" />
-    <Content Include="Content\glyphicons\glyphicons-55-clock.png" />
-    <Content Include="Content\glyphicons\glyphicons-550-ruble.png" />
-    <Content Include="Content\glyphicons\glyphicons-551-erase.png" />
-    <Content Include="Content\glyphicons\glyphicons-552-podcast.png" />
-    <Content Include="Content\glyphicons\glyphicons-553-firework.png" />
-    <Content Include="Content\glyphicons\glyphicons-554-scale.png" />
-    <Content Include="Content\glyphicons\glyphicons-555-king.png" />
-    <Content Include="Content\glyphicons\glyphicons-556-queen.png" />
-    <Content Include="Content\glyphicons\glyphicons-557-pawn.png" />
-    <Content Include="Content\glyphicons\glyphicons-558-bishop.png" />
-    <Content Include="Content\glyphicons\glyphicons-559-knight.png" />
-    <Content Include="Content\glyphicons\glyphicons-56-stopwatch.png" />
-    <Content Include="Content\glyphicons\glyphicons-560-mic-mute.png" />
-    <Content Include="Content\glyphicons\glyphicons-561-voicemail.png" />
-    <Content Include="Content\glyphicons\glyphicons-562-paragraph-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-563-person-walking.png" />
-    <Content Include="Content\glyphicons\glyphicons-564-person-wheelchair.png" />
-    <Content Include="Content\glyphicons\glyphicons-565-underground.png" />
-    <Content Include="Content\glyphicons\glyphicons-566-car-hov.png" />
-    <Content Include="Content\glyphicons\glyphicons-567-car-rental.png" />
-    <Content Include="Content\glyphicons\glyphicons-568-transport.png" />
-    <Content Include="Content\glyphicons\glyphicons-569-taxi.png" />
-    <Content Include="Content\glyphicons\glyphicons-57-projector.png" />
-    <Content Include="Content\glyphicons\glyphicons-570-ice-cream-no.png" />
-    <Content Include="Content\glyphicons\glyphicons-571-uk-rat-u.png" />
-    <Content Include="Content\glyphicons\glyphicons-572-uk-rat-pg.png" />
-    <Content Include="Content\glyphicons\glyphicons-573-uk-rat-12a.png" />
-    <Content Include="Content\glyphicons\glyphicons-574-uk-rat-12.png" />
-    <Content Include="Content\glyphicons\glyphicons-575-uk-rat-15.png" />
-    <Content Include="Content\glyphicons\glyphicons-576-uk-rat-18.png" />
-    <Content Include="Content\glyphicons\glyphicons-577-uk-rat-r18.png" />
-    <Content Include="Content\glyphicons\glyphicons-578-tv.png" />
-    <Content Include="Content\glyphicons\glyphicons-579-sms.png" />
-    <Content Include="Content\glyphicons\glyphicons-58-history.png" />
-    <Content Include="Content\glyphicons\glyphicons-580-mms.png" />
-    <Content Include="Content\glyphicons\glyphicons-581-us-rat-g.png" />
-    <Content Include="Content\glyphicons\glyphicons-582-us-rat-pg.png" />
-    <Content Include="Content\glyphicons\glyphicons-583-us-rat-pg-13.png" />
-    <Content Include="Content\glyphicons\glyphicons-584-us-rat-restricted.png" />
-    <Content Include="Content\glyphicons\glyphicons-585-us-rat-no-one-17.png" />
-    <Content Include="Content\glyphicons\glyphicons-586-equalizer.png" />
-    <Content Include="Content\glyphicons\glyphicons-587-speakers.png" />
-    <Content Include="Content\glyphicons\glyphicons-588-remote-control.png" />
-    <Content Include="Content\glyphicons\glyphicons-589-remote-control-tv.png" />
-    <Content Include="Content\glyphicons\glyphicons-59-truck.png" />
-    <Content Include="Content\glyphicons\glyphicons-590-shredder.png" />
-    <Content Include="Content\glyphicons\glyphicons-591-folder-heart.png" />
-    <Content Include="Content\glyphicons\glyphicons-592-person-running.png" />
-    <Content Include="Content\glyphicons\glyphicons-593-person.png" />
-    <Content Include="Content\glyphicons\glyphicons-594-voice.png" />
-    <Content Include="Content\glyphicons\glyphicons-595-stethoscope.png" />
-    <Content Include="Content\glyphicons\glyphicons-596-paired.png" />
-    <Content Include="Content\glyphicons\glyphicons-597-activity.png" />
-    <Content Include="Content\glyphicons\glyphicons-598-watch.png" />
-    <Content Include="Content\glyphicons\glyphicons-599-scissors-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-6-car.png" />
-    <Content Include="Content\glyphicons\glyphicons-60-cargo.png" />
-    <Content Include="Content\glyphicons\glyphicons-600-car-wheel.png" />
-    <Content Include="Content\glyphicons\glyphicons-601-chevron-up.png" />
-    <Content Include="Content\glyphicons\glyphicons-602-chevron-down.png" />
-    <Content Include="Content\glyphicons\glyphicons-603-superscript.png" />
-    <Content Include="Content\glyphicons\glyphicons-604-subscript.png" />
-    <Content Include="Content\glyphicons\glyphicons-605-text-size.png" />
-    <Content Include="Content\glyphicons\glyphicons-606-text-color.png" />
-    <Content Include="Content\glyphicons\glyphicons-607-text-background.png" />
-    <Content Include="Content\glyphicons\glyphicons-608-modal-window.png" />
-    <Content Include="Content\glyphicons\glyphicons-609-newspaper.png" />
-    <Content Include="Content\glyphicons\glyphicons-61-compass.png" />
-    <Content Include="Content\glyphicons\glyphicons-610-tractor.png" />
-    <Content Include="Content\glyphicons\glyphicons-611-camping.png" />
-    <Content Include="Content\glyphicons\glyphicons-612-camping-benches.png" />
-    <Content Include="Content\glyphicons\glyphicons-613-forest.png" />
-    <Content Include="Content\glyphicons\glyphicons-614-park.png" />
-    <Content Include="Content\glyphicons\glyphicons-615-field.png" />
-    <Content Include="Content\glyphicons\glyphicons-616-mountains.png" />
-    <Content Include="Content\glyphicons\glyphicons-617-fees-payments.png" />
-    <Content Include="Content\glyphicons\glyphicons-618-small-payments.png" />
-    <Content Include="Content\glyphicons\glyphicons-619-mixed-buildings.png" />
-    <Content Include="Content\glyphicons\glyphicons-62-keynote.png" />
-    <Content Include="Content\glyphicons\glyphicons-620-industrial-zone.png" />
-    <Content Include="Content\glyphicons\glyphicons-621-visitor-tag.png" />
-    <Content Include="Content\glyphicons\glyphicons-622-businessman.png" />
-    <Content Include="Content\glyphicons\glyphicons-623-meditation.png" />
-    <Content Include="Content\glyphicons\glyphicons-624-bath.png" />
-    <Content Include="Content\glyphicons\glyphicons-625-donate.png" />
-    <Content Include="Content\glyphicons\glyphicons-626-sauna.png" />
-    <Content Include="Content\glyphicons\glyphicons-627-bedroom-nightstand.png" />
-    <Content Include="Content\glyphicons\glyphicons-628-bedroom-lamp.png" />
-    <Content Include="Content\glyphicons\glyphicons-629-doctor.png" />
-    <Content Include="Content\glyphicons\glyphicons-63-paperclip.png" />
-    <Content Include="Content\glyphicons\glyphicons-630-engineering-networks.png" />
-    <Content Include="Content\glyphicons\glyphicons-631-washing-machine.png" />
-    <Content Include="Content\glyphicons\glyphicons-632-dryer.png" />
-    <Content Include="Content\glyphicons\glyphicons-633-dishwasher.png" />
-    <Content Include="Content\glyphicons\glyphicons-634-luggage-group.png" />
-    <Content Include="Content\glyphicons\glyphicons-635-teenager.png" />
-    <Content Include="Content\glyphicons\glyphicons-636-person-stick.png" />
-    <Content Include="Content\glyphicons\glyphicons-637-person-stick-old.png" />
-    <Content Include="Content\glyphicons\glyphicons-638-traveler.png" />
-    <Content Include="Content\glyphicons\glyphicons-639-veteran.png" />
-    <Content Include="Content\glyphicons\glyphicons-64-power.png" />
-    <Content Include="Content\glyphicons\glyphicons-640-group-chat.png" />
-    <Content Include="Content\glyphicons\glyphicons-641-elections.png" />
-    <Content Include="Content\glyphicons\glyphicons-642-law-justice.png" />
-    <Content Include="Content\glyphicons\glyphicons-643-judiciary.png" />
-    <Content Include="Content\glyphicons\glyphicons-644-house-fire.png" />
-    <Content Include="Content\glyphicons\glyphicons-645-firefighters.png" />
-    <Content Include="Content\glyphicons\glyphicons-646-police.png" />
-    <Content Include="Content\glyphicons\glyphicons-647-ambulance.png" />
-    <Content Include="Content\glyphicons\glyphicons-648-light-beacon.png" />
-    <Content Include="Content\glyphicons\glyphicons-649-important-day.png" />
-    <Content Include="Content\glyphicons\glyphicons-65-lightbulb.png" />
-    <Content Include="Content\glyphicons\glyphicons-650-bike-park.png" />
-    <Content Include="Content\glyphicons\glyphicons-651-object-align-top.png" />
-    <Content Include="Content\glyphicons\glyphicons-652-object-align-bottom.png" />
-    <Content Include="Content\glyphicons\glyphicons-653-object-align-horizontal.png" />
-    <Content Include="Content\glyphicons\glyphicons-654-object-align-left.png" />
-    <Content Include="Content\glyphicons\glyphicons-655-object-align-vertical.png" />
-    <Content Include="Content\glyphicons\glyphicons-656-object-align-right.png" />
-    <Content Include="Content\glyphicons\glyphicons-657-reflect-y.png" />
-    <Content Include="Content\glyphicons\glyphicons-658-reflect-x.png" />
-    <Content Include="Content\glyphicons\glyphicons-659-tick.png" />
-    <Content Include="Content\glyphicons\glyphicons-66-tag.png" />
-    <Content Include="Content\glyphicons\glyphicons-660-lawnmower.png" />
-    <Content Include="Content\glyphicons\glyphicons-661-call-redirect.png" />
-    <Content Include="Content\glyphicons\glyphicons-662-call-ip.png" />
-    <Content Include="Content\glyphicons\glyphicons-663-call-record.png" />
-    <Content Include="Content\glyphicons\glyphicons-664-call-ringtone.png" />
-    <Content Include="Content\glyphicons\glyphicons-665-call-traffic.png" />
-    <Content Include="Content\glyphicons\glyphicons-666-call-hold.png" />
-    <Content Include="Content\glyphicons\glyphicons-667-call-incoming.png" />
-    <Content Include="Content\glyphicons\glyphicons-668-call-outgoing.png" />
-    <Content Include="Content\glyphicons\glyphicons-669-call-video.png" />
-    <Content Include="Content\glyphicons\glyphicons-67-tags.png" />
-    <Content Include="Content\glyphicons\glyphicons-670-call-missed.png" />
-    <Content Include="Content\glyphicons\glyphicons-671-theater.png" />
-    <Content Include="Content\glyphicons\glyphicons-672-heartbeat.png" />
-    <Content Include="Content\glyphicons\glyphicons-673-kettlebell.png" />
-    <Content Include="Content\glyphicons\glyphicons-674-fireplace.png" />
-    <Content Include="Content\glyphicons\glyphicons-675-street-lights.png" />
-    <Content Include="Content\glyphicons\glyphicons-676-pedestrian.png" />
-    <Content Include="Content\glyphicons\glyphicons-677-flood.png" />
-    <Content Include="Content\glyphicons\glyphicons-678-open-water.png" />
-    <Content Include="Content\glyphicons\glyphicons-679-for-sale.png" />
-    <Content Include="Content\glyphicons\glyphicons-68-cleaning.png" />
-    <Content Include="Content\glyphicons\glyphicons-680-dustbin.png" />
-    <Content Include="Content\glyphicons\glyphicons-681-door.png" />
-    <Content Include="Content\glyphicons\glyphicons-682-camp-fire.png" />
-    <Content Include="Content\glyphicons\glyphicons-683-fleur-de-lis.png" />
-    <Content Include="Content\glyphicons\glyphicons-684-temperature-settings.png" />
-    <Content Include="Content\glyphicons\glyphicons-685-article.png" />
-    <Content Include="Content\glyphicons\glyphicons-686-sunbath.png" />
-    <Content Include="Content\glyphicons\glyphicons-687-balanced-diet.png" />
-    <Content Include="Content\glyphicons\glyphicons-688-ticket.png" />
-    <Content Include="Content\glyphicons\glyphicons-689-parking-ticket.png" />
-    <Content Include="Content\glyphicons\glyphicons-69-ruler.png" />
-    <Content Include="Content\glyphicons\glyphicons-690-parking-meter.png" />
-    <Content Include="Content\glyphicons\glyphicons-691-laptop.png" />
-    <Content Include="Content\glyphicons\glyphicons-692-tree-structure.png" />
-    <Content Include="Content\glyphicons\glyphicons-693-weather-warning.png" />
-    <Content Include="Content\glyphicons\glyphicons-694-temperature-low.png" />
-    <Content Include="Content\glyphicons\glyphicons-695-temperature-high.png" />
-    <Content Include="Content\glyphicons\glyphicons-696-temperature-low-warning.png" />
-    <Content Include="Content\glyphicons\glyphicons-697-temperature-high-warning.png" />
-    <Content Include="Content\glyphicons\glyphicons-698-hurricane.png" />
-    <Content Include="Content\glyphicons\glyphicons-699-storm.png" />
-    <Content Include="Content\glyphicons\glyphicons-7-user-add.png" />
-    <Content Include="Content\glyphicons\glyphicons-70-gift.png" />
-    <Content Include="Content\glyphicons\glyphicons-700-sorted-waste.png" />
-    <Content Include="Content\glyphicons\glyphicons-701-ear.png" />
-    <Content Include="Content\glyphicons\glyphicons-702-ear-deaf.png" />
-    <Content Include="Content\glyphicons\glyphicons-703-file-plus.png" />
-    <Content Include="Content\glyphicons\glyphicons-704-file-minus.png" />
-    <Content Include="Content\glyphicons\glyphicons-705-file-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-706-file-cloud.png" />
-    <Content Include="Content\glyphicons\glyphicons-707-file-cloud-download.png" />
-    <Content Include="Content\glyphicons\glyphicons-708-file-cloud-upload.png" />
-    <Content Include="Content\glyphicons\glyphicons-709-paragraph.png" />
-    <Content Include="Content\glyphicons\glyphicons-71-umbrella.png" />
-    <Content Include="Content\glyphicons\glyphicons-710-list-numbered.png" />
-    <Content Include="Content\glyphicons\glyphicons-711-donate-heart.png" />
-    <Content Include="Content\glyphicons\glyphicons-712-government.png" />
-    <Content Include="Content\glyphicons\glyphicons-713-maze.png" />
-    <Content Include="Content\glyphicons\glyphicons-714-chronicle.png" />
-    <Content Include="Content\glyphicons\glyphicons-715-user-structure.png" />
-    <Content Include="Content\glyphicons\glyphicons-716-recycle.png" />
-    <Content Include="Content\glyphicons\glyphicons-717-gas.png" />
-    <Content Include="Content\glyphicons\glyphicons-718-waste-pipe.png" />
-    <Content Include="Content\glyphicons\glyphicons-719-water-pipe.png" />
-    <Content Include="Content\glyphicons\glyphicons-72-book.png" />
-    <Content Include="Content\glyphicons\glyphicons-720-parking.png" />
-    <Content Include="Content\glyphicons\glyphicons-721-closed.png" />
-    <Content Include="Content\glyphicons\glyphicons-722-mouse.png" />
-    <Content Include="Content\glyphicons\glyphicons-723-mouse-double-click.png" />
-    <Content Include="Content\glyphicons\glyphicons-724-mouse-left-click.png" />
-    <Content Include="Content\glyphicons\glyphicons-725-mouse-right-click.png" />
-    <Content Include="Content\glyphicons\glyphicons-726-mouse-middle-click.png" />
-    <Content Include="Content\glyphicons\glyphicons-727-mouse-scroll.png" />
-    <Content Include="Content\glyphicons\glyphicons-728-resize-vertical.png" />
-    <Content Include="Content\glyphicons\glyphicons-729-resize-horizontal.png" />
-    <Content Include="Content\glyphicons\glyphicons-73-bookmark.png" />
-    <Content Include="Content\glyphicons\glyphicons-730-temperature.png" />
-    <Content Include="Content\glyphicons\glyphicons-731-puzzle.png" />
-    <Content Include="Content\glyphicons\glyphicons-732-puzzle-2.png" />
-    <Content Include="Content\glyphicons\glyphicons-733-puzzle-3.png" />
-    <Content Include="Content\glyphicons\glyphicons-734-nearby-square.png" />
-    <Content Include="Content\glyphicons\glyphicons-735-nearby-circle.png" />
-    <Content Include="Content\glyphicons\glyphicons-736-rotate-right.png" />
-    <Content Include="Content\glyphicons\glyphicons-737-rotate-left.png" />
-    <Content Include="Content\glyphicons\glyphicons-738-pictures.png" />
-    <Content Include="Content\glyphicons\glyphicons-739-photo-album.png" />
-    <Content Include="Content\glyphicons\glyphicons-74-wifi.png" />
-    <Content Include="Content\glyphicons\glyphicons-740-cadastral-map.png" />
-    <Content Include="Content\glyphicons\glyphicons-741-fingerprint-scan.png" />
-    <Content Include="Content\glyphicons\glyphicons-742-fingerprint.png" />
-    <Content Include="Content\glyphicons\glyphicons-743-fingerprint-lock.png" />
-    <Content Include="Content\glyphicons\glyphicons-744-fingerprint-ok.png" />
-    <Content Include="Content\glyphicons\glyphicons-745-fingerprint-remove.png" />
-    <Content Include="Content\glyphicons\glyphicons-746-fingerprint-reload.png" />
-    <Content Include="Content\glyphicons\glyphicons-747-pending-notifications.png" />
-    <Content Include="Content\glyphicons\glyphicons-748-synchronization.png" />
-    <Content Include="Content\glyphicons\glyphicons-749-synchronization-ban.png" />
-    <Content Include="Content\glyphicons\glyphicons-75-cup.png" />
-    <Content Include="Content\glyphicons\glyphicons-750-hash.png" />
-    <Content Include="Content\glyphicons\glyphicons-751-gender-male.png" />
-    <Content Include="Content\glyphicons\glyphicons-752-gender-female.png" />
-    <Content Include="Content\glyphicons\glyphicons-753-gender-virgin-female.png" />
-    <Content Include="Content\glyphicons\glyphicons-754-gender-intersex.png" />
-    <Content Include="Content\glyphicons\glyphicons-755-gender-transgender.png" />
-    <Content Include="Content\glyphicons\glyphicons-756-gender-ori-lesbian.png" />
-    <Content Include="Content\glyphicons\glyphicons-757-gender-ori-gay.png" />
-    <Content Include="Content\glyphicons\glyphicons-758-gender-ori-hetero.png" />
-    <Content Include="Content\glyphicons\glyphicons-759-gender-other.png" />
-    <Content Include="Content\glyphicons\glyphicons-76-stroller.png" />
-    <Content Include="Content\glyphicons\glyphicons-760-gender-unknown.png" />
-    <Content Include="Content\glyphicons\glyphicons-761-scanner.png" />
-    <Content Include="Content\glyphicons\glyphicons-762-multifunction-printer.png" />
-    <Content Include="Content\glyphicons\glyphicons-763-lasso.png" />
-    <Content Include="Content\glyphicons\glyphicons-764-view-360.png" />
-    <Content Include="Content\glyphicons\glyphicons-765-battery-charging.png" />
-    <Content Include="Content\glyphicons\glyphicons-766-battery-full.png" />
-    <Content Include="Content\glyphicons\glyphicons-767-battery-75.png" />
-    <Content Include="Content\glyphicons\glyphicons-768-battery-50.png" />
-    <Content Include="Content\glyphicons\glyphicons-769-battery-25.png" />
-    <Content Include="Content\glyphicons\glyphicons-77-headphones.png" />
-    <Content Include="Content\glyphicons\glyphicons-770-battery-10.png" />
-    <Content Include="Content\glyphicons\glyphicons-771-satellite.png" />
-    <Content Include="Content\glyphicons\glyphicons-772-satellite-dish.png" />
-    <Content Include="Content\glyphicons\glyphicons-773-satellite-dish-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-774-auction.png" />
-    <Content Include="Content\glyphicons\glyphicons-775-directions.png" />
-    <Content Include="Content\glyphicons\glyphicons-776-race.png" />
-    <Content Include="Content\glyphicons\glyphicons-777-robot.png" />
-    <Content Include="Content\glyphicons\glyphicons-778-ruler-alt.png" />
-    <Content Include="Content\glyphicons\glyphicons-779-cube-empty.png" />
-    <Content Include="Content\glyphicons\glyphicons-78-headset.png" />
-    <Content Include="Content\glyphicons\glyphicons-780-cube-black.png" />
-    <Content Include="Content\glyphicons\glyphicons-781-move-square.png" />
-    <Content Include="Content\glyphicons\glyphicons-782-drop.png" />
-    <Content Include="Content\glyphicons\glyphicons-783-vr-headset.png" />
-    <Content Include="Content\glyphicons\glyphicons-784-vr-charging.png" />
-    <Content Include="Content\glyphicons\glyphicons-785-vr-low-battery.png" />
-    <Content Include="Content\glyphicons\glyphicons-786-vr-paired.png" />
-    <Content Include="Content\glyphicons\glyphicons-787-vr-settings.png" />
-    <Content Include="Content\glyphicons\glyphicons-788-vr-maintenance.png" />
-    <Content Include="Content\glyphicons\glyphicons-789-filter-remove.png" />
-    <Content Include="Content\glyphicons\glyphicons-79-warning-sign.png" />
-    <Content Include="Content\glyphicons\glyphicons-790-filter-applied.png" />
-    <Content Include="Content\glyphicons\glyphicons-791-one-day.png" />
-    <Content Include="Content\glyphicons\glyphicons-792-user-vr.png" />
-    <Content Include="Content\glyphicons\glyphicons-793-user-vr-add.png" />
-    <Content Include="Content\glyphicons\glyphicons-794-user-vr-remove.png" />
-    <Content Include="Content\glyphicons\glyphicons-795-dice-1.png" />
-    <Content Include="Content\glyphicons\glyphicons-796-dice-2.png" />
-    <Content Include="Content\glyphicons\glyphicons-797-dice-3.png" />
-    <Content Include="Content\glyphicons\glyphicons-798-dice-4.png" />
-    <Content Include="Content\glyphicons\glyphicons-799-dice-5.png" />
-    <Content Include="Content\glyphicons\glyphicons-8-user-remove.png" />
-    <Content Include="Content\glyphicons\glyphicons-80-signal.png" />
-    <Content Include="Content\glyphicons\glyphicons-800-dice-6.png" />
-    <Content Include="Content\glyphicons\glyphicons-81-retweet.png" />
-    <Content Include="Content\glyphicons\glyphicons-82-refresh.png" />
-    <Content Include="Content\glyphicons\glyphicons-83-roundabout.png" />
-    <Content Include="Content\glyphicons\glyphicons-84-random.png" />
-    <Content Include="Content\glyphicons\glyphicons-85-heat.png" />
-    <Content Include="Content\glyphicons\glyphicons-86-repeat.png" />
-    <Content Include="Content\glyphicons\glyphicons-87-display.png" />
-    <Content Include="Content\glyphicons\glyphicons-88-log-book.png" />
-    <Content Include="Content\glyphicons\glyphicons-89-address-book.png" />
-    <Content Include="Content\glyphicons\glyphicons-9-film.png" />
-    <Content Include="Content\glyphicons\glyphicons-90-building.png" />
-    <Content Include="Content\glyphicons\glyphicons-91-eyedropper.png" />
-    <Content Include="Content\glyphicons\glyphicons-92-adjust.png" />
-    <Content Include="Content\glyphicons\glyphicons-93-tint.png" />
-    <Content Include="Content\glyphicons\glyphicons-94-crop.png" />
-    <Content Include="Content\glyphicons\glyphicons-95-vector-path-square.png" />
-    <Content Include="Content\glyphicons\glyphicons-96-vector-path-circle.png" />
-    <Content Include="Content\glyphicons\glyphicons-97-vector-path-polygon.png" />
-    <Content Include="Content\glyphicons\glyphicons-98-vector-path-line.png" />
-    <Content Include="Content\glyphicons\glyphicons-99-vector-path-curve.png" />
     <Content Include="Content\SlidePrueba.jpg" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1048,15 +182,21 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1080,25 +220,15 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\_CreateOrEdit.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Datos\Datos.csproj">
@@ -1150,8 +280,8 @@
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

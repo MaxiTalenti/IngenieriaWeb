@@ -10,11 +10,13 @@ namespace ViewModels
     public class UserViewModel
     {
         [Key]
-        public long Id { get; set; }
+        public Int32 Id { get; set; }
 
-        [Required]
         [Display(Name = "Nombre")]
         public string Name { get; set; }
+
+        [Display(Name = "Usuario")]
+        public string Usuario { get; set; }
 
         [Required]
         [EmailAddress]
@@ -26,23 +28,6 @@ namespace ViewModels
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
-        [Required]
-        [Display(Name = "Rol")]
-        public int IdRol { get; set; }
-
-        public List<Rol> Roles
-        {
-            get
-            {
-                return UserService.GetRole(null).Select(r => new Rol()
-                {
-                    Description = r.Description,
-                    Id = r.Id
-                }).ToList();
-            }
-
-            set { }
-        }
     }
 
     public class Rol
@@ -60,35 +45,13 @@ namespace ViewModels
         [Display(Name = "Nombre")]
         public string Name { get; set; }
 
+        [Display(Name = "Usuario")]
+        public string Usuario { get; set; }
+
         [Required]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Required]
-        [Display(Name = "IdRol")]
-        public int IdRol { get; set; }
-
-        [Required]
-        [Display(Name = "Rol")]
-        public string Rol { get { return UserService.GetRole(IdRol).FirstOrDefault().Description; } set { } }
-
-        public List<Rol> Roles
-        {
-            get
-            {
-                return UserService.GetRole(null).Select(r => new Rol()
-                {
-                    Description = r.Description,
-                    Id = r.Id
-                }).ToList();
-            }
-
-            set { }
-        }
     }
 
     public class LoginModel
