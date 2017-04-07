@@ -23,10 +23,9 @@ namespace Servicios
             {
                 context.Users.Add(new Users()
                 {
-                    IdRol = user.IdRol,
                     Email = user.Email,
-                    Name = user.Name,
-                    Password = user.Password
+                    Usuario = user.Usuario,
+                    Id = user.Id
                 });
 
                 context.SaveChanges();
@@ -61,7 +60,8 @@ namespace Servicios
 
                 //return new List<Users>();
 
-                return context.Users.Where(u => !u.DeletedDate.HasValue && (id.HasValue ? id.Value == u.Id : true)).ToList();// Select(u => new Users()
+                //return context.Users.Where(u => !u.DeletedDate.HasValue && (id.HasValue ? id.Value == u.Id : true)).ToList();// Select(u => new Users()
+                return context.Users.Where(u => id.HasValue ? id.Value == u.Id : true).ToList();// Select(u => new Users()
                 //{
                 //    Email = u.Email,
                 //    Id = u.Id,
@@ -86,8 +86,9 @@ namespace Servicios
                 if (users != null)
                 {
                     users.Email = user.Email;
-                    users.Name = user.Name;
-                    users.Password = user.Password;
+                    users.Usuario = user.Usuario;
+                    users.Apellido = user.Apellido;
+                    users.Nombre = user.Nombre;
                 }
 
                 // el objeto en memoria persiste los cambios en la base de datos cuando hago un save sobre el contexto.
@@ -108,28 +109,10 @@ namespace Servicios
                 // FirstOrDefault va a intentar recuperar el registro que cumpla la condición
                 // si no encuentra ninguno, devuelve NULL, de ahí el siguiente IF.
                 if (users != null)
-                    users.DeletedDate = DateTime.Now;
+                    //users.DeletedDate = DateTime.Now; Borado pro el momento, ejecutar método de seguridad.
 
                 // el objeto en memoria persiste los cambios en la base de datos cuando hago un save sobre el contexto.
                 context.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// Obtiene el rol del usuario
-        /// </summary>
-        /// <param name="id">Id del usuario</param>
-        /// <returns>Roles otorgados</returns>
-        public static List<Roles> GetRole(int? id)
-        {
-            using (Modelo context = new Modelo())
-            {
-                // la propiedad HasValue de los objetos que son Nullables o permiten tomar valores nulos, equivale a hacer la pregunta if (valor != null)
-                // la expresión id.HasValue ? id.Value == u.Id : true
-                // equivale a (id.HasValue && id.Value == u.Id) || (!id.HasValue)
-                // lo que hacen es filtrar solo cuando viene un valor en la variable, ahorrándonos hacer un if antes y repetir la consulta.
-                return context.Roles.Where(r => id.HasValue ? id.Value == r.Id : true).ToList();
-               
             }
         }
     }

@@ -3,28 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ViewModels;
+using WebMatrix.WebData;
 
 namespace GlobalEvents.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Login()
         {
-            ViewBag.Message = "Your application description page.";
+            var model = new LoginModel();
 
-            return View();
+            return View(model);
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Login(LoginModel model)
         {
-            ViewBag.Message = "Your contact page.";
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection("Modelo", "Users", "Id", "Usuario", true);
+            }
+            if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, true))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+        }
 
-            return View();
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection("Modelo", "Users", "Id", "Usuario", true);
+            }
+            WebSecurity.Logout();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -7,24 +7,27 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RepositorioClases;
+using WebMatrix.WebData;
 using Servicios;
 
 namespace GlobalEvents.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private Modelo db = new Modelo();
 
         // GET: Users
+        [Authorize]
         public ViewResult Index()
-        {    
+        {
             return View(UserService.Get(null).Select(u => new ViewModels.ListUserViewModel()
             {
                 Email = u.Email,
                 Id = u.Id,
-                Name = u.Name,
-                Password = u.Password,
-                IdRol = u.IdRol
+                Usuario = u.Usuario,
+                Apellido = u.Apellido,
+                Name = u.Nombre
             }).ToList());
         }
 
@@ -35,11 +38,11 @@ namespace GlobalEvents.Controllers
         {
             ViewModels.ListUserViewModel user = UserService.Get(id).Select(u => new ViewModels.ListUserViewModel()
             {
-                Email = u.Email,
                 Id = u.Id,
-                Name = u.Name,
-                Password = u.Password,
-                IdRol = u.IdRol
+                Email = u.Email,
+                Name = u.Nombre,
+                Apellido = u.Apellido,
+                Usuario = u.Usuario
             }).FirstOrDefault();
 
             return View(user);
@@ -59,15 +62,22 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         public ActionResult Create(ViewModels.UserViewModel user)
         {
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection("Modelo", "Users", "Id", "Usuario", true);
+            }
             if (ModelState.IsValid)
             {
-                UserService.Create(new Users()
+                // El usuario va a ser siempre el email.
+                
+                WebSecurity.CreateUserAndAccount(user.Email, user.Password, new { Email = user.Email}, false);
+                int id = WebSecurity.GetUserId(user.Email);
+                /*UserService.Create(new Users()
                 {
+                    Id = id,
                     Email = user.Email,
-                    Name = user.Name,
-                    Password = user.Password,
-                    IdRol = user.IdRol
-                });
+                    Usuario = user.Email // Inicialmente se le setea el mismo valor, luego se podrá cambiar.
+                });*/
                 return RedirectToAction("Index");
             }
 
@@ -83,9 +93,9 @@ namespace GlobalEvents.Controllers
             {
                 Email = u.Email,
                 Id = u.Id,
-                Name = u.Name,
-                Password = u.Password,
-                IdRol = u.IdRol
+                Nombre = u.Nombre,
+                Apellido = u.Apellido,
+                Usuario = u.Usuario
             }).FirstOrDefault();
 
             return View(user);
@@ -101,11 +111,11 @@ namespace GlobalEvents.Controllers
             {
                 UserService.Edit(new RepositorioClases.Users()
                 {
-                    Email = user.Email,
                     Id = user.Id,
-                    Name = user.Name,
-                    Password = user.Password,
-                    IdRol = user.IdRol
+                    Email = user.Email,
+                    Nombre = user.Nombre,
+                    Apellido = user.Apellido,
+                    Usuario = user.Usuario
                 });
 
                 return RedirectToAction("Index");
@@ -122,9 +132,9 @@ namespace GlobalEvents.Controllers
             {
                 Email = u.Email,
                 Id = u.Id,
-                Name = u.Name,
-                Password = u.Password,
-                IdRol = u.IdRol
+                Nombre = u.Nombre,
+                Usuario = u.Usuario,
+                Apellido = u.Apellido
             }).FirstOrDefault();
 
             return View(user);
@@ -138,8 +148,8 @@ namespace GlobalEvents.Controllers
         {
             UserService.Delete(new RepositorioClases.Users()
             {
-                Id = id,
-                DeletedDate = DateTime.Now
+                Id = id
+                //DeletedDate = DateTime.Now Ejecutar método de seguridad.
             });
 
             return RedirectToAction("Index");
