@@ -12,7 +12,7 @@ using Servicios;
 
 namespace GlobalEvents.Controllers
 {
-    [OverrideAuthentication]
+    [Authorize]
     public class UsersController : Controller
     {
         private Modelo db = new Modelo();
@@ -133,7 +133,8 @@ namespace GlobalEvents.Controllers
                 Email = u.Email,
                 Id = u.Id,
                 Nombre = u.Nombre,
-                Usuario = u.Usuario
+                Usuario = u.Usuario,
+                Apellido = u.Apellido
             }).FirstOrDefault();
 
             return View(user);

@@ -35,15 +35,24 @@
                     @Html.ActionLink("Mapa", "MapView", "Events", new { area = "" }, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    <!--<a class="nav-link" href="#">Mapa</a>-->
-                    @Html.ActionLink("Usuarios", "Index", "Users", new { area = "" }, new { @class = "nav-link" })
+                    @if (WebSecurity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Usuarios", "Index", "Users", new { area = "" }, new { @class = "nav-link" })
+                    }
+                    else
+                    {
+                        <a class="nav-link disabled" href="#">Usuarios</a>
+                    }
                 </li>
                 <li class="nav-item">
-                    <!--<a class="nav-link" href="#">Mapa</a>-->
-                    @Html.ActionLink("Login", "Login", "Home", new { area = "" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Próximamente</a>
+                    @if (WebSecurity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Desconectarse", "Logout", "Home", new { area = "" }, new { @class = "nav-link" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Iniciar sesión", "Login", "Home", new { area = "" }, new { @class = "nav-link" })
+                    }
                 </li>
             </ul>
             <span class="navbar-text">

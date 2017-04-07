@@ -34,7 +34,6 @@ namespace GlobalEvents.Controllers
             {
                 WebSecurity.InitializeDatabaseConnection("Modelo", "Users", "Id", "Usuario", true);
             }
-            WebSecurity.Logout();
             if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, true))
             {
                 return RedirectToAction("Index", "Home");
@@ -43,6 +42,17 @@ namespace GlobalEvents.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection("Modelo", "Users", "Id", "Usuario", true);
+            }
+            WebSecurity.Logout();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
