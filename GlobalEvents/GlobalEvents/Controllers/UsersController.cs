@@ -26,6 +26,7 @@ namespace GlobalEvents.Controllers
                 Email = u.Email,
                 Id = u.Id,
                 Usuario = u.Usuario,
+                Apellido = u.Apellido,
                 Name = u.Nombre
             }).ToList());
         }
@@ -37,7 +38,11 @@ namespace GlobalEvents.Controllers
         {
             ViewModels.ListUserViewModel user = UserService.Get(id).Select(u => new ViewModels.ListUserViewModel()
             {
-                Id = u.Id
+                Id = u.Id,
+                Email = u.Email,
+                Name = u.Nombre,
+                Apellido = u.Apellido,
+                Usuario = u.Usuario
             }).FirstOrDefault();
 
             return View(user);
@@ -89,6 +94,7 @@ namespace GlobalEvents.Controllers
                 Email = u.Email,
                 Id = u.Id,
                 Nombre = u.Nombre,
+                Apellido = u.Apellido,
                 Usuario = u.Usuario
             }).FirstOrDefault();
 
@@ -105,9 +111,10 @@ namespace GlobalEvents.Controllers
             {
                 UserService.Edit(new RepositorioClases.Users()
                 {
-                    Email = user.Email,
                     Id = user.Id,
+                    Email = user.Email,
                     Nombre = user.Nombre,
+                    Apellido = user.Apellido,
                     Usuario = user.Usuario
                 });
 
@@ -140,7 +147,7 @@ namespace GlobalEvents.Controllers
         {
             UserService.Delete(new RepositorioClases.Users()
             {
-                Id = id,
+                Id = id
                 //DeletedDate = DateTime.Now Ejecutar método de seguridad.
             });
 

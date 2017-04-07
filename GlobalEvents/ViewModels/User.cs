@@ -39,6 +39,7 @@ namespace ViewModels
 
     public class ListUserViewModel
     {
+        [Display(Name = "Id")]
         public long Id { get; set; }
 
         [Required]
@@ -47,6 +48,9 @@ namespace ViewModels
 
         [Display(Name = "Usuario")]
         public string Usuario { get; set; }
+
+        [Display(Name = "Apellido")]
+        public string Apellido { get; set; }
 
         [Required]
         [Display(Name = "Correo electrónico")]

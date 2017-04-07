@@ -87,6 +87,7 @@ namespace Servicios
                 {
                     users.Email = user.Email;
                     users.Usuario = user.Usuario;
+                    users.Apellido = user.Apellido;
                     users.Nombre = user.Nombre;
                 }
 
