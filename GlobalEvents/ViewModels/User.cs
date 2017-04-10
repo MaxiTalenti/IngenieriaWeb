@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Servicios;
+using RepositorioClases;
 
 namespace ViewModels
 {
@@ -20,13 +21,17 @@ namespace ViewModels
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Correo electrónico")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
+
+        [Required]
+        [Display(Name = "Estado")]
+        public UserState Estado { get; set; }
 
     }
 
@@ -56,6 +61,9 @@ namespace ViewModels
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
 
+        [Required]
+        [Display(Name = "Estado")]
+        public UserState Estado { get; set; }
     }
 
     public class LoginModel
@@ -67,5 +75,8 @@ namespace ViewModels
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Required]
+        public bool Recordarme { get; set; }
     }
 }

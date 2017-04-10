@@ -82,12 +82,15 @@
 
         @Html.Partial("_CreateOrEdit", Model)
 
-        <p>
-            <input type="submit" value="Crear" />
-        </p>
+        <button class="btn btn-outline-success" type="submit">
+            Crear
+        </button>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Volver al listado", "Index")
-</div>
+@if (WebSecurity.IsAuthenticated)
+{
+    <div>
+        @Html.ActionLink("Volver al listado", "Index")
+    </div>
+}

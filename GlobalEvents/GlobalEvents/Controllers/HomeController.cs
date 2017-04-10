@@ -5,10 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using ViewModels;
 using WebMatrix.WebData;
+using GlobalEvents.Filters;
+using RepositorioClases;
 
 namespace GlobalEvents.Controllers
 {
-    [Authorize]
+    [MyAuthorize]
+    [InitializeSimpleMembership]
     public class HomeController : Controller
     {
         [AllowAnonymous]
@@ -19,8 +22,14 @@ namespace GlobalEvents.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(String returnURL)
         {
+            ViewBag.returnURL = returnURL;
+            if (WebSecurity.IsAuthenticated) // Si ya esta autenticado y quiere ingresar igualmente a esta página, redirecionamos a index.
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var model = new LoginModel();
 
             return View(model);
@@ -28,15 +37,28 @@ namespace GlobalEvents.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(LoginModel model, String returnURL)
         {
-            if (!WebSecurity.Initialized)
+            // Verifica que no este bloqueado ni eliminado.
+            using (Modelo context = new Modelo())
             {
-                WebSecurity.InitializeDatabaseConnection("Modelo", "Users", "Id", "Usuario", true);
+                Users users = context.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+                if (users.Estado == UserState.Bloqueado || users.Estado == UserState.Eliminado)
+                {
+                    return View();
+                }
             }
-            if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, true))
+
+                if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, model.Recordarme))
             {
-                return RedirectToAction("Index", "Home");
+                if (Url.IsLocalUrl(returnURL))
+                {
+                    return Redirect(returnURL);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
@@ -45,14 +67,22 @@ namespace GlobalEvents.Controllers
         }
 
         [HttpGet]
-        public ActionResult Logout()
+        [MyAuthorize]
+        public ActionResult Logout(String returnURL)
         {
-            if (!WebSecurity.Initialized)
-            {
-                WebSecurity.InitializeDatabaseConnection("Modelo", "Users", "Id", "Usuario", true);
-            }
             WebSecurity.Logout();
             return RedirectToAction("Index", "Home");
+
+            /* Ver como manejar si la página no esta autorizada luego de desloguear.
+            if (Url.IsLocalUrl(returnURL))
+            {
+                return Redirect(returnURL);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            */
         }
     }
 }
