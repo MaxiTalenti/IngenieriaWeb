@@ -47,11 +47,11 @@
                 <li class="nav-item">
                     @if (WebSecurity.IsAuthenticated)
                     {
-                        @Html.ActionLink("Desconectarse", "Logout", "Home", new { area = "" }, new { @class = "nav-link" })
+                        @Html.ActionLink("Desconectarse", "Logout", "Home", new { returnURL = HttpContext.Current.Request.Url.AbsolutePath }, new { @class = "nav-link" })
                     }
                     else
                     {
-                        @Html.ActionLink("Iniciar sesión", "Login", "Home", new { area = "" }, new { @class = "nav-link" })
+                        @Html.ActionLink("Iniciar sesión", "Login", "Home", new { returnURL = HttpContext.Current.Request.Url.AbsolutePath }, new { @class = "nav-link" })
                     }
                 </li>
             </ul>

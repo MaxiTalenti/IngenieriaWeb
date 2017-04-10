@@ -4,21 +4,24 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
+using System.Web.Security;
 using System.Web.Mvc;
 using RepositorioClases;
 using WebMatrix.WebData;
 using Servicios;
+using GlobalEvents.Filters;
+
 
 namespace GlobalEvents.Controllers
 {
-    [Authorize]
+    [MyAuthorize]
+    [InitializeSimpleMembership]
     public class UsersController : Controller
     {
         private Modelo db = new Modelo();
 
         // GET: Users
-        [Authorize]
+        [MyAuthorize]
         public ViewResult Index()
         {
             return View(UserService.Get(null).Select(u => new ViewModels.ListUserViewModel()
@@ -27,7 +30,8 @@ namespace GlobalEvents.Controllers
                 Id = u.Id,
                 Usuario = u.Usuario,
                 Apellido = u.Apellido,
-                Name = u.Nombre
+                Name = u.Nombre,
+                Estado = u.Estado
             }).ToList());
         }
 
@@ -42,7 +46,8 @@ namespace GlobalEvents.Controllers
                 Email = u.Email,
                 Name = u.Nombre,
                 Apellido = u.Apellido,
-                Usuario = u.Usuario
+                Usuario = u.Usuario,
+                Estado = u.Estado
             }).FirstOrDefault();
 
             return View(user);
@@ -50,7 +55,7 @@ namespace GlobalEvents.Controllers
 
         //
         // GET: /User/Create
-
+        [AllowAnonymous]
         public ActionResult Create()
         {
             return View(new ViewModels.UserViewModel());
@@ -60,18 +65,20 @@ namespace GlobalEvents.Controllers
         // POST: /User/Create
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Create(ViewModels.UserViewModel user)
         {
-            if (!WebSecurity.Initialized)
-            {
-                WebSecurity.InitializeDatabaseConnection("Modelo", "Users", "Id", "Usuario", true);
-            }
             if (ModelState.IsValid)
             {
-                // El usuario va a ser siempre el email.
-                
+                if (WebSecurity.UserExists(user.Email))
+                {
+                    ModelState.AddModelError("", "El usuario que intenta registrar ya existe.");
+                    return View(user);
+                }
+
+                // El usuario va a ser siempre el email, mientras no lo cambie.
                 WebSecurity.CreateUserAndAccount(user.Email, user.Password, new { Email = user.Email}, false);
-                int id = WebSecurity.GetUserId(user.Email);
+                Roles.AddUserToRole(user.Email, "Usuario");
                 /*UserService.Create(new Users()
                 {
                     Id = id,
@@ -81,6 +88,8 @@ namespace GlobalEvents.Controllers
                 return RedirectToAction("Index");
             }
 
+            ModelState.AddModelError("", "El nombre de usuario o la contraseña son incorrectos.");
+            user.Password = ""; // Se blanquea la pass.
             return View(user);
         }
 
@@ -95,7 +104,8 @@ namespace GlobalEvents.Controllers
                 Id = u.Id,
                 Nombre = u.Nombre,
                 Apellido = u.Apellido,
-                Usuario = u.Usuario
+                Usuario = u.Usuario,
+                Estado = u.Estado
             }).FirstOrDefault();
 
             return View(user);
@@ -115,7 +125,8 @@ namespace GlobalEvents.Controllers
                     Email = user.Email,
                     Nombre = user.Nombre,
                     Apellido = user.Apellido,
-                    Usuario = user.Usuario
+                    Usuario = user.Usuario,
+                    Estado = user.Estado
                 });
 
                 return RedirectToAction("Index");
@@ -146,13 +157,27 @@ namespace GlobalEvents.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            UserService.Delete(new RepositorioClases.Users()
+            UserService.Delete(new Users()
             {
                 Id = id
-                //DeletedDate = DateTime.Now Ejecutar método de seguridad.
             });
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult ChangePassword(int? Id)
+        {
+            Users user = UserService.Get(Id).Select(u => new Users()
+            {
+                Email = u.Email,
+                Id = u.Id,
+                Nombre = u.Nombre,
+                Usuario = u.Usuario,
+                Apellido = u.Apellido
+            }).FirstOrDefault();
+
+            return View(user);
         }
     }
 }

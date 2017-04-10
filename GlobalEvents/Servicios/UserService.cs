@@ -25,7 +25,8 @@ namespace Servicios
                 {
                     Email = user.Email,
                     Usuario = user.Usuario,
-                    Id = user.Id
+                    Id = user.Id,
+                    Estado = user.Estado
                 });
 
                 context.SaveChanges();
@@ -61,7 +62,7 @@ namespace Servicios
                 //return new List<Users>();
 
                 //return context.Users.Where(u => !u.DeletedDate.HasValue && (id.HasValue ? id.Value == u.Id : true)).ToList();// Select(u => new Users()
-                return context.Users.Where(u => id.HasValue ? id.Value == u.Id : true).ToList();// Select(u => new Users()
+                return context.Users.Where(u => id.HasValue ? id.Value == u.Id : true).Where(z => z.Estado != UserState.Eliminado).ToList();// Select(u => new Users()
                 //{
                 //    Email = u.Email,
                 //    Id = u.Id,
@@ -89,6 +90,7 @@ namespace Servicios
                     users.Usuario = user.Usuario;
                     users.Apellido = user.Apellido;
                     users.Nombre = user.Nombre;
+                    users.Estado = user.Estado;
                 }
 
                 // el objeto en memoria persiste los cambios en la base de datos cuando hago un save sobre el contexto.
@@ -97,7 +99,7 @@ namespace Servicios
         }
 
         /// <summary>
-        /// Eliminar usuario (Marca con fecha actual)
+        /// Eliminar usuario
         /// </summary>
         /// <param name="user">Usuario a eliminar</param>
         public static void Delete(Users user)
@@ -109,7 +111,7 @@ namespace Servicios
                 // FirstOrDefault va a intentar recuperar el registro que cumpla la condición
                 // si no encuentra ninguno, devuelve NULL, de ahí el siguiente IF.
                 if (users != null)
-                    //users.DeletedDate = DateTime.Now; Borado pro el momento, ejecutar método de seguridad.
+                    users.Estado = UserState.Eliminado;
 
                 // el objeto en memoria persiste los cambios en la base de datos cuando hago un save sobre el contexto.
                 context.SaveChanges();
