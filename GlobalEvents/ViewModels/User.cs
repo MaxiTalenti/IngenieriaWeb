@@ -73,10 +73,32 @@ namespace ViewModels
         public string Email { get; set; }
 
         [Required]
+        [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
         public bool Recordarme { get; set; }
+    }
+
+    public class EditPasswordModel
+    {
+        [Required]
+        [Display(Name = "Usuario")]
+        public string Usuario { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string actualPassword { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string newPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Compare("newPassword", ErrorMessage = "La nueva contraseña y la contraseña de confirmación no coinciden.")]
+        public string repeatPassword { get; set; }
     }
 }

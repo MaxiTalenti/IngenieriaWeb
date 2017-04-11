@@ -34,7 +34,7 @@ namespace Servicios
         }
 
         /// <summary>
-        /// Obtiene usuarios
+        /// Obtiene usuarios menos lo que tienen estado eliminados.
         /// </summary>
         /// <param name="id">Busca por id (opcional)</param>
         /// <returns>Lista de usuario/s</returns>
@@ -99,7 +99,7 @@ namespace Servicios
         }
 
         /// <summary>
-        /// Eliminar usuario
+        /// Eliminar usuario (Marca como eliminado).
         /// </summary>
         /// <param name="user">Usuario a eliminar</param>
         public static void Delete(Users user)
