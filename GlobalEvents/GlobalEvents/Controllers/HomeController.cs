@@ -7,6 +7,7 @@ using ViewModels;
 using WebMatrix.WebData;
 using GlobalEvents.Filters;
 using RepositorioClases;
+using System.Web.Security;
 
 namespace GlobalEvents.Controllers
 {

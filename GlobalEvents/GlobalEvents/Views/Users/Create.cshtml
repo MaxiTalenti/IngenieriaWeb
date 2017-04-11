@@ -76,7 +76,7 @@
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false, "Errores:", new { @class = "alert alert-danger" })
     <fieldset>
         <legend>Usuario</legend>
 

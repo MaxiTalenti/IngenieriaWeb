@@ -16,6 +16,10 @@ body {
   margin: 0;
 }
 
+.validation-summary-valid.alert-danger {
+    display: none;
+}
+
 article,
 aside,
 footer,

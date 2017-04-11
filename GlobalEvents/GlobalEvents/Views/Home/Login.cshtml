@@ -7,10 +7,11 @@
 @using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bootstrap-admin-login-form" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false, "Errores:", new { @class = "alert alert-danger" })
+
         <div class="col-sm-auto col-md-auto col-md-offset-1">
             <h2 class="text-left login-title">Ingresa tus datos</h2>
-            <div class="account-wall">
+            <div class="account-wall form-group">
                     <input type="text" name="Email" class="form-control" placeholder="Email" required autofocus>
                     <input type="password" name="Password" class="form-control" placeholder="Contraseña" required>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">

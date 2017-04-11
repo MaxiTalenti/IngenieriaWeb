@@ -70,6 +70,7 @@ namespace ViewModels
     {
         [Required]
         [Display(Name = "Correo electrónico")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Tiene que ser un correo electrónico válido")]
         public string Email { get; set; }
 
         [Required]
@@ -89,15 +90,18 @@ namespace ViewModels
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Contraseña actual")]
         public string actualPassword { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
+        [Display(Name = "Nueva contraseña")]
         [DataType(DataType.Password)]
         public string newPassword { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Repetir contraseña nueva")]
         [Compare("newPassword", ErrorMessage = "La nueva contraseña y la contraseña de confirmación no coinciden.")]
         public string repeatPassword { get; set; }
     }

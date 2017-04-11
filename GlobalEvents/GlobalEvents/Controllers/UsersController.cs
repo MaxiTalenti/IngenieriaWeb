@@ -78,7 +78,8 @@ namespace GlobalEvents.Controllers
                 }
 
                 // El usuario va a ser siempre el email, mientras no lo cambie.
-                WebSecurity.CreateUserAndAccount(user.Email, user.Password, new { Email = user.Email}, false);
+                //WebSecurity.CreateUserAndAccount(user.Email, user.Password, new { Email = user.Email}, false);
+                WebSecurity.CreateUserAndAccount(user.Email, user.Password, new { Estado = 1 }, false);
                 Roles.AddUserToRole(user.Email, "Usuario");
                 /*UserService.Create(new Users()
                 {
@@ -177,7 +178,7 @@ namespace GlobalEvents.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangePasswordConfirmed(EditPasswordModel editModel)
+        public ActionResult ChangePassword(EditPasswordModel editModel)
         {
             Users user = UserService.Get(WebSecurity.GetUserId(editModel.Usuario)).Select(u => new Users()
             {
@@ -185,7 +186,11 @@ namespace GlobalEvents.Controllers
                 Id = u.Id,
             }).FirstOrDefault();
 
-            WebSecurity.ChangePassword(user.Email, editModel.actualPassword, editModel.newPassword);
+            if (!WebSecurity.ChangePassword(user.Email, editModel.actualPassword, editModel.newPassword))
+            {
+                ModelState.AddModelError("", "La contraseña ingresada es incorrecta.");
+                return View(editModel);
+            }
             return RedirectToAction("Index");
         }
     }
