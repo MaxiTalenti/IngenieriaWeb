@@ -39,17 +39,24 @@ namespace GlobalEvents.Controllers
         [AllowAnonymous]
         public ActionResult Login(LoginModel model, String returnURL)
         {
-            // Verifica que no este bloqueado ni eliminado.
+            if (!WebSecurity.UserExists(model.Email))
+            {
+                ModelState.AddModelError("", "El nombre de usuario o la contraseña son incorrectos.");
+                return View();
+            }
+
+            // Verifica que no este bloqueado, eliminado, ni a falta de verificación token.
             using (Modelo context = new Modelo())
             {
                 Users users = context.Users.Where(u => u.Email == model.Email).FirstOrDefault();
-                if (users.Estado == UserState.Bloqueado || users.Estado == UserState.Eliminado)
+                if (users.Estado == UserState.Bloqueado || users.Estado == UserState.Eliminado || users.Estado == UserState.Inactivo)
                 {
+                    ModelState.AddModelError("", "La cuenta se encuentra " + users.Estado);
                     return View();
                 }
             }
 
-                if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, model.Recordarme))
+            if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, model.Recordarme))
             {
                 if (Url.IsLocalUrl(returnURL))
                 {
@@ -62,6 +69,7 @@ namespace GlobalEvents.Controllers
             }
             else
             {
+                ModelState.AddModelError("", "El nombre de usuario o la contraseña son incorrectos.");
                 return View();
             }
         }

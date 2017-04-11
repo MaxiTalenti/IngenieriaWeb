@@ -50,12 +50,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 <div>
-    <!--Html.ActionLink("Cambiar contraseña", "ChangePassword", "Users", new { Id = Model.Id }) | -->
+    @Html.ActionLink("Cambiar contraseña", "ChangePassword", "Users", new { id = Model.Id }, null) | 
     @Html.ActionLink("Volver a usuarios", "Index")
 </div>

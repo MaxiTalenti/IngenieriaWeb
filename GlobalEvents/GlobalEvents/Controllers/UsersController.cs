@@ -7,6 +7,7 @@ using System.Net;
 using System.Web.Security;
 using System.Web.Mvc;
 using RepositorioClases;
+using ViewModels;
 using WebMatrix.WebData;
 using Servicios;
 using GlobalEvents.Filters;
@@ -40,7 +41,7 @@ namespace GlobalEvents.Controllers
 
         public ViewResult Details(int id)
         {
-            ViewModels.ListUserViewModel user = UserService.Get(id).Select(u => new ViewModels.ListUserViewModel()
+            ListUserViewModel user = UserService.Get(id).Select(u => new ViewModels.ListUserViewModel()
             {
                 Id = u.Id,
                 Email = u.Email,
@@ -119,7 +120,7 @@ namespace GlobalEvents.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserService.Edit(new RepositorioClases.Users()
+                UserService.Edit(new Users()
                 {
                     Id = user.Id,
                     Email = user.Email,
@@ -165,19 +166,27 @@ namespace GlobalEvents.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public ActionResult ChangePassword(int? Id)
+        public ActionResult ChangePassword(int id)
         {
-            Users user = UserService.Get(Id).Select(u => new Users()
+            EditPasswordModel user = UserService.Get(id).Select(u => new EditPasswordModel()
             {
-                Email = u.Email,
-                Id = u.Id,
-                Nombre = u.Nombre,
-                Usuario = u.Usuario,
-                Apellido = u.Apellido
+                Usuario = u.Usuario
             }).FirstOrDefault();
 
             return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePasswordConfirmed(EditPasswordModel editModel)
+        {
+            Users user = UserService.Get(WebSecurity.GetUserId(editModel.Usuario)).Select(u => new Users()
+            {
+                Email = u.Email,
+                Id = u.Id,
+            }).FirstOrDefault();
+
+            WebSecurity.ChangePassword(user.Email, editModel.actualPassword, editModel.newPassword);
+            return RedirectToAction("Index");
         }
     }
 }

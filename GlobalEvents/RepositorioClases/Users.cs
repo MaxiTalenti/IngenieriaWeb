@@ -11,7 +11,8 @@ namespace RepositorioClases
         Activo = 1,
         Bloqueado = 2,
         Reportado = 3,
-        Eliminado = 4
+        Eliminado = 4,
+        Inactivo = 5
     }
 
     public class Users
