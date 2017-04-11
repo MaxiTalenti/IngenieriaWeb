@@ -56,7 +56,7 @@ namespace GlobalEvents.Filters
             if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 // El usuario no esta autenticado.
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary (new { controller = "Home", action = "Login" }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Login", returnURL =  filterContext.HttpContext.Request.Url.AbsolutePath }));
                 //base.HandleUnauthorizedRequest(filterContext);
             }
             else
