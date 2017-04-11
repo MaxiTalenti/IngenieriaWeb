@@ -79,7 +79,7 @@ namespace GlobalEvents.Controllers
 
                 // El usuario va a ser siempre el email, mientras no lo cambie.
                 //WebSecurity.CreateUserAndAccount(user.Email, user.Password, new { Email = user.Email}, false);
-                WebSecurity.CreateUserAndAccount(user.Email, user.Password, new { Estado = 1 }, false);
+                WebSecurity.CreateUserAndAccount(user.Email, user.Password, new { Email = user.Email, Estado = 1 }, false);
                 Roles.AddUserToRole(user.Email, "Usuario");
                 /*UserService.Create(new Users()
                 {
