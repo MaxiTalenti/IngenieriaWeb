@@ -20,13 +20,8 @@ body {
     display: none;
 }
 
-article,
-aside,
-footer,
-header,
-nav,
-section {
-  display: block;
+validation-summary-valid alert alert-danger {
+    display: none;
 }
 
 h1 {
