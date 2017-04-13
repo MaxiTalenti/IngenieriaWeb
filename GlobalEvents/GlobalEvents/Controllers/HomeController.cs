@@ -40,6 +40,7 @@ namespace GlobalEvents.Controllers
         [AllowAnonymous]
         public ActionResult Login(LoginModel model, String returnURL)
         {
+            ViewBag.returnURL = returnURL;
             if (!WebSecurity.UserExists(model.Email))
             {
                 ModelState.AddModelError("", "El nombre de usuario o la contraseña son incorrectos.");
@@ -52,7 +53,7 @@ namespace GlobalEvents.Controllers
                 Users users = context.Users.Where(u => u.Email == model.Email).FirstOrDefault();
                 if (users.Estado == UserState.Bloqueado || users.Estado == UserState.Eliminado || users.Estado == UserState.Inactivo)
                 {
-                    ModelState.AddModelError("", "La cuenta se encuentra " + users.Estado);
+                    ModelState.AddModelError("", "La cuenta se encuentra " + users.Estado.ToString());
                     return View();
                 }
             }
