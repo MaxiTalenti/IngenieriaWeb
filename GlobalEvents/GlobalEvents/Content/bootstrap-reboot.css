@@ -14,7 +14,7 @@ body {
     display: none;
 }
 
-validation-summary-valid alert alert-danger {
+validation-summary-valid.alert.alert-danger {
     display: none;
 }
 
