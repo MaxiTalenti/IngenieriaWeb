@@ -174,6 +174,12 @@ namespace GlobalEvents.Controllers
                 Usuario = u.Usuario
             }).FirstOrDefault();
 
+            // Si el usuario no existe (Porque se pasa a mano la url, se vuelve al index).
+            if (user == null)
+            {
+                return RedirectToAction("Index");
+            }
+
             return View(user);
         }
 
