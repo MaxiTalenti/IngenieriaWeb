@@ -74,11 +74,13 @@ namespace ViewModels
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "El número de caracteres de la contraseña debe ser al menos de {2}.", MinimumLength = 6)]
+        [Display(Name = "Contraseña")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
+        [Display(Name = "¿Recordarme?")]
         public bool Recordarme { get; set; }
     }
 
