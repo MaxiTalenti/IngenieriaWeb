@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Servicios;
+using GlobalEvents.Filters;
 
 namespace GlobalEvents.Controllers
 {
@@ -16,6 +17,7 @@ namespace GlobalEvents.Controllers
             return View();
         }
 
+        [MyAuthorize]
         public ActionResult MapView()
         {
             return View();

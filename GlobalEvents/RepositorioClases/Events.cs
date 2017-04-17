@@ -19,5 +19,8 @@ namespace RepositorioClases
 
         [StringLength(50)]
         public string lng { get; set; }
+
+        [StringLength(500)]
+        public string Description { get; set; }
     }
 }

@@ -19,14 +19,7 @@ namespace Servicios
             using (Modelo context = new Modelo())
             {
 
-                return (from u in context.Events
-                                select new Events()
-                                {
-                                    EventName = u.EventName,
-                                    Id = u.Id,
-                                    lat = u.lat,
-                                    lng = u.lng
-                                }).ToList();
+                return context.Events.ToList();
             }
         }
     }
