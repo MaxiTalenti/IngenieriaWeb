@@ -11,15 +11,14 @@ namespace Servicios
     public static class EventsService
     {
         /// <summary>
-        /// Devuelve una lista de todos los eventos disponibles.
+        /// Devuelve una lista de todos los eventos disponibles menos los eliminados.
         /// </summary>
-        /// <returns>Eventos</returns>
+        /// <returns>Eventos con cualquier estado menos eliminados.</returns>
         public static List<Events> ObtenerEventos()
         {
             using (Modelo context = new Modelo())
             {
-
-                return context.Events.ToList();
+                return context.Events.Where(z => z.Estado != EventState.Eliminado).ToList();
             }
         }
     }
