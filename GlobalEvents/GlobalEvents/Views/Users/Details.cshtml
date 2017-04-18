@@ -7,51 +7,57 @@
 
 <h2>Detalles</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">
+        @Html.DisplayNameFor(model => model.Id)
+    </label>
+    <div class="col-sm-10">
+        <p class="form-control-static">
+        @Html.DisplayFor(model => model.Id)
+        </p>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuario)
-        </dt>
-
-        <dd>
+    <label class="col-sm-2 col-form-label">
+        @Html.DisplayNameFor(model => model.Usuario)
+    </label>
+    <div class="col-sm-10">
+        <p class="form-control-static">
             @Html.DisplayFor(model => model.Usuario)
-        </dd>
+        </p>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
+    @if (Model.Name != null)
+    {
+    <label class="col-sm-2 col-form-label">
+        @Html.DisplayNameFor(model => model.Name)
+    </label>
+    <div class="col-sm-10">
+        <p class="form-control-static">
             @Html.DisplayFor(model => model.Name)
-        </dd>
+        </p>
+    </div>
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Apellido)
-        </dt>
-
-        <dd>
+    @if (Model.Apellido != null)
+    {
+    <label class="col-sm-2 col-form-label">
+        @Html.DisplayNameFor(model => model.Apellido)
+    </label>
+    <div class="col-sm-10">
+        <p class="form-control-static">
             @Html.DisplayFor(model => model.Apellido)
-        </dd>
+        </p>
+    </div>
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
+    <label class="col-sm-2 col-form-label">
+        @Html.DisplayNameFor(model => model.Email)
+    </label>
+    <div class="col-sm-10">
+        <p class="form-control-static">
             @Html.DisplayFor(model => model.Email)
-        </dd>
-
-
-
-    </dl>
+        </p>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
