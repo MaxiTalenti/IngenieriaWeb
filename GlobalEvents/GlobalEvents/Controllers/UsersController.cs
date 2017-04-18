@@ -59,7 +59,7 @@ namespace GlobalEvents.Controllers
         [AllowAnonymous]
         public ActionResult Create()
         {
-            return View(new ViewModels.UserViewModel());
+            return View(new ViewModels.CreateUserModel());
         }
 
         //
@@ -67,7 +67,7 @@ namespace GlobalEvents.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Create(ViewModels.UserViewModel user)
+        public ActionResult Create(CreateUserModel user)
         {
             if (ModelState.IsValid)
             {

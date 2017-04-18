@@ -35,6 +35,25 @@ namespace ViewModels
 
     }
 
+    public class CreateUserModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Password { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Repetir contraseña")]
+        [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        public string repeatPassword { get; set; }
+    }
+
     public class Rol
     {
         public int Id { get; set; }
