@@ -20,7 +20,7 @@ namespace Servicios
             RestRequest request = new RestRequest();
             request.AddParameter("domain", "app6cc9b7ab089145f5b8736732808aba66.mailgun.org", ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
-            request.AddParameter("from", "GlobalEvents <GlobalEvents@app6cc9b7ab089145f5b8736732808aba66.mailgun.org>");
+            request.AddParameter("from", "GlobalEvents <maximiliano.talenti@gmail.com>");
             request.AddParameter("to", email);
             //request.AddParameter("to", "YOU@YOUR_DOMAIN_NAME");
             request.AddParameter("subject", "Confirma tu cuenta en GlobalEvents.");
