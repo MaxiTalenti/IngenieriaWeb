@@ -22,7 +22,7 @@ namespace GlobalEvents.Controllers
         private Modelo db = new Modelo();
 
         // GET: Users
-        [MyAuthorize]
+
         public ViewResult Index()
         {
             return View(UserService.Get(null).Select(u => new ViewModels.ListUserViewModel()
