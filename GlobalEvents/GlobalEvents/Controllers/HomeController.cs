@@ -25,8 +25,6 @@ namespace GlobalEvents.Controllers
         [AllowAnonymous]
         public ActionResult Login(String returnURL)
         {
-            Servicios.Email em = new Servicios.Email();
-            em.enviarToken("maximiliano.talenti@gmail.com", "ASSSAJ");
             ViewBag.returnURL = returnURL;
             if (WebSecurity.IsAuthenticated) // Si ya esta autenticado y quiere ingresar igualmente a esta página, redirecionamos a index.
             {
@@ -95,6 +93,25 @@ namespace GlobalEvents.Controllers
                 return RedirectToAction("Index", "Home");
             }
             */
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult VerifyAccount(ChangesModel model)
+        {
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ValidarToken(String Token)
+        {
+            ChangesModel model = new ChangesModel()
+            {
+                Cambio = Changes.Verificacion_Cuenta,
+                Success = WebSecurity.ConfirmAccount(Token)
+            };
+            return RedirectToAction("VerifyAccount", model);
         }
     }
 }

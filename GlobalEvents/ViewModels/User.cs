@@ -126,4 +126,31 @@ namespace ViewModels
         [Compare("newPassword", ErrorMessage = "La nueva contraseña y la contraseña de confirmación no coinciden.")]
         public string repeatPassword { get; set; }
     }
+
+    public class ChangesModel
+    {
+        [Display(Name = "Usuario")]
+        public string Usuario { get; set; }
+
+        [Display(Name = "Correo electrónico")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Cambio realizado")]
+        public Changes Cambio { get; set; }
+
+        [Required]
+        [Display(Name = "¿Exitoso?")]
+        public bool Success { get; set; }
+    }
+
+    public enum Changes
+    {
+        Cambio_Contaseña = 1,
+        Verificacion_Cuenta = 2,
+        Edito_Cuenta_Personal = 3,
+        Edito_Cuenta = 4,
+        Elimino_Cuenta = 5,
+        Cambio_Estado_Cuenta = 6
+    }
 }

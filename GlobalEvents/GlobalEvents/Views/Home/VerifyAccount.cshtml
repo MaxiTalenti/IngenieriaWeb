@@ -1,0 +1,18 @@
+﻿@model ViewModels.ChangesModel
+@{
+    ViewBag.Title = "VerifyAccount";
+}
+
+@if (Model.Success)
+{
+    <h4>Gracias por verificar su cuenta.</h4>
+}
+else
+{
+    <h4>Hubo un error al verificar su cuenta, reintentelo nuevamente.</h4>
+}
+
+<div>
+    @Html.ActionLink("Ir al inicio", "Index", "Home") |
+    <a href="#" class="pull-right need-help">¿Necesita ayuda?</a><span class="clearfix"></span>
+</div>

@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudinaryDotNet;
 using System.Net;
-using RestSharp.Authenticators;
-using RestSharp;
+using System.Net.Mail;
+using System.Web;
 
 namespace Servicios
 {
@@ -14,20 +14,20 @@ namespace Servicios
     {
         public bool enviarToken(String email, String token)
         {
-            RestClient client = new RestClient();
-            client.BaseUrl = new Uri("https://api.mailgun.net/v3");
-            client.Authenticator = new HttpBasicAuthenticator("api", "key-44d44a4871449b214a251af55b840e68");
-            RestRequest request = new RestRequest();
-            request.AddParameter("domain", "app6cc9b7ab089145f5b8736732808aba66.mailgun.org", ParameterType.UrlSegment);
-            request.Resource = "{domain}/messages";
-            request.AddParameter("from", "GlobalEvents <maximiliano.talenti@gmail.com>");
-            request.AddParameter("to", email);
-            //request.AddParameter("to", "YOU@YOUR_DOMAIN_NAME");
-            request.AddParameter("subject", "Confirma tu cuenta en GlobalEvents.");
-            request.AddParameter("text", "Hola, tu token es: " + token);
-            request.Method = Method.POST;
-            return client.Execute(request).StatusCode == HttpStatusCode.OK;
-            //return client.Execute(request);
+            try
+            {
+                var client = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    Credentials = new NetworkCredential("informacion.globalevents@gmail.com", "uccnpwqadocomhvy"),
+                    EnableSsl = true
+                };
+
+                client.Send("informacion.globalevents@gmail.com", email, "Confirma tu cuenta", "Ingresa a la siguiente URL para verificar su cuenta: " +
+                   "http://" + HttpContext.Current.Request.Url.Authority + "/Home/ValidarToken?Token=" + token);
+                return true;
+            }
+            catch
+            { return false; }
         }
     }
 
