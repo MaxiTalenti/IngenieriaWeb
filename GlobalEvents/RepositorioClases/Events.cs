@@ -26,6 +26,8 @@ namespace RepositorioClases
         public string Descripcion { get; set; }
 
         [Required]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaInicio { get; set; }
 
         public DateTime FechaFin { get; set; }
