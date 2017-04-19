@@ -20,10 +20,6 @@ body {
     display: none;
 }
 
-validation-summary-valid.alert.alert-danger {
-    display: none;
-}
-
 h1 {
   font-size: 2em;
   margin: 0.67em 0;

@@ -14,10 +14,6 @@ body {
     display: none;
 }
 
-validation-summary-valid.alert.alert-danger {
-    display: none;
-}
-
 article,
 aside,
 footer,
