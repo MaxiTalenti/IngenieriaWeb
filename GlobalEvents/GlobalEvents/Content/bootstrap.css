@@ -20,6 +20,11 @@ body {
     display: none;
 }
 
+.navbar-custom {
+    color: #CC3333;
+    background-color: #CC3333;
+}
+
 h1 {
   font-size: 2em;
   margin: 0.67em 0;

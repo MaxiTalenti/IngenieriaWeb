@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using GlobalEvents.Helpers;
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -15,26 +17,22 @@
 </head>
 <body>
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        @Html.ActionLink("GlobalEvents", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+            <img src="~/Content/Images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            lobalEvents
+        </a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <!--<a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>-->
-                    @Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
+                <li class="nav-item @Html.IsSelected(controllers: "Events", cssClass: "active")">
                     <!--<a class="nav-link" href="#">Eventos</a>-->
-                    @Html.ActionLink("Eventos", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                    @Html.ActionLink("Eventos", "Index", "Events", new { area = "" }, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @Html.IsSelected(controllers: "Events", actions: "MapView", cssClass: "active")">
                     <!--<a class="nav-link" href="#">Mapa</a>-->
                     @Html.ActionLink("Mapa", "MapView", "Events", new { area = "" }, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @Html.IsSelected(controllers: "Users", cssClass: "active")">
                     @if (WebSecurity.IsAuthenticated)
                     {
                         @Html.ActionLink("Usuarios", "Index", "Users", new { area = "" }, new { @class = "nav-link" })
@@ -59,6 +57,36 @@
             </ul>
         </div>
     </nav>
+
+    <!--Ver barra de categorías si esta en el controlador eventos-->
+    @if (Html.IsSelected(controllers: "Events"))
+    {
+        <ul class="nav nav-pills nav-fill" style="background-color: #f5f3f3;">
+            <li class="nav-item">
+                <a class="nav-link active" href="#"><i class="fa fa-star-o fa-fw"></i>Destacados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-music fa-fw"></i>Música</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-beer fa-fw"></i>Fiestas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-picture-o fa-fw"></i>Artes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-cutlery fa-fw"></i>Gastronomía</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-graduation-cap fa-fw"></i>Clases</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-futbol-o fa-fw"></i>Deportes y bienestar</a>
+            </li>
+        </ul>
+    }
+
+
     <div class="container body-content">
         @RenderBody()
         <hr />
