@@ -24,7 +24,9 @@ namespace GlobalEvents
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css"));
+                      "~/Content/bootstrap.css",
+                      "~/Content/font-awesome.css",
+                      "~/Content/font-awesome.min.css"));
         }
     }
 }
