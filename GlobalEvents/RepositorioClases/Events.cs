@@ -48,7 +48,7 @@ namespace RepositorioClases
         [Display(Name = "Evento Destacado")]
         public bool Destacado { get; set; }
 
-        //[Required]
+        [Required]
         [StringLength(200)]
         public string Direccion { get; set; }
 
