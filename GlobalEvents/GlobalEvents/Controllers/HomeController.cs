@@ -21,6 +21,12 @@ namespace GlobalEvents.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult Index2()
+        {
+            return View();
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Login(String returnURL)
