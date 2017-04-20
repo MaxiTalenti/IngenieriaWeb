@@ -11,18 +11,27 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/mdb.min.js"></script>
+    <script src="~/Scripts/mdb.js"></script>
 
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="~/Content/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="~/Content/style.css" rel="stylesheet">
 
     <title>@ViewBag.Title - GlobalEvents</title>
 
-
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
 
         <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-            <img src="~/Content/img/method-draw-image.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="~/Content/Imagenes/method-draw-image.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             lobalEvents
         </a>
 
@@ -99,10 +108,15 @@
         </footer>
     </div>
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jquery")
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/Scripts/tether.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/mdb.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

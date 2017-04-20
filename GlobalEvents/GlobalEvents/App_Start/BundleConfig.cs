@@ -20,6 +20,7 @@ namespace GlobalEvents
                         "~/Scripts/bootstrap.min.js",
                         "~/Scripts/respond.js",
                         "~/Scripts/respond.min.js",
+                        "~/Scripts/mdbs.js",
                         "~/Scripts/mdbs.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -35,6 +36,7 @@ namespace GlobalEvents
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/respond.min.js",
+                      "~/Scripts/mdbs.js",
                       "~/Scripts/mdbs.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

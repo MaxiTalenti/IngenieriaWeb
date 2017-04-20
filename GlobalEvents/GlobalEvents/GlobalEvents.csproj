@@ -192,7 +192,7 @@
     <Content Include="Content\SlidePrueba.jpg" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
-    <Content Include="font\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -205,11 +205,11 @@
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="font\FontAwesome.otf" />
-    <Content Include="font\fontawesome-webfont.woff2" />
-    <Content Include="font\fontawesome-webfont.woff" />
-    <Content Include="font\fontawesome-webfont.ttf" />
-    <Content Include="font\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="font\roboto\Roboto-Bold.eot" />
     <Content Include="font\roboto\Roboto-Bold.ttf" />
     <Content Include="font\roboto\Roboto-Bold.woff" />
