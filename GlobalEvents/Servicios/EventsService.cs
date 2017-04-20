@@ -33,15 +33,18 @@ namespace Servicios
                 context.Events.Add(new Events()
                 {
                     Descripcion = events.Descripcion,
-                    Estado = events.Estado,
+                    Estado = EventState.Habilitado,
                     Id = events.Id,
                     FechaFin = events.FechaFin,
                     FechaInicio = events.FechaInicio,
                     IdUser = events.IdUser,
                     lat = events.lat,
                     lng = events.lng,
-                    NombreEvento = events.NombreEvento
-                });
+                    NombreEvento = events.NombreEvento,
+                    IdCategoria = events.IdCategoria,
+                    Destacado = events.Destacado,
+                    Direccion = events.Direccion
+            });
 
                 context.SaveChanges();
             }
@@ -76,10 +79,13 @@ namespace Servicios
                     even.Id = events.Id;
                     even.FechaFin = events.FechaFin;
                     even.FechaInicio = events.FechaInicio;
-                    even.IdUser = 1;   //events.IdUser         ACA HAY QUE VER COMO GUARDAR EL ID USUARIO ACTIVO PARA USARLO ACA;
+                    even.IdUser = events.IdUser;
                     even.lat = events.lat;
                     even.lng = events.lng;
                     even.NombreEvento = events.NombreEvento;
+                    even.IdCategoria = events.IdCategoria;
+                    even.Destacado = events.Destacado;
+                    even.Direccion = events.Direccion;
                 }
 
                 context.SaveChanges();

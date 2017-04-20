@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using RepositorioClases;
 using Servicios;
 using GlobalEvents.Filters;
+using WebMatrix.WebData;
 
 namespace GlobalEvents.Controllers
 {
@@ -41,7 +42,8 @@ namespace GlobalEvents.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
-            return View();
+            Events model = new Events { IdCategoria = Categorias.Musica, FechaInicio = DateTime.Now, FechaFin = DateTime.Now, Destacado = true };
+            return View(model);
         }
 
         // POST: Events/Create
@@ -53,6 +55,7 @@ namespace GlobalEvents.Controllers
         {
             if (ModelState.IsValid)
             {
+                events.IdUser = WebSecurity.CurrentUserId;               
                 EventsService.Create(events);
                 return RedirectToAction("Index");
             }
