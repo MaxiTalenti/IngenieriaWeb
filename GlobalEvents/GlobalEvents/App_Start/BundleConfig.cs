@@ -26,7 +26,10 @@ namespace GlobalEvents
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.css",
-                      "~/Content/font-awesome.min.css"));
+                      "~/Content/font-awesome.min.css",
+                      "~/Content/mdb.css",
+                      "~/Content/mdb.min.css",
+                      "~/Content/style.css"));
         }
     }
 }
