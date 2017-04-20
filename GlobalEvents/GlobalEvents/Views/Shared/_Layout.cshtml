@@ -7,55 +7,59 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/mdb.min.js"></script>
+
 
     <title>@ViewBag.Title - GlobalEvents</title>
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+
         <a class="navbar-brand" href="@Url.Action("Index", "Home")">
             <img src="~/Content/img/method-draw-image.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             lobalEvents
         </a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item @Html.IsSelected(controllers: "Events", cssClass: "active")">
-                    <!--<a class="nav-link" href="#">Eventos</a>-->
-                    @Html.ActionLink("Eventos", "Index", "Events", new { area = "" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item @Html.IsSelected(controllers: "Events", actions: "MapView", cssClass: "active")">
-                    <!--<a class="nav-link" href="#">Mapa</a>-->
-                    @Html.ActionLink("Mapa", "MapView", "Events", new { area = "" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item @Html.IsSelected(controllers: "Users", cssClass: "active")">
-                    @if (WebSecurity.IsAuthenticated)
-                    {
-                        @Html.ActionLink("Usuarios", "Index", "Users", new { area = "" }, new { @class = "nav-link" })
-                    }
-                    else
-                    {
-                        <a class="nav-link disabled" href="#">Usuarios</a>
-                    }
-                </li>
-            </ul>
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                @if (WebSecurity.IsAuthenticated)
-                {
-                    @Html.ActionLink("Desconectarse", "Logout", "Home", new { returnURL = HttpContext.Current.Request.Url.AbsolutePath }, new { @class = "nav-link" })
-                }
-                else
-                {
-                    @Html.ActionLink("Iniciar sesión", "Login", "Home", new { returnURL = HttpContext.Current.Request.Url.AbsolutePath }, new { @class = "nav-link" })
-                }
-                </li>
-            </ul>
-        </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item @Html.IsSelected(controllers: "Events", cssClass: "active")">
+                        <!--<a class="nav-link" href="#">Eventos</a>-->
+                        @Html.ActionLink("Eventos", "Index", "Events", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item @Html.IsSelected(controllers: "Events", actions: "MapView", cssClass: "active")">
+                        <!--<a class="nav-link" href="#">Mapa</a>-->
+                        @Html.ActionLink("Mapa", "MapView", "Events", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item @Html.IsSelected(controllers: "Users", cssClass: "active")">
+                        @if (WebSecurity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Usuarios", "Index", "Users", new { area = "" }, new { @class = "nav-link" })
+                        }
+                        else
+                        {
+                            <a class="nav-link disabled" href="#">Usuarios</a>
+                        }
+                    </li>
+                </ul>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        @if (WebSecurity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Desconectarse", "Logout", "Home", new { returnURL = HttpContext.Current.Request.Url.AbsolutePath }, new { @class = "nav-link" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Iniciar sesión", "Login", "Home", new { returnURL = HttpContext.Current.Request.Url.AbsolutePath }, new { @class = "nav-link" })
+                        }
+                    </li>
+                </ul>
+            </div>
     </nav>
 
     <!--Ver barra de categorías si esta en el controlador eventos-->
@@ -95,8 +99,11 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

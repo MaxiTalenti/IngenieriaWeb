@@ -3,6 +3,8 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <h2>Logearse</h2>
 @using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bootstrap-admin-login-form" }))
 {
