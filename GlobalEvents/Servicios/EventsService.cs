@@ -99,11 +99,35 @@ namespace Servicios
         /// Editar usuario
         /// </summary>
         /// <param name="user">Usuario a editar</param>
-        public static void Edit(Events events)
+        public static void Edit(Events events, HttpPostedFileBase file)
         {
+            String uriimage = "";
+            if (file.ContentLength > 0)
+            {
+                var path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data");
+                string savedFileName = Path.Combine(path, Path.GetFileName(file.FileName));
+                file.SaveAs(savedFileName);
+
+                Servicios.Imagenes imagenes = new Imagenes();
+                ImageUploadResult result = imagenes.subirImagen(savedFileName);
+                if (result.Status == "OK")
+                {
+                    uriimage = result.Uri;
+                }
+                else
+                {
+                    uriimage = null;
+                }
+
+                File.Delete(savedFileName);
+            }
             using (Modelo context = new Modelo())
             {
                 Events even = context.Events.Where(u => u.Id == events.Id).FirstOrDefault();
+                if (uriimage == "")
+                {
+                    uriimage = even.RutaImagen;
+                }
                 if (even != null)
                 {
                     even.Descripcion = events.Descripcion;
@@ -118,6 +142,7 @@ namespace Servicios
                     even.IdCategoria = events.IdCategoria;
                     even.Destacado = events.Destacado;
                     even.Direccion = events.Direccion;
+                    even.RutaImagen = uriimage;
                 }
 
                 context.SaveChanges();

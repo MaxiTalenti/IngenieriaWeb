@@ -88,13 +88,14 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [MyAuthorize]
-        public ActionResult Edit([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria, RutaImagen")] Events events)
+        public ActionResult Edit([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria, RutaImagen")] Events events,
+            HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
                 //db.Entry(events).State = EntityState.Modified;
                 //db.SaveChanges();
-                EventsService.Edit(events);
+                EventsService.Edit(events, file);
                 return RedirectToAction("Index");
             }
             return View(events);
