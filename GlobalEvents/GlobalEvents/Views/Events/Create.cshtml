@@ -86,6 +86,9 @@
                 map.setCenter(myMarker.position);
                 myMarker.setMap(map);
 
+                $('#lat').val(-30.94520);
+                $('#lng').val(-61.56056);
+
                 //-----------------------------------------------------------------------
 
 
@@ -112,15 +115,13 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPHbsGCp8vpDA1vMKAFWsU0Odc8Mz5SAA&callback=initMap" async defer></script>
 
         <div class="md-form col-md-2">
-            @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control", @id = "lat", @readonly = "readonly", @visible =false } })
-            @Html.LabelFor(model => model.lat)
+            @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control", @id = "lat", @readonly = "readonly", @hidden =true } })
             @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
-
         </div>
+        <h3>Arrastre el marcador hacia la ubicación del evento</h3>
 
         <div class="md-form col-md-2">
-            @Html.EditorFor(model => model.lng, new { htmlAttributes = new { @class = "form-control", @id = "lng", @readonly = "readonly" } })
-            @Html.LabelFor(model => model.lng)
+            @Html.EditorFor(model => model.lng, new { htmlAttributes = new { @class = "form-control", @id = "lng", @readonly = "readonly", @hidden = true } })
             @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
         </div>
 

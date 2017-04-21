@@ -43,7 +43,7 @@ namespace GlobalEvents.Controllers
         [MyAuthorize]
         public ActionResult Create()
         {
-            Events model = new Events { IdCategoria = Categorias.Musica, FechaInicio = DateTime.Now, FechaFin = DateTime.Now, Destacado = true };
+            Events model = new Events { IdCategoria = Categorias.Musica, FechaInicio = DateTime.Now, FechaFin = DateTime.Now};
             return View(model);
         }
 
