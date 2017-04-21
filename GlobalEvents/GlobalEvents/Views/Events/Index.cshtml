@@ -1,8 +1,38 @@
-﻿
+﻿@model List<RepositorioClases.Events>
 @{
     ViewBag.Title = "Eventos";
 }
 
+<h2>Usuarios</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo usuario", "Create")
+</p>
 
 <input type="button" class="btn btn-info" value="Nuevo Evento" onclick="location.href = '/Events/Create';">
 
+
+<div class="card-columns">
+
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            @if (item.RutaImagen != null)
+            {
+                <img class="card-img-top img-fluid" src="@Html.DisplayFor(modelItem => item.RutaImagen)" alt="Card image cap">
+            }
+            else
+            {
+
+            }
+            <div class="card-block">
+                <h4 class="card-title">@Html.DisplayFor(modelItem => item.NombreEvento)</h4>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-primary" href="~/Events/Details/@item.Id">Ver evento</a>
+            </div>
+            </div>
+    }
+
+</div>
