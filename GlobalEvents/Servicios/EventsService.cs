@@ -28,8 +28,7 @@ namespace Servicios
         /// <param name="events"></param>
         public static void Create(Events events)
         {
-            int idCat = Enum.GetValues(typeof(Categorias)).Cast<Categorias>().ToList().IndexOf(events.IdCategoria) + 1;
-
+            
             using (Modelo context = new Modelo())
             {
                 context.Events.Add(new Events()
@@ -62,6 +61,14 @@ namespace Servicios
             using (Modelo context = new Modelo())
             {
                 return context.Events.Where(u => id.HasValue ? id.Value == u.Id : true).ToList();
+            }
+        }
+
+        public static List<Events> GetForMap(long? id)
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.Events.Where(u => id.HasValue ? id.Value == u.Id : true && u.Estado == EventState.Habilitado && u.lat != null).ToList();
             }
         }
 

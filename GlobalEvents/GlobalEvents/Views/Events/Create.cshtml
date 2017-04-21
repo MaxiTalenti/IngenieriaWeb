@@ -71,15 +71,15 @@
             function initMap() {
 
                 var map = new google.maps.Map(document.getElementById('map'), {
-                    center: { lat: -30.944932, lng: -61.562566 },
-                    zoom: 17
+                    center: { lat: -30.94520, lng: -61.56056 },
+                    zoom: 15
                 });
 
                 var infoWindow = new google.maps.InfoWindow({ map: map });
 
 
                 var myMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(-30.944932, -61.562566),
+                    position: new google.maps.LatLng(-30.94520, -61.56056),
                     draggable: true
                 });
 
@@ -90,8 +90,8 @@
 
 
                 google.maps.event.addListener(myMarker, 'dragend', function (evt) {
-                    $('#lat').val(evt.latLng.lat().toFixed(3));
-                    $('#lng').val(evt.latLng.lng().toFixed(3));
+                    $('#lat').val(evt.latLng.lat().toFixed(5));
+                    $('#lng').val(evt.latLng.lng().toFixed(5));
                 });
 
                 google.maps.event.addListener(myMarker, 'dragstart', function (evt) {
@@ -123,6 +123,7 @@
             @Html.LabelFor(model => model.lng)
             @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
         </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

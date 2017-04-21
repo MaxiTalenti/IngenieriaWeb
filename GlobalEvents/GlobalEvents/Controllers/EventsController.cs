@@ -40,6 +40,7 @@ namespace GlobalEvents.Controllers
         }
 
         // GET: Events/Create
+        [MyAuthorize]
         public ActionResult Create()
         {
             Events model = new Events { IdCategoria = Categorias.Musica, FechaInicio = DateTime.Now, FechaFin = DateTime.Now, Destacado = true };
@@ -51,6 +52,7 @@ namespace GlobalEvents.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [MyAuthorize]
         public ActionResult Create([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria")] Events events)
         {
             if (ModelState.IsValid)
@@ -64,6 +66,7 @@ namespace GlobalEvents.Controllers
         }
 
         // GET: Events/Edit/5
+        [MyAuthorize]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -83,6 +86,7 @@ namespace GlobalEvents.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [MyAuthorize]
         public ActionResult Edit([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria")] Events events)
         {
             if (ModelState.IsValid)
@@ -135,10 +139,10 @@ namespace GlobalEvents.Controllers
             return View();
         }
 
-        public JsonResult GetEvents()
+        public JsonResult GetEvents(int? id)
         {
             return Json(
-                Servicios.EventsService.ObtenerEventos(),
+                Servicios.EventsService.GetForMap(id),
                 JsonRequestBehavior.AllowGet);
         }
     }

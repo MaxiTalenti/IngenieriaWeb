@@ -41,10 +41,6 @@
                         <!--<a class="nav-link" href="#">Eventos</a>-->
                         @Html.ActionLink("Eventos", "Index", "Events", new { area = "" }, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item @Html.IsSelected(controllers: "Events", actions: "MapView", cssClass: "active")">
-                        <!--<a class="nav-link" href="#">Mapa</a>-->
-                        @Html.ActionLink("Mapa", "MapView", "Events", new { area = "" }, new { @class = "nav-link" })
-                    </li>
                     <li class="nav-item @Html.IsSelected(controllers: "Users", cssClass: "active")">
                         @if (WebSecurity.IsAuthenticated)
                         {
