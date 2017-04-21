@@ -62,7 +62,7 @@ namespace Servicios
         /// </summary>
         /// <param name="Path">Ruta de imagen</param>
         /// <returns>Diccionario con código de respuesta, si es 200 es ok y si es 200, el Id de la imagen generada</returns>
-        public Dictionary<String, String> subirImagen(String Path)
+        public ImageUploadResult subirImagen(String Path)
         {
             CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
             {
@@ -70,10 +70,10 @@ namespace Servicios
             };
 
             CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
-            Dictionary<String, String> Diccionario = new Dictionary<String, String>();
-            Diccionario.Add("StatusCode", uploadResult.StatusCode.ToString());
-            Diccionario.Add("RandomId", uploadResult.PublicId);
-            return Diccionario;
+            ImageUploadResult result = new ImageUploadResult();
+            result.Status = uploadResult.StatusCode.ToString();
+            result.Uri= uploadResult.Uri.ToString();
+            return result;
         }
 
         /// <summary>
@@ -86,5 +86,11 @@ namespace Servicios
             //return cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", NombreImagen, Format));
             return cloudinary.Api.UrlImgUp.BuildUrl(NombreImagen);
         }
+    }
+
+    public class ImageUploadResult
+    {
+        public string Status { get; set; }
+        public string Uri { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace RepositorioClases
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web;
 
     public partial class Events
     {
@@ -54,6 +55,10 @@ namespace RepositorioClases
         [Required]
         [StringLength(200)]
         public string Direccion { get; set; }
+
+        //[Required]
+        //[StringLength(200)]
+        public String RutaImagen { get; set; }
 
 
         [Required]

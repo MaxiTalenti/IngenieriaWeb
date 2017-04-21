@@ -1,10 +1,12 @@
-﻿using RepositorioClases;
+﻿using Hopac.Core;
+using RepositorioClases;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Web;
 
 namespace Servicios
 {
@@ -26,9 +28,28 @@ namespace Servicios
         /// Creación de usuario
         /// </summary>
         /// <param name="events"></param>
-        public static void Create(Events events)
+        public static void Create(Events events, HttpPostedFileBase file)
         {
-            
+            String uriimage = "";
+            if (file.ContentLength > 0)
+            {
+                var path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data");
+                string savedFileName = Path.Combine(path, Path.GetFileName(file.FileName));
+                file.SaveAs(savedFileName);
+
+                Servicios.Imagenes imagenes = new Imagenes();
+                ImageUploadResult result = imagenes.subirImagen(savedFileName);
+                if(result.Status == "OK")
+                {
+                    uriimage = result.Uri;
+                }
+                else
+                {
+                    uriimage = null;
+                }
+
+                File.Delete(savedFileName);
+            }
             using (Modelo context = new Modelo())
             {
                 context.Events.Add(new Events()
@@ -44,11 +65,13 @@ namespace Servicios
                     NombreEvento = events.NombreEvento,
                     IdCategoria = events.IdCategoria,
                     Destacado = events.Destacado,
-                    Direccion = events.Direccion
+                    Direccion = events.Direccion,
+                    RutaImagen = uriimage
             });
 
                 context.SaveChanges();
             }
+
         }
 
         /// <summary>

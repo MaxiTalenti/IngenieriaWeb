@@ -53,12 +53,12 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [MyAuthorize]
-        public ActionResult Create([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria")] Events events)
+        public ActionResult Create([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria, RutaImagen")] Events events, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
                 events.IdUser = WebSecurity.CurrentUserId;               
-                EventsService.Create(events);
+                EventsService.Create(events, file);
                 return RedirectToAction("Index");
             }
 
@@ -67,6 +67,7 @@ namespace GlobalEvents.Controllers
 
         // GET: Events/Edit/5
         [MyAuthorize]
+  
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -87,7 +88,7 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [MyAuthorize]
-        public ActionResult Edit([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria")] Events events)
+        public ActionResult Edit([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria, RutaImagen")] Events events)
         {
             if (ModelState.IsValid)
             {
