@@ -28,7 +28,7 @@ namespace Servicios
         /// Creación de usuario
         /// </summary>
         /// <param name="events"></param>
-        public static void Create(Events events, HttpPostedFileBase file)
+        public static void Create(Events events, HttpPostedFileBase file, TimeSpan HoraInicio, TimeSpan HoraFin)
         {
             String uriimage = "";
             if (file.ContentLength > 0)
@@ -66,9 +66,10 @@ namespace Servicios
                     IdCategoria = events.IdCategoria,
                     Destacado = events.Destacado,
                     Direccion = events.Direccion,
-                    RutaImagen = uriimage
+                    RutaImagen = uriimage,
+                    HoraInicio = events.HoraInicio,
+                    HoraFin = events.HoraFin
             });
-
                 context.SaveChanges();
             }
 
@@ -99,27 +100,30 @@ namespace Servicios
         /// Editar usuario
         /// </summary>
         /// <param name="user">Usuario a editar</param>
-        public static void Edit(Events events, HttpPostedFileBase file)
+        public static void Edit(Events events, HttpPostedFileBase file, TimeSpan HoraInicio, TimeSpan HoraFin)
         {
             String uriimage = "";
-            if (file.ContentLength > 0)
+            if (file != null)
             {
-                var path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data");
-                string savedFileName = Path.Combine(path, Path.GetFileName(file.FileName));
-                file.SaveAs(savedFileName);
-
-                Servicios.Imagenes imagenes = new Imagenes();
-                ImageUploadResult result = imagenes.subirImagen(savedFileName);
-                if (result.Status == "OK")
+                if (file.ContentLength > 0)
                 {
-                    uriimage = result.Uri;
-                }
-                else
-                {
-                    uriimage = null;
-                }
+                    var path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data");
+                    string savedFileName = Path.Combine(path, Path.GetFileName(file.FileName));
+                    file.SaveAs(savedFileName);
 
-                File.Delete(savedFileName);
+                    Servicios.Imagenes imagenes = new Imagenes();
+                    ImageUploadResult result = imagenes.subirImagen(savedFileName);
+                    if (result.Status == "OK")
+                    {
+                        uriimage = result.Uri;
+                    }
+                    else
+                    {
+                        uriimage = null;
+                    }
+
+                    File.Delete(savedFileName);
+                }
             }
             using (Modelo context = new Modelo())
             {
@@ -143,6 +147,8 @@ namespace Servicios
                     even.Destacado = events.Destacado;
                     even.Direccion = events.Direccion;
                     even.RutaImagen = uriimage;
+                    even.HoraInicio = events.HoraInicio;
+                    even.HoraFin = events.HoraFin;
                 }
 
                 context.SaveChanges();

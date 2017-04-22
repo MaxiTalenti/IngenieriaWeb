@@ -32,11 +32,11 @@ namespace RepositorioClases
 
         [Required]
         [DataType(DataType.DateTime)]
-        [Display(Name = "Inicio")]
+        [Display(Name = "Fecha Inicio")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaInicio { get; set; }
 
-        [Display(Name = "Fin")]
+        [Display(Name = "Fecha Finalización")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaFin { get; set; }
@@ -63,6 +63,10 @@ namespace RepositorioClases
 
         [Required]
         public EventState Estado { get; set; }
+
+        public Nullable<TimeSpan> HoraInicio { get; set; }
+
+        public Nullable<TimeSpan> HoraFin { get; set; }
     }
 
     public enum EventState
