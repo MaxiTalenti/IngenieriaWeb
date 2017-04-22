@@ -53,12 +53,15 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [MyAuthorize]
-        public ActionResult Create([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria, RutaImagen")] Events events, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria, RutaImagen, HoraInicio, HoraFin")]
+        Events events, HttpPostedFileBase file, string HoraInicio, string HoraFin)
         {
             if (ModelState.IsValid)
             {
+                TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
+                TimeSpan Fin = TimeSpan.Parse(HoraFin);
                 events.IdUser = WebSecurity.CurrentUserId;               
-                EventsService.Create(events, file);
+                EventsService.Create(events, file, Inicio, Fin);
                 return RedirectToAction("Index");
             }
 
@@ -88,14 +91,17 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [MyAuthorize]
-        public ActionResult Edit([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria, RutaImagen")] Events events,
-            HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria, RutaImagen, HoraInicio, HoraFin")] Events events,
+            HttpPostedFileBase file, string HoraInicio, string HoraFin)
         {
             if (ModelState.IsValid)
             {
+                TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
+                TimeSpan Fin = TimeSpan.Parse(HoraFin);
+                events.IdUser = WebSecurity.CurrentUserId;
                 //db.Entry(events).State = EntityState.Modified;
                 //db.SaveChanges();
-                EventsService.Edit(events, file);
+                EventsService.Edit(events, file, Inicio, Fin);
                 return RedirectToAction("Index");
             }
             return View(events);
