@@ -25,7 +25,7 @@ namespace GlobalEvents.Controllers
 
         public ViewResult Index()
         {
-            return View(UserService.Get(null).Select(u => new ViewModels.ListUserViewModel()
+            return View(UserService.Get(null).Select(u => new ListUserViewModel()
             {
                 Email = u.Email,
                 Id = u.Id,
@@ -41,7 +41,7 @@ namespace GlobalEvents.Controllers
 
         public ViewResult Details(int id)
         {
-            ListUserViewModel user = UserService.Get(id).Select(u => new ViewModels.ListUserViewModel()
+            ListUserViewModel user = UserService.Get(id).Select(u => new ListUserViewModel()
             {
                 Id = u.Id,
                 Email = u.Email,
@@ -59,7 +59,7 @@ namespace GlobalEvents.Controllers
         [AllowAnonymous]
         public ActionResult Create()
         {
-            return View(new ViewModels.CreateUserModel());
+            return View(new CreateUserModel());
         }
 
         //

@@ -37,6 +37,10 @@
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li class="@Html.IsSelected(controllers: "Home", actions: "Index", cssClass: "active")">@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, null)</li>
                     <li class="@Html.IsSelected(controllers: "Events", cssClass: "active")">@Html.ActionLink("Eventos", "Index", "Events", new { area = "" }, null)</li>
+                    @if (WebSecurity.IsAuthenticated)
+                    {
+                        <li class="@Html.IsSelected(controllers: "Events", actions: "MyEvents", cssClass: "active")">@Html.ActionLink("Mis eventos", "Index", "Events", new { area = "" }, null)</li>
+                    }
                 </ul>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -80,7 +84,7 @@
                 </ul>
             </div>
             <!-- Barra debajo para categorías-->
-            @if (Html.IsSelected(controllers: "Events"))
+            @if (Html.IsSelected(controllers: "Events", actions: "Index"))
             {
                 <div class="nav-content">
                     <ul class="tabs tabs-transparent">
@@ -107,9 +111,36 @@
                             <a class="" href="#"><i class="fa fa-futbol-o fa-fw"></i>Deportes</a>
                         </li>
                     </ul>
-                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal" href="~/Events/Create">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal pulse" href="~/Events/Create">
                         <i class="material-icons">add</i>
                     </a>
+                </div>
+            }
+            <!-- Barra debajo ediciones-->
+            @if (Html.IsSelected(controllers: "Users") || Html.IsSelected(controllers: "Events", actions: "Listado"))
+            {
+                <div class="nav-content">
+                    <ul class="tabs tabs-transparent">
+
+                        <li class="tab">
+                            <a class="@Html.IsSelected(controllers: "Users", cssClass: "active")" target="_top" href="~/Users/Index"><i class="fa fa-user-circle-o fa-fw"></i>Usuarios</a>
+                        </li>
+                        <li class="tab">
+                            <a class="@Html.IsSelected(controllers: "Events", actions: "Listado", cssClass: "active")" target="_top" href="~/Events/Listado"><i class="fa fa-calendar-times-o fa-fw"></i>Eventos</a>
+                        </li>
+                    </ul>
+                    @if (Html.IsSelected(controllers: "Users"))
+                    {
+                        <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal pulse" href="~/Users/Create">
+                            <i class="material-icons">add</i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal pulse" href="~/Events/Create">
+                            <i class="material-icons">add</i>
+                        </a>
+                    }
                 </div>
             }
         </nav>

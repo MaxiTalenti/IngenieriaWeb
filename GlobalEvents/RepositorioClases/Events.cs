@@ -42,6 +42,7 @@ namespace RepositorioClases
         public DateTime FechaFin { get; set; }
         
         [Required]
+        [Display(Name = "Usuario")]
         public int IdUser { get; set; }
 
         [Required]

@@ -39,6 +39,13 @@ namespace GlobalEvents.Controllers
             return View(events);
         }
 
+        [HttpGet]
+        public ActionResult Listado()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos();
+            return View(Lista);
+        }
+
         // GET: Events/Create
         [MyAuthorize]
         public ActionResult Create()

@@ -7,83 +7,141 @@
 <br />
 
 <div class="container">
-    <div class="row">
-        <div class="col s12 cards-container">
 
-            @foreach (var item in Model)
+    <nav>
+        <div class="nav-wrapper">
+            <form>
+                <div class="input-field #00897b teal darken-1">
+                    <input id="search" type="search" required>
+                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <ul class="collapsible" data-collapsible="expandable">
+        <li class="">
+            <div class="collapsible-header active"><i class="material-icons">event_note</i>Fecha de inicio</div>
+            <div class="collapsible-body filter-container" style="display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;">
+                <form action="#">
+                    <ul>
+                        <li>
+                            <input class="with-gap" name="group1" type="radio" id="Today" />
+                            <label for="Today">Hoy</label>
+                        </li>
+                        <li>
+                            <input class="with-gap" name="group1" type="radio" id="week" />
+                            <label for="week">Esta semana</label>
+                        </li>
+                        <li>
+                            <input class="with-gap" name="group1" type="radio" id="month" selected />
+                            <label for="month">Este mes</label>
+                        </li>
+                        <li>
+                            <input class="with-gapLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum rutrum sodales. Nullam mattis fermentum libero, non volutpat." name="group1" type="radio" id="year" />
+                            <label for="year">Este año</label>
+                        </li>
+                    </ul>
+
+
+                </form>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header active"><i class="material-icons">pin_drop</i>País</div>
+            <div class="collapsible-body filter-container">
+
+                <ul>
+                    <li>
+                        <input type="checkbox" name="event-type-filter" class="event-type-filter filled-in" id="Argentina" checked="checked" value="Argentina" />
+                        <label for="socials">Argentina</label>
+                    </li>
+                </ul>
+
+            </div>
+        </li>
+    </ul>
+
+
+
+
+    <div class="col s12 m12 l9">
+        <div id="card-container" class="row">
+
+            @foreach (var item in Model.OrderBy(z => z.FechaInicio))
             {
-                if (item.Destacado)
-                {
-                    if (item.RutaImagen != null)
+
+                <!-- Col: Card 1 -->
+                <div class="col s12 m6 l4">
+                    <!-- Card 1 -->
+                    @if (item.Destacado)
                     {
-                        <div class="card blue-grey darken-1">
-                            <div class="card-image">
-                                <img src="@Html.DisplayFor(modelItem => item.RutaImagen)">
-                                <span class="card-title">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
-                                <a class="btn-floating halfway-fab waves-effect waves-light red" href="~/Events/Details/@item.Id"><i class="material-icons">more_vert</i></a>
-                            </div>
-                            <div class="card-content">
-                                <p>@Html.DisplayFor(modelItem => item.Descripcion)</p>
-                                <div class="chip">
-                                    <img src="images/yuna.jpg" alt="Contact Person">
-                                    Jane Doe
+                        <div class="card #00897b teal darken-1 hoverable">
+                            @if (item.RutaImagen != null)
+                            {
+                                <div class="card-image">
+                                    <img src="@Html.DisplayFor(modelItem => item.RutaImagen)">
+                                    <a class="btn-floating halfway-fab waves-effect waves-light grey" href="~/Events/Details/@item.Id"><i class="material-icons">list</i></a>
                                 </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="card blue-grey darken-1">
+                            }
                             <div class="card-content white-text">
-                                <span class="card-title">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
-                                <p>@Html.DisplayFor(modelItem => item.Descripcion)</p>
-                                <div class="chip">
-                                    <img src="https://cdn1.iconfinder.com/data/icons/web-essentials-circle-style/48/user-512.png" alt="Contact Person">
-                                    Jane Doe
+                                <h8 class="white-text"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => item.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => item.IdCategoria)</h8>
+                                <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
+                                <p class="card-subtitle text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => item.IdUser).ToString())</small></p>
+                                <hr />
+
+                                <div class="row card-row">
+                                    <div class="col s12 m12 right-align">
+                                        <span class="card-info card-event-detail-info">@Html.DisplayFor(modelItem => item.FechaInicio)  <i class="fa fa-calendar-times-o"></i></span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-action">
-                                <a href="~/Events/Details/@item.Id">Ver evento</a>
-                            </div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    if (item.RutaImagen != null)
-                    {
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="@Html.DisplayFor(modelItem => item.RutaImagen)">
-                                <span class="card-title">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
-                                <a class="btn-floating halfway-fab waves-effect waves-light red" href="~/Events/Details/@item.Id"><i class="material-icons">more_vert</i></a>
-                            </div>
-                            <div class="card-content">
-                                <p>@Html.DisplayFor(modelItem => item.Descripcion)</p>
-                                <div class="chip">
-                                    <img src="images/yuna.jpg" alt="Contact Person">
-                                    Jane Doe
+
+                            @if (item.RutaImagen == null)
+                            {
+                                <div class="card-action center-align">
+                                    <a href="~/Events/Details/@item.Id" class="white-text">Ver evento</a>
                                 </div>
-                            </div>
+                            }
                         </div>
                     }
                     else
                     {
-                        <div class="card">
-                            <div class="card-content grey-text">
-                                <span class="card-title">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
-                                <p>@Html.DisplayFor(modelItem => item.Descripcion)</p>
-                                <div class="chip">
-                                    <img src="images/yuna.jpg" alt="Contact Person">
-                                    Jane Doe
+                        <div class="card hoverable">
+                            @if (item.RutaImagen != null)
+                            {
+                                <div class="card-image">
+                                    <img src="@Html.DisplayFor(modelItem => item.RutaImagen)">
+                                    <a class="btn-floating halfway-fab waves-effect waves-light #00897b" href="~/Events/Details/@item.Id"><i class="material-icons">list</i></a>
                                 </div>
+                            }
+
+                            <div class="card-content black-text">
+                                <h8 class="black-text"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => item.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => item.IdCategoria)</h8>
+                                <span class="card-title grey-text text-darken-4">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
+                                <p class="card-subtitle grey-text text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => item.IdUser).ToString())</small></p>
+                                <hr />
+                                
+                                <div class="row card-row">
+                                    <div class="col s12 m12 right-align">
+                                        <span class="card-info card-event-detail-info">@Html.DisplayFor(modelItem => item.FechaInicio)  <i class="fa fa-calendar-times-o"></i></span>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="card-action">
-                                <a href="~/Events/Details/@item.Id">Ver evento</a>
-                            </div>
+
+                            @if (item.RutaImagen == null)
+                            {
+                                <div class="card-action center-align">
+                                    <a href="~/Events/Details/@item.Id" class="green-text">Ver evento</a>
+                                </div>
+                            }
                         </div>
                     }
-                }
+                </div>
             }
         </div>
     </div>
