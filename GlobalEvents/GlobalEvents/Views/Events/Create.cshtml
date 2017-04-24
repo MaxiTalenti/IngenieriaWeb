@@ -8,148 +8,172 @@
 <br />
 <br />
 
-@using (Html.BeginForm("Create", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+<div class="card hoverable">
+    <div class="card-content">
+        @using (Html.BeginForm("Create", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h3>Nuevo Evento</h3>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-horizontal">
 
-        <div class="md-form">
-            @Html.EditorFor(model => model.NombreEvento, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.LabelFor(model => model.NombreEvento)
-            @Html.ValidationMessageFor(model => model.NombreEvento, "", new { @class = "text-danger" })
-        </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="md-form">
-            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.LabelFor(model => model.Descripcion)
-            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-        </div>
+                <div class="input-field">
+                    @Html.EditorFor(model => model.NombreEvento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.LabelFor(model => model.NombreEvento)
+                    @Html.ValidationMessageFor(model => model.NombreEvento, "", new { @class = "text-danger" })
+                </div>
 
-        <div class="md-form">
-            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.LabelFor(model => model.Direccion)
-            @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
-        </div>
+                <div class="input-field">
+                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.LabelFor(model => model.Descripcion)
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control", type = "date" } })
-                @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="input-field">
+                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.LabelFor(model => model.Direccion)
+                    @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                </div>
 
-        <div class="form-group">
-            <h6> Hora Inicio:</h6>
-            <input class="text-box single-line col-2" id="HoraInicio" name="HoraInicio" type="time" value="12:00" />
-        </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <!--<label for="timepicker">Time</label>-->
+                        <input id="timepicker" class="timepicker" type="time">
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control", type = "date" } })
-                @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <script>
+  $('#timepicker').pickatime({
+    autoclose: false,
+    twelvehour: false,
+    default: '14:20:00'
+  });
+                    </script>
 
-        <div class="form-group">
-            <h6> Hora Fin:</h6>
-            <input class="text-box single-line col-2" id="HoraFin" name="HoraFin" type="time" value="12:00" />
-        </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Placeholder" id="FechaInicio" type="text" class="validate" value="@Model.FechaInicio">
+                        <label for="first_name">Fecha inicio</label>
+                    </div>
 
-        <div class="form-group">
-            @Html.EnumDropDownListFor(model => model.IdCategoria, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.CheckBoxFor(model => model.Destacado, new { @class = "form-control", type = "checkbox"})
-                @Html.LabelFor(model => model.Destacado, htmlAttributes: new { @class = "control-label col-md-2" })
-            </div>
-        </div>
-
-        <blockquote>Arrastre el marcador hacia la ubicación del evento</blockquote>
-
-        <div id="map" style="width:100%;height:600px;"></div>
-
-        <script>
-            // Note: This example requires that you consent to location sharing when
-            // prompted by your browser. If you see the error "The Geolocation service
-            // failed.", it means you probably did not give permission for the browser to
-            // locate you.
-
-            function initMap() {
-
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    center: { lat: -30.94520, lng: -61.56056 },
-                    zoom: 14
-                });
-
-                var infoWindow = new google.maps.InfoWindow({ map: map });
+                    <div class="input-field col s6">
 
 
-                var myMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(-30.94520, -61.56056),
-                    draggable: true
-                });
+                        <label>Hora inicio:</label>
+                    </div>
+                </div>
 
-                map.setCenter(myMarker.position);
-                myMarker.setMap(map);
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                        @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                $('#lat').val(-30.94520);
-                $('#lng').val(-61.56056);
+                <div class="form-group">
+                    <label>Hora fin:</label>
+                    <input class="text-box single-line col-2" id="HoraFin" name="HoraFin" type="time" value="12:00" />
+                </div>
 
-                //-----------------------------------------------------------------------
+                <div class="form-group">
+                    @Html.EnumDropDownListFor(model => model.IdCategoria, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+                </div>
 
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.Destacado, new { @class = "form-control", type = "checkbox" })
+                        @Html.LabelFor(model => model.Destacado, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </div>
+                </div>
 
-                google.maps.event.addListener(myMarker, 'dragend', function (evt) {
-                    $('#lat').val(evt.latLng.lat().toFixed(5));
-                    $('#lng').val(evt.latLng.lng().toFixed(5));
-                });
+                <blockquote>Arrastre el marcador hacia la ubicación del evento</blockquote>
 
-                //-----------------------------------------------------------------------
-            }
-            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-                infoWindow.setPosition(pos);
-                infoWindow.setContent(browserHasGeolocation ?
-                    'Error: The Geolocation service failed.' :
-                    'Error: Your browser doesn\'t support geolocation.');
-            }
+                <div id="map" style="width:100%;height:600px;"></div>
 
-        </script>
+                <script>
+                    // Note: This example requires that you consent to location sharing when
+                    // prompted by your browser. If you see the error "The Geolocation service
+                    // failed.", it means you probably did not give permission for the browser to
+                    // locate you.
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPHbsGCp8vpDA1vMKAFWsU0Odc8Mz5SAA&callback=initMap" async defer></script>
+                    function initMap() {
 
-        <div class="md-form col-md-2">
-            @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control", @id = "lat", @readonly = "readonly", @hidden = true } })
-            @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
-        </div>
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            center: { lat: -30.94520, lng: -61.56056 },
+                            zoom: 14
+                        });
 
-
-        <div class="md-form col-md-2">
-            @Html.EditorFor(model => model.lng, new { htmlAttributes = new { @class = "form-control", @id = "lng", @readonly = "readonly", @hidden = true } })
-            @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
-        </div>
-
-        <label for="file">Subir imagen:</label>
-        <input type="file" name="file" id="file" /><br><br>
+                        var infoWindow = new google.maps.InfoWindow({ map: map });
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </div>
+                        var myMarker = new google.maps.Marker({
+                            position: new google.maps.LatLng(-30.94520, -61.56056),
+                            draggable: true
+                        });
 
+                        map.setCenter(myMarker.position);
+                        myMarker.setMap(map);
+
+                        $('#lat').val(-30.94520);
+                        $('#lng').val(-61.56056);
+
+                        //-----------------------------------------------------------------------
+
+
+                        google.maps.event.addListener(myMarker, 'dragend', function (evt) {
+                            $('#lat').val(evt.latLng.lat().toFixed(5));
+                            $('#lng').val(evt.latLng.lng().toFixed(5));
+                        });
+
+                        //-----------------------------------------------------------------------
+                    }
+                    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent(browserHasGeolocation ?
+                            'Error: The Geolocation service failed.' :
+                            'Error: Your browser doesn\'t support geolocation.');
+                    }
+
+                </script>
+
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPHbsGCp8vpDA1vMKAFWsU0Odc8Mz5SAA&callback=initMap" async defer></script>
+
+                <div class="md-form col-md-2">
+                    @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control", @id = "lat", @readonly = "readonly", @hidden = true } })
+                    @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
+                </div>
+
+
+                <div class="md-form col-md-2">
+                    @Html.EditorFor(model => model.lng, new { htmlAttributes = new { @class = "form-control", @id = "lng", @readonly = "readonly", @hidden = true } })
+                    @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
+                </div>
+
+                <form action="#">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Subir imagen</span>
+                            <input type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" id="file" name="file">
+                        </div>
+                    </div>
+                </form>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
     </div>
+            <script>
+                $(document).ready(function () {
+                    $('select').material_select();
+                });</script>
+        }
 
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>

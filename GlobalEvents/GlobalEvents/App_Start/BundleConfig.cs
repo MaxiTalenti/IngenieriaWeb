@@ -31,7 +31,9 @@ namespace GlobalEvents
                       "~/Content/font-awesome.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/materialize.css",
-                      "~/Content/materialize.min.css",
+                      "~/Content/materialize.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/scss").Include(
                       "~/Content/clockpicker.scss",
                       "~/Content/components/_dark.scss",
                       "~/Content/components/_primary.scss",
