@@ -36,30 +36,19 @@
                     @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <!--<label for="timepicker">Time</label>-->
-                        <input id="timepicker" class="timepicker" type="time">
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                        @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <script>
-  $('#timepicker').pickatime({
-    autoclose: false,
-    twelvehour: false,
-    default: '14:20:00'
-  });
-                    </script>
-
-                    <div class="input-field col s6">
-                        <input placeholder="Placeholder" id="FechaInicio" type="text" class="validate" value="@Model.FechaInicio">
-                        <label for="first_name">Fecha inicio</label>
-                    </div>
-
-                    <div class="input-field col s6">
-
-
-                        <label>Hora inicio:</label>
-                    </div>
+                <div class="form-group">
+                    <label>Hora inicio:</label>
+                    <input class="text-box single-line col-2" id="HoraInicio" name="HoraInicio" type="time" value="12:00" />
                 </div>
 
                 <div class="form-group">
@@ -150,7 +139,7 @@
                     @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
                 </div>
 
-                <form action="#">
+                @*<form action="#">
                     <div class="file-field input-field">
                         <div class="btn">
                             <span>Subir imagen</span>
@@ -160,13 +149,17 @@
                             <input class="file-path validate" type="text" id="file" name="file">
                         </div>
                     </div>
-                </form>
+                </form>*@
+
+                <label for="file">Subir imagen:</label>
+                <input type="file" name="file" id="file" /><br><br>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
                 </div>
+
     </div>
             <script>
                 $(document).ready(function () {
