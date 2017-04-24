@@ -31,7 +31,7 @@ namespace Servicios
         public static void Create(Events events, HttpPostedFileBase file, TimeSpan HoraInicio, TimeSpan HoraFin)
         {
             String uriimage = "";
-            if (file.ContentLength > 0)
+            if (file != null)
             {
                 var path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data");
                 string savedFileName = Path.Combine(path, Path.GetFileName(file.FileName));

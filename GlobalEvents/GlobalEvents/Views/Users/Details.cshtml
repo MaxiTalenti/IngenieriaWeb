@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detalles</h2>
+<br />
+<br />
 
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
@@ -59,7 +60,8 @@
         </p>
     </div>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Volver a usuarios", "Index")
-</p>
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large green" href="~/Users/Edit/@Model.Id">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+</div>
