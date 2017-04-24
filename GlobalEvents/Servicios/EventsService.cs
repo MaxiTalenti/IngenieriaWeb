@@ -139,7 +139,7 @@ namespace Servicios
                     even.Id = events.Id;
                     even.FechaFin = events.FechaFin;
                     even.FechaInicio = events.FechaInicio;
-                    even.IdUser = events.IdUser;
+                    even.IdUser = even.IdUser;
                     even.lat = events.lat;
                     even.lng = events.lng;
                     even.NombreEvento = events.NombreEvento;
