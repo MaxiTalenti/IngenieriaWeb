@@ -47,7 +47,7 @@
             <input class="text-box single-line col-2" id="HoraInicio" name="HoraInicio" type="time" value="@Model.HoraInicio" />
         </div>
 
-        <div class="input-field col-md-12 s12">>
+        <div class="input-field col-md-12 s12">
             @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control", type = "date" } })
