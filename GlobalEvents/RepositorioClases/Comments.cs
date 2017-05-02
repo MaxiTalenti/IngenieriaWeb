@@ -5,19 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RepositorioClases
 {
     public partial class Comments
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CommentId { get; set; }
+
         [Required]
         [Display(Name = "Usuario creador")]
         public int iDUsuario { get; set; }
 
         [Required]
-        [StringLength(200)]
         [Display(Name = "Número evento")]
-        public int iDEvento { get; set; }
+        public long EventId { get; set; }
 
         [Required]
         public DateTime Fecha { get; set; }
@@ -29,7 +32,9 @@ namespace RepositorioClases
 
         [Required]
         [StringLength(5000, ErrorMessage = "No se permite que el comentario sea mayor a los 5000 carácteres")]
-        public int Comentario { get; set; }
+        public string Comentario { get; set; }
+
+        public virtual Events Event { get; set; }
 
     }
 }

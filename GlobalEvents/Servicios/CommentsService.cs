@@ -9,12 +9,12 @@ namespace Servicios
 {
     public static class CommentsService
     {
-        public static List<Comments> ObtenerEventos()
-        {
-            using (Modelo context = new Modelo())
-            {
-                //return context.co.Where(z => z.Estado != EventState.Eliminado).ToList();
-            }
-        }
+        //public static List<Comments> ObtenerEventos()
+        //{
+        //    using (Modelo context = new Modelo())
+        //    {
+        //        //return context.co.Where(z => z.Estado != EventState.Eliminado).ToList();
+        //    }
+        //}
     }
 }

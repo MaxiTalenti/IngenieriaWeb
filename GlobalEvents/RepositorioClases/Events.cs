@@ -61,6 +61,9 @@ namespace RepositorioClases
         //[StringLength(200)]
         public String RutaImagen { get; set; }
 
+        [ForeignKey("EventId")]
+        public virtual List<Comments> Comments { get; set; }
+
 
         [Required]
         public EventState Estado { get; set; }

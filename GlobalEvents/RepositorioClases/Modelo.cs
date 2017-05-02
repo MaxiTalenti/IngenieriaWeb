@@ -17,6 +17,6 @@ namespace RepositorioClases
         public virtual DbSet<Membership> Memberships { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<UsersInRole> UsersInRoles { get; set; }
-
+        public virtual DbSet<Comments> Comments { get; set; }
     }
 }
