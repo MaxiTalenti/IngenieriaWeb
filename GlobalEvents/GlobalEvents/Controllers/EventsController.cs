@@ -20,7 +20,56 @@ namespace GlobalEvents.Controllers
         // GET: Events
         public ActionResult Index()
         {
-            List<Events> Lista = EventsService.ObtenerEventos();
+            // Por el momento acá va a ser destacados, después vemos si mostramos otros.
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.Destacado == true).ToList();
+            return View(Lista);
+        }
+
+        public ActionResult Mios()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdUser == WebSecurity.CurrentUserId).ToList();
+            return View(Lista);
+        }
+
+        public ActionResult Destacados()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.Destacado == true).ToList();
+            return View(Lista);
+        }
+
+        public ActionResult Musica()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Musica).ToList();
+            return View(Lista);
+        }
+
+        public ActionResult Fiestas()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Fiestas).ToList();
+            return View(Lista);
+        }
+
+        public ActionResult Artes()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Artes).ToList();
+            return View(Lista);
+        }
+
+        public ActionResult Gastronomia()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Gastronomia).ToList();
+            return View(Lista);
+        }
+
+        public ActionResult Clases()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Clases).ToList();
+            return View(Lista);
+        }
+
+        public ActionResult Deportes()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Deportes).ToList();
             return View(Lista);
         }
 
@@ -60,7 +109,7 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [MyAuthorize]
-        public ActionResult Create([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado, Destacado, Direccion, IdCategoria, RutaImagen, HoraInicio, HoraFin")]
+        public ActionResult Create([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado,Destacado,Direccion,IdCategoria,RutaImagen,HoraInicio,HoraFin")]
         Events events, HttpPostedFileBase file, string HoraInicio, string HoraFin)
         {
             if (ModelState.IsValid)

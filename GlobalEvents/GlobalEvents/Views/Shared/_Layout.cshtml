@@ -42,7 +42,7 @@
                     <li class="@Html.IsSelected(controllers: "Events", cssClass: "active")">@Html.ActionLink("Eventos", "Index", "Events", new { area = "" }, null)</li>
                     @if (WebSecurity.IsAuthenticated)
                     {
-                        <li class="@Html.IsSelected(controllers: "Events", actions: "MyEvents", cssClass: "active")">@Html.ActionLink("Mis eventos", "Index", "Events", new { area = "" }, null)</li>
+                        <li class="@Html.IsSelected(controllers: "Events", actions: "Mios", cssClass: "active")">@Html.ActionLink("Mis eventos", "Mios", "Events", new { area = "" }, null)</li>
                     }
                 </ul>
 
@@ -61,7 +61,7 @@
                         else
                         {
                             @Html.ActionLink("Iniciar sesión", "Login", "Home", new { returnURL = HttpContext.Current.Request.Url.AbsolutePath }, null)
-                       }
+                        }
                     </li>
                 </ul>
                 <!-- Esto es para cuando se hace muy chica la pantalla-->
@@ -87,31 +87,38 @@
                 </ul>
             </div>
             <!-- Barra debajo para categorías-->
-            @if (Html.IsSelected(controllers: "Events", actions: "Index"))
+            @if (Html.IsSelected(controllers: "Events", actions: "Destacados") ||
+                Html.IsSelected(controllers: "Events", actions: "Musica") ||
+                Html.IsSelected(controllers: "Events", actions: "Fiestas") ||
+                Html.IsSelected(controllers: "Events", actions: "Artes") ||
+                Html.IsSelected(controllers: "Events", actions: "Gastronomia") ||
+                Html.IsSelected(controllers: "Events", actions: "Clases") ||
+                Html.IsSelected(controllers: "Events", actions: "Deportes") ||
+                Html.IsSelected(controllers: "Events", actions: "Index"))
             {
                 <div class="nav-content">
                     <ul class="tabs tabs-transparent">
 
                         <li class="tab">
-                            <a class="active" href="#"><i class="fa fa-star-o fa-fw"></i>Destacados</a>
+                            <a class="@Html.IsSelected(controllers: "Events", actions:"Destacados", cssClass: "active")" target="_top" href="~/Events/Destacados"><i class="fa fa-star-o fa-fw"></i> Destacados</a>
                         </li>
                         <li class="tab">
-                            <a class="" href="#"><i class="fa fa-music fa-fw"></i>Música</a>
+                            <a class="@Html.IsSelected(controllers: "Events", actions:"Musica", cssClass: "active")" target="_top" href="~/Events/Musica"><i class="fa fa-music fa-fw"></i> Música</a>
                         </li>
                         <li class="tab">
-                            <a class="" href="#"><i class="fa fa-beer fa-fw"></i>Fiestas</a>
+                            <a class="@Html.IsSelected(controllers: "Events", actions:"Fiestas", cssClass: "active")" target="_top" href="~/Events/Fiestas"><i class="fa fa-beer fa-fw"></i> Fiestas</a>
                         </li>
                         <li class="tab">
-                            <a class="" href="#"><i class="fa fa-picture-o fa-fw"></i>Artes</a>
+                            <a class="@Html.IsSelected(controllers: "Events", actions:"Artes", cssClass: "active")" target="_top" href="~/Events/Artes"><i class="fa fa-picture-o fa-fw"></i> Artes</a>
                         </li>
                         <li class="tab">
-                            <a class="" href="#"><i class="fa fa-cutlery fa-fw"></i>Gastronomía</a>
+                            <a class="@Html.IsSelected(controllers: "Events", actions:"Gastronomia", cssClass: "active")" target="_top" href="~/Events/Gastronomia"><i class="fa fa-cutlery fa-fw"></i> Gastronomía</a>
                         </li>
                         <li class="tab">
-                            <a class="" href="#"><i class="fa fa-graduation-cap fa-fw"></i>Clases</a>
+                            <a class="@Html.IsSelected(controllers: "Events", actions:"Clases", cssClass: "active")" target="_top" href="~/Events/Clases"><i class="fa fa-graduation-cap fa-fw"></i> Clases</a>
                         </li>
                         <li class="tab">
-                            <a class="" href="#"><i class="fa fa-futbol-o fa-fw"></i>Deportes</a>
+                            <a class="@Html.IsSelected(controllers: "Events", actions:"Deportes", cssClass: "active")" target="_top" href="~/Events/Deportes"><i class="fa fa-futbol-o fa-fw"></i> Deportes</a>
                         </li>
                     </ul>
                     <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal pulse" href="~/Events/Create">
@@ -151,22 +158,21 @@
 
     <script>$(".button-collapse").sideNav();</script>
 
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - GlobalEvents.</p>
-            </footer>
-        </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - GlobalEvents.</p>
+        </footer>
+    </div>
 
-        <!-- SCRIPTS -->
-        <!-- JQuery -->
-        <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="~/Scripts/materialize.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="~/Scripts/materialize.min.js"></script>
-        @RenderSection("scripts", required: false)
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/Scripts/materialize.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/materialize.min.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>
-

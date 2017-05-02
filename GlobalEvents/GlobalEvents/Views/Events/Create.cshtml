@@ -19,67 +19,78 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="input-field">
+                    <i class="material-icons prefix">label</i>
                     @Html.EditorFor(model => model.NombreEvento, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.LabelFor(model => model.NombreEvento)
                     @Html.ValidationMessageFor(model => model.NombreEvento, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="input-field">
+                    <i class="material-icons prefix">description</i>
                     @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.LabelFor(model => model.Descripcion)
                     @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="input-field">
+                    <i class="material-icons prefix">location_on</i>
                     @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.LabelFor(model => model.Direccion)
                     @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
                 </div>
 
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                <div class="row">
+                    <div class="input-field col s6">
+                        @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "active" })
+                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "datepicker" } })
                         @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
                     </div>
+                    <div class="input-field col s6">
+                        <input class="text-box single-line col-2" id="HoraInicio" name="HoraInicio" type="time" value="12:00" />
+                        <label for="last_name" class="active">Hora inicio</label>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Hora inicio:</label>
-                    <input class="text-box single-line col-2" id="HoraInicio" name="HoraInicio" type="time" value="12:00" />
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                <div class="row">
+                    <div class="input-field col s6">
+                        @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "active" })
+                        @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "datepicker" } })
                         @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Hora fin:</label>
-                    <input class="text-box single-line col-2" id="HoraFin" name="HoraFin" type="time" value="12:00" />
-                </div>
-
-                <div class="form-group">
-                    @Html.EnumDropDownListFor(model => model.IdCategoria, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.CheckBoxFor(model => model.Destacado, new { @class = "form-control", type = "checkbox" })
-                        @Html.LabelFor(model => model.Destacado, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="input-field col s6">
+                        <input class="text-box single-line col-2" id="HoraFin" name="HoraFin" type="time" value="12:00" />
+                        <label for="last_name" class="active">Hora fin</label>
                     </div>
                 </div>
+
+                @Html.EnumDropDownListFor(model => model.IdCategoria, null, new { @class = "form-control" })
+
+                <div class="form-group">
+                    @Html.CheckBoxFor(m => m.Destacado, new { @type = "checkbox", @id = "Destacado", @name = "Destacado" })
+                    <label for="Destacado">Evento destacado</label>
+                </div>
+
+                <!--Script para los checkbox-->
+                <script>
+                    $(document).ready(function () {
+                        $('input[type=checkbox]').each(function () {
+                            if (this.nextSibling.nodeName != 'label') {
+                                $(this).after('<label for="' + this.id + '"></label>')
+                            }
+                        })
+                    })</script>
+                <!--Script para los datepicker-->
+                <script>
+                    $('.datepicker').pickadate({
+                        selectMonths: true, // Creates a dropdown to control month
+                        selectYears: 15 // Creates a dropdown of 15 years to control year
+                    });</script>
 
                 <blockquote>Arrastre el marcador hacia la ubicación del evento</blockquote>
 
                 <div id="map" style="width:100%;height:600px;"></div>
 
+                <!--Script para mapas-->
                 <script>
                     // Note: This example requires that you consent to location sharing when
                     // prompted by your browser. If you see the error "The Geolocation service
@@ -139,34 +150,26 @@
                     @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
                 </div>
 
-                @*<form action="#">
-                    <div class="file-field input-field">
-                        <div class="btn">
-                            <span>Subir imagen</span>
-                            <input type="file">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" id="file" name="file">
-                        </div>
-                    </div>
-                </form>*@
+                <br />
+                <label for="file">Imagen del evento: </label>
+                <input type="file" name="file" id="file" />
 
-                <label for="file">Subir imagen:</label>
-                <input type="file" name="file" id="file" /><br><br>
-
+                <br />
+                <br />
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                    <div class="col-md-offset-2 col-md-10 align-center">
+                        <input type="submit" value="Crear" class="btn btn-primary" />
                     </div>
                 </div>
 
-    </div>
-            <script>
-                $(document).ready(function () {
-                    $('select').material_select();
-                });</script>
+            </div>
+                <!--Script para dropdown-->
+                <script>
+                    $(document).ready(function () {
+                        $('select').material_select();
+                    });</script>
         }
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
+        <div class="right-align">
+            @Html.ActionLink("Volver", "Index")
         </div>

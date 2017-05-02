@@ -223,10 +223,6 @@
     <Content Include="fonts\roboto\Roboto-Thin.ttf" />
     <Content Include="fonts\roboto\Roboto-Thin.woff" />
     <Content Include="fonts\roboto\Roboto-Thin.woff2" />
-    <Content Include="Content\clockpicker.scss" />
-    <Content Include="Content\components\_dark.scss" />
-    <Content Include="Content\components\_primary.scss" />
-    <Content Include="Content\components\_variables.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\CustomAlertValidation.js" />
@@ -281,6 +277,14 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Listado.cshtml" />
+    <Content Include="Views\Events\Mios.cshtml" />
+    <Content Include="Views\Events\Destacados.cshtml" />
+    <Content Include="Views\Events\Musica.cshtml" />
+    <Content Include="Views\Events\Fiestas.cshtml" />
+    <Content Include="Views\Events\Artes.cshtml" />
+    <Content Include="Views\Events\Gastronomia.cshtml" />
+    <Content Include="Views\Events\Clases.cshtml" />
+    <Content Include="Views\Events\Deportes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

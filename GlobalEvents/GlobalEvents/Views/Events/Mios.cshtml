@@ -1,6 +1,6 @@
 ﻿@model List<RepositorioClases.Events>
 @{
-    ViewBag.Title = "Eventos";
+    ViewBag.Title = "Mis eventos";
 }
 
 <br />
@@ -115,7 +115,8 @@
                                     <a class="btn-floating halfway-fab waves-effect waves-light #00897b" href="~/Events/Details/@item.Id"><i class="material-icons">list</i></a>
                                 </div>
                             }
-                            <div class="card-content black-text container">
+
+                            <div class="card-content black-text">
                                 <h8 class="black-text"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => item.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => item.IdCategoria)</h8>
                                 <span class="card-title grey-text text-darken-4">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
                                 <p class="card-subtitle grey-text text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
@@ -127,7 +128,9 @@
                                         <span class="card-info card-event-detail-info">@Html.DisplayFor(modelItem => item.FechaInicio)  <i class="fa fa-calendar-times-o"></i></span>
                                     </div>
                                 </div>
+
                             </div>
+
                             @if (item.RutaImagen == null)
                             {
                                 <div class="card-action center-align">

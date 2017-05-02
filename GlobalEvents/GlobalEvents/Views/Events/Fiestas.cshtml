@@ -1,6 +1,6 @@
 ﻿@model List<RepositorioClases.Events>
 @{
-    ViewBag.Title = "Eventos";
+    ViewBag.Title = "Fiestas";
 }
 
 <br />
@@ -84,7 +84,6 @@
                                 </div>
                             }
                             <div class="card-content white-text">
-                                <h8 class="white-text"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => item.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => item.IdCategoria)</h8>
                                 <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
                                 <p class="card-subtitle text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
                                 <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => item.IdUser).ToString())</small></p>
@@ -115,8 +114,8 @@
                                     <a class="btn-floating halfway-fab waves-effect waves-light #00897b" href="~/Events/Details/@item.Id"><i class="material-icons">list</i></a>
                                 </div>
                             }
-                            <div class="card-content black-text container">
-                                <h8 class="black-text"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => item.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => item.IdCategoria)</h8>
+
+                            <div class="card-content black-text">
                                 <span class="card-title grey-text text-darken-4">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
                                 <p class="card-subtitle grey-text text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
                                 <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => item.IdUser).ToString())</small></p>
@@ -127,7 +126,9 @@
                                         <span class="card-info card-event-detail-info">@Html.DisplayFor(modelItem => item.FechaInicio)  <i class="fa fa-calendar-times-o"></i></span>
                                     </div>
                                 </div>
+
                             </div>
+
                             @if (item.RutaImagen == null)
                             {
                                 <div class="card-action center-align">
