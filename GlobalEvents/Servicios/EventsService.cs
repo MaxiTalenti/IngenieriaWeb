@@ -84,7 +84,10 @@ namespace Servicios
         {
             using (Modelo context = new Modelo())
             {
-                return context.Events.Where(u => id.HasValue ? id.Value == u.Id : true).ToList();
+                List<Events> Eventos = context.Events.Where(u => id.HasValue ? id.Value == u.Id : true).ToList();
+                if (id != null)
+                    Eventos.FirstOrDefault().Comments = CommentsService.ObtenerComentarios(id.GetValueOrDefault()).ToList();
+                return Eventos;
             }
         }
 

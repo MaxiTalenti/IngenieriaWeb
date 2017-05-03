@@ -126,7 +126,6 @@ namespace GlobalEvents.Controllers
 
         // GET: Events/Edit/5
         [MyAuthorize]
-  
         public ActionResult Edit(long? id)
         {
             if (id == null)

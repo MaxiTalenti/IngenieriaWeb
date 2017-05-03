@@ -46,7 +46,7 @@ namespace RepositorioClases
         public int IdUser { get; set; }
 
         [Required]
-        [Range(0, 5, ErrorMessage = "Seleccione Categoría Correcta")]
+        [Range(0, 6, ErrorMessage = "Seleccione una categoría correcta")]
         public Categorias IdCategoria { get; set; }
 
         [Required]
@@ -63,7 +63,6 @@ namespace RepositorioClases
 
         [ForeignKey("EventId")]
         public virtual List<Comments> Comments { get; set; }
-
 
         [Required]
         public EventState Estado { get; set; }
@@ -89,7 +88,6 @@ namespace RepositorioClases
         Artes = 3,
         Gastronomia = 4,
         Clases = 5,
-        [Description("Deportes y Bienestar")]
         Deportes = 6
     }
 }

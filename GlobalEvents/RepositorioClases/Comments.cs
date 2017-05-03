@@ -28,13 +28,27 @@ namespace RepositorioClases
         [Required]
         public DateTime FechaUltimaActualizacion { get; set; }
 
-        public int ComentarioPAdre { get; set; }
+        public int ComentarioPadre { get; set; }
 
         [Required]
-        [StringLength(5000, ErrorMessage = "No se permite que el comentario sea mayor a los 5000 carácteres")]
+        [StringLength(3000, ErrorMessage = "No se permite que el comentario sea mayor a los 5000 carácteres")]
         public string Comentario { get; set; }
+
+        public int Like { get; set; }
+
+        public int UnLike { get; set; }
+
+        public Estado Estado { get; set; }
 
         public virtual Events Event { get; set; }
 
+    }
+
+    public enum Estado
+    {
+        Activo = 1,
+        Reportado = 2,
+        Bloqueado = 3,
+        Eliminado = 4
     }
 }
