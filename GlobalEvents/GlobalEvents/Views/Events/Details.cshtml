@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<!-- Modal Trigger -->
+@*<!-- Modal Trigger -->
 <a class="waves-effect waves-light btn" href="#modal1">Comentar</a>
 
 <!-- Modal Structure -->
@@ -97,8 +97,10 @@
                 </div>
             </div>
         </div>
-    }
-*@
+    }*@
+
+
+@Html.Action("GetEventCommets", "Events", new { IdEvento = Model.Id })
 
 <!--Hay que ver que sea el usuario que lo creo o algún administrador-->
 @if (WebSecurity.IsAuthenticated)

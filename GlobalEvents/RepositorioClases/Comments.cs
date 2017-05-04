@@ -28,7 +28,8 @@ namespace RepositorioClases
         [Required]
         public DateTime FechaUltimaActualizacion { get; set; }
 
-        public int ComentarioPadre { get; set; }
+        
+        public int? ComentarioPadre { get; set; }
 
         [Required]
         [StringLength(3000, ErrorMessage = "No se permite que el comentario sea mayor a los 5000 carácteres")]

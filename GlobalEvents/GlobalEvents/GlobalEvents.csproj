@@ -285,6 +285,7 @@
     <Content Include="Views\Events\Gastronomia.cshtml" />
     <Content Include="Views\Events\Clases.cshtml" />
     <Content Include="Views\Events\Deportes.cshtml" />
+    <Content Include="Views\Events\CommentsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

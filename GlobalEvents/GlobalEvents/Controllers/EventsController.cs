@@ -187,6 +187,22 @@ namespace GlobalEvents.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public ActionResult GetEventCommets(int IdEvento)
+        {
+            var comments = CommentsService.ObtenerComentarios(IdEvento).Select(u => new ViewModels.CommentsModel.Comments()
+            {
+                iDUsuario = u.iDUsuario,
+                CommentId = u.CommentId,
+                EventId = u.EventId,
+                Comentario = u.Comentario,
+                Like = u.Like,
+                UnLike = u.UnLike,
+                Fecha = u.Fecha
+            }).ToList();
+            return PartialView(@"~/Views/Events/CommentsView.cshtml", comments);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
