@@ -34,6 +34,9 @@ namespace RepositorioClases
 
         [Required(ErrorMessage = "El campo Estado es obligatorio")]
         public UserState Estado { get; set; }
+
+        [ForeignKey("IdUser")]
+        public virtual List<VotosUsersEvents> Votos { get; set; }
     }
 
     [Table("webpages_Membership")]

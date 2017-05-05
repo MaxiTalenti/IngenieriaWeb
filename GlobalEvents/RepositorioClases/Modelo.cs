@@ -18,5 +18,26 @@ namespace RepositorioClases
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<UsersInRole> UsersInRoles { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }
+        public virtual DbSet<VotosUsersEvents> VotosUserEvents { get; set; }
+
+
+        protected override void OnModelCreating(DbModelBuilder builder)
+        {
+
+            builder.Entity<Events>().HasKey(q => q.Id);
+            builder.Entity<Users>().HasKey(q => q.Id);
+            builder.Entity<VotosUsersEvents>().HasKey(q => q.Id);
+
+            // Relationships
+            builder.Entity<VotosUsersEvents>()
+                .HasRequired(t => t.Eventos)
+                .WithMany(t => t.Votos)
+                .HasForeignKey(t => t.IdEvent);
+
+            builder.Entity<VotosUsersEvents>()
+                .HasRequired(t => t.Usuarios)
+                .WithMany(t => t.Votos)
+                .HasForeignKey(t => t.IdUser);
+        }
     }
 }

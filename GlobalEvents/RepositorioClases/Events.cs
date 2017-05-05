@@ -70,6 +70,25 @@ namespace RepositorioClases
         public Nullable<TimeSpan> HoraInicio { get; set; }
 
         public Nullable<TimeSpan> HoraFin { get; set; }
+
+        [ForeignKey("IdEvent")]
+        public virtual List<VotosUsersEvents> Votos { get; set; }
+    }
+
+    public partial class VotosUsersEvents
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
+
+        public int IdUser { get; set; }
+        public long IdEvent { get; set; }
+        public bool Voto { get; set; }
+
+    
+        public virtual Events Eventos { get; set; }
+
+        
+        public virtual Users Usuarios { get; set; }
     }
 
     public enum EventState
