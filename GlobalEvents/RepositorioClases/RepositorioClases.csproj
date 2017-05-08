@@ -68,6 +68,22 @@
     <Compile Include="Migrations\201705051342500_AddVotosUserEvents.Designer.cs">
       <DependentUpon>201705051342500_AddVotosUserEvents.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705081338199_CommentsReportes.cs" />
+    <Compile Include="Migrations\201705081338199_CommentsReportes.Designer.cs">
+      <DependentUpon>201705081338199_CommentsReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705081340540_CommentsReportsObservacion.cs" />
+    <Compile Include="Migrations\201705081340540_CommentsReportsObservacion.Designer.cs">
+      <DependentUpon>201705081340540_CommentsReportsObservacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705081356351_CommentsReportsFechaResuelto.cs" />
+    <Compile Include="Migrations\201705081356351_CommentsReportsFechaResuelto.Designer.cs">
+      <DependentUpon>201705081356351_CommentsReportsFechaResuelto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705081528395_CommentsReportsStringLength.cs" />
+    <Compile Include="Migrations\201705081528395_CommentsReportsStringLength.Designer.cs">
+      <DependentUpon>201705081528395_CommentsReportsStringLength.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +105,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705051342500_AddVotosUserEvents.resx">
       <DependentUpon>201705051342500_AddVotosUserEvents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081338199_CommentsReportes.resx">
+      <DependentUpon>201705081338199_CommentsReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081340540_CommentsReportsObservacion.resx">
+      <DependentUpon>201705081340540_CommentsReportsObservacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081356351_CommentsReportsFechaResuelto.resx">
+      <DependentUpon>201705081356351_CommentsReportsFechaResuelto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081528395_CommentsReportsStringLength.resx">
+      <DependentUpon>201705081528395_CommentsReportsStringLength.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

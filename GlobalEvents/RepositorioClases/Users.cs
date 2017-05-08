@@ -37,6 +37,9 @@ namespace RepositorioClases
 
         [ForeignKey("IdUser")]
         public virtual List<VotosUsersEvents> Votos { get; set; }
+
+        [ForeignKey("IdUsuario")]
+        public virtual List<CommentsReportes> Reportes { get; set; }
     }
 
     [Table("webpages_Membership")]

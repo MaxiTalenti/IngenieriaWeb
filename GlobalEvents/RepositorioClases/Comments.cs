@@ -43,6 +43,30 @@ namespace RepositorioClases
 
         public virtual Events Event { get; set; }
 
+        [ForeignKey("CommentId")]
+        public virtual List<CommentsReportes> Reportes { get; set; }
+
+    }
+
+    public partial class CommentsReportes
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ReporteId { get; set; }
+
+        public int CommentId { get; set; }
+
+        public int IdUsuario { get; set; }
+
+        [Required]
+        [StringLength(300)]
+        public string Observacion { get; set; }
+
+        public DateTime Fecha { get; set; }
+
+        public bool? Resuelto { get; set; }
+
+        public virtual Comments Coments { get; set; }
+        public virtual Users User { get; set; }
     }
 
     public enum Estado

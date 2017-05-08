@@ -19,6 +19,7 @@ namespace RepositorioClases
         public virtual DbSet<UsersInRole> UsersInRoles { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }
         public virtual DbSet<VotosUsersEvents> VotosUserEvents { get; set; }
+        public virtual DbSet<CommentsReportes> CommentsReportes { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder builder)
@@ -38,6 +39,19 @@ namespace RepositorioClases
                 .HasRequired(t => t.Usuarios)
                 .WithMany(t => t.Votos)
                 .HasForeignKey(t => t.IdUser);
+
+            builder.Entity<CommentsReportes>().HasKey(q => q.ReporteId);
+
+            // Relationships
+            builder.Entity<CommentsReportes>()
+                .HasRequired(t => t.Coments)
+                .WithMany(t => t.Reportes)
+                .HasForeignKey(t => t.CommentId);
+
+            builder.Entity<CommentsReportes>()
+                .HasRequired(t => t.User)
+                .WithMany(t => t.Reportes)
+                .HasForeignKey(t => t.IdUsuario);
         }
     }
 }

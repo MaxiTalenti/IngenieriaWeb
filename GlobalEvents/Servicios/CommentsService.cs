@@ -19,6 +19,22 @@ namespace Servicios
             }
         }
 
+        public static List<CommentsReportes> ObtenerComentariosReportados()
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.CommentsReportes.Where(z => z.Resuelto == false).ToList();
+            }
+        }
+
+        public static Comments GetById(long id)
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.Comments.SingleOrDefault(c => c.CommentId == id);
+            }
+        }
+
         public static void Create(Comments comments)
         {
             using (Modelo context = new Modelo())
