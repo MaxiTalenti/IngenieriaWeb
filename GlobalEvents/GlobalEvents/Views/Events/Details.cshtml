@@ -99,8 +99,10 @@
         </div>
     }*@
 
+<div id="comentariosDiv">
+    @Html.Action("GetEventCommets", "Events", new { IdEvento = Model.Id })
+</div>
 
-@Html.Action("GetEventCommets", "Events", new { IdEvento = Model.Id })
 
 <!--Hay que ver que sea el usuario que lo creo o algún administrador-->
 @if (WebSecurity.IsAuthenticated)
@@ -164,3 +166,26 @@
 @* ------------------------------------------------------------------------------------------------------------------------------------------------------ *@
 
 
+<script>
+    $(document).on("submit", "#commentForm", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            beforeSend: function () {
+                $("#commentForm *").prop("disabled", true);
+            },
+            success: function (result) {
+                if (result.includes("loginForm")) {
+                    window.location.replace("/Home/Login");
+                } else {
+                    var reloadDiv = "comentariosDiv"
+                    $("#" + reloadDiv).html(result);
+                    $('#Comment').val("");
+                }
+                
+            }
+        });
+    });
+</script>

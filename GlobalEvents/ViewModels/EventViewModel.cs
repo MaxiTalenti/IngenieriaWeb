@@ -66,7 +66,6 @@ namespace ViewModels
             [Required]
             public EventState Estado { get; set; }
 
-            public List<CommentsModel.Comments> Comentarios { get; set; }
         }
 
     }

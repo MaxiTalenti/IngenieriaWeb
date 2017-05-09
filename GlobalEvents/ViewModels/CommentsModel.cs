@@ -11,36 +11,42 @@ namespace ViewModels
 {
     public class CommentsModel
     {
-        public class Comments
-        {
-            public long CommentId { get; set; }
+        public List<Comments> CommentsList { get; set; }
 
-            [Required]
-            [Display(Name = "Usuario creador")]
-            public int iDUsuario { get; set; }
+        public string Comment { get; set; }
 
-            [Required]
-            [Display(Name = "Número evento")]
-            public long EventId { get; set; }
+        public long IdEvento { get; set; }
+    }
 
-            [Required]
-            public DateTime Fecha { get; set; }
+    public class Comments
+    {
+        public long CommentId { get; set; }
 
-            [Required]
-            public DateTime FechaUltimaActualizacion { get; set; }
+        [Required]
+        [Display(Name = "Usuario creador")]
+        public int iDUsuario { get; set; }
 
-            public int ComentarioPadre { get; set; }
+        [Required]
+        [Display(Name = "Número evento")]
+        public long EventId { get; set; }
 
-            [Required]
-            [StringLength(3000, ErrorMessage = "No se permite que el comentario sea mayor a los 5000 carácteres")]
-            public string Comentario { get; set; }
+        [Required]
+        public DateTime Fecha { get; set; }
 
-            public int Like { get; set; }
+        [Required]
+        public DateTime FechaUltimaActualizacion { get; set; }
 
-            public int UnLike { get; set; }
+        public int ComentarioPadre { get; set; }
 
-            public Estado Estado { get; set; }
-        }
+        [Required]
+        [StringLength(3000, ErrorMessage = "No se permite que el comentario sea mayor a los 5000 carácteres")]
+        public string Comentario { get; set; }
+
+        public int Like { get; set; }
+
+        public int UnLike { get; set; }
+
+        public Estado Estado { get; set; }
     }
 
     public class ComentariosEventosModeracionModel

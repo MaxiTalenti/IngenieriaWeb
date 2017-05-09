@@ -35,13 +35,13 @@ namespace Servicios
             }
         }
 
-        public static void Create(Comments comments)
+        public static void Create(Comments comments, int idUser)
         {
             using (Modelo context = new Modelo())
             {
                 context.Comments.Add(new Comments()
                 {
-                    iDUsuario = comments.iDUsuario,
+                    iDUsuario = idUser,
                     EventId = comments.EventId,
                     Fecha = comments.Fecha,
                     FechaUltimaActualizacion = comments.FechaUltimaActualizacion,
@@ -109,6 +109,28 @@ namespace Servicios
 
                 context.SaveChanges();
             }
+        }
+
+
+        public static void Create(string comment, long EventId, int IdUser)
+        {
+            using (Modelo context = new Modelo())
+            {
+                context.Comments.Add(new Comments()
+                {
+                    iDUsuario = IdUser,
+                    Comentario = comment,
+                    ComentarioPadre = null,
+                    Estado = Estado.Activo,
+                    EventId = EventId,
+                    Fecha = DateTime.Now,
+                    FechaUltimaActualizacion = DateTime.Now,
+                    Like = 0,
+                    UnLike = 0
+                });
+                context.SaveChanges();
+            }
+
         }
     }
 }

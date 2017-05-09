@@ -190,7 +190,7 @@ namespace GlobalEvents.Controllers
 
         public ActionResult GetEventCommets(int IdEvento)
         {
-            var comments = CommentsService.ObtenerComentarios(IdEvento).Select(u => new ViewModels.CommentsModel.Comments()
+            var comments = CommentsService.ObtenerComentarios(IdEvento).Select(u => new ViewModels.Comments()
             {
                 iDUsuario = u.iDUsuario,
                 CommentId = u.CommentId,
@@ -200,7 +200,14 @@ namespace GlobalEvents.Controllers
                 UnLike = u.UnLike,
                 Fecha = u.Fecha
             }).ToList();
-            return PartialView(@"~/Views/Events/CommentsView.cshtml", comments);
+
+            var viewModel = new ViewModels.CommentsModel
+            {
+                CommentsList = comments,
+                Comment = ""
+            };
+
+            return PartialView(@"~/Views/Events/CommentsView.cshtml", viewModel);
         }
 
         protected override void Dispose(bool disposing)

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using ViewModels;
 using Servicios;
 using RepositorioClases;
+using GlobalEvents.Filters;
+using WebMatrix.WebData;
 
 namespace GlobalEvents.Controllers
 {
@@ -39,6 +41,37 @@ namespace GlobalEvents.Controllers
                 comentario = null;
             }
             return View(@"ComentariosReportados", Lista);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [MyAuthorize]
+        public PartialViewResult Create(CommentsModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                CommentsService.Create(viewModel.Comment, viewModel.IdEvento, WebSecurity.CurrentUserId);
+                //return RedirectToAction("Index");
+            }
+
+            var comments = CommentsService.ObtenerComentarios(viewModel.IdEvento).Select(u => new ViewModels.Comments()
+            {
+                iDUsuario = u.iDUsuario,
+                CommentId = u.CommentId,
+                EventId = u.EventId,
+                Comentario = u.Comentario,
+                Like = u.Like,
+                UnLike = u.UnLike,
+                Fecha = u.Fecha
+            }).ToList();
+
+            viewModel = new ViewModels.CommentsModel
+            {
+                CommentsList = comments,
+                Comment = string.Empty
+            };
+
+            return PartialView(@"~/Views/Events/CommentsView.cshtml", viewModel);
         }
     }
 }

@@ -6,7 +6,7 @@
 
 
 <h2>Logearse</h2>
-@using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bootstrap-admin-login-form" }))
+@using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bootstrap-admin-login-form", id = "loginForm" }))
 {
     @Html.AntiForgeryToken()
 
