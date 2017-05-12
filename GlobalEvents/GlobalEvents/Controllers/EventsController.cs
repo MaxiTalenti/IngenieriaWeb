@@ -253,5 +253,21 @@ namespace GlobalEvents.Controllers
             }
             return View(@"EventosReportados", Lista);
         }
+
+        [MyAuthorize]
+        public ActionResult ReportarEvento(int? id)
+        {
+            EventsReportes reporte = new EventsReportes { EventId = (int)id };
+            return View("ReportarEvento", reporte);
+        }
+
+        [HttpPost]
+        public ActionResult ReportarEvento(EventsReportes reporte)
+        {
+            reporte.IdUsuario = WebSecurity.CurrentUserId;
+            EventsService.CreateReporte(reporte);
+            EventsService.CambiarEstadoEvento(reporte.EventId, EventState.Reportado);
+            return RedirectToAction("Details", "Events", new { id = reporte.EventId });
+        }
     }
 }
