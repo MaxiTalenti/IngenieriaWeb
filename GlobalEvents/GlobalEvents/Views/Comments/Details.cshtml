@@ -1,0 +1,91 @@
+﻿@model ViewModels.Comments
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comments</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CommentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommentId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.iDUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iDUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaUltimaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaUltimaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ComentarioPadre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComentarioPadre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comentario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comentario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Like)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Like)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnLike)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnLike)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

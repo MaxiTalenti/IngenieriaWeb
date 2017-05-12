@@ -20,11 +20,14 @@ namespace ViewModels
 
     public class Comments
     {
+        [Display(Name = "ID")]
         public long CommentId { get; set; }
 
         [Required]
         [Display(Name = "Usuario creador")]
         public int iDUsuario { get; set; }
+
+        public string Usuario { get; set; }
 
         [Required]
         [Display(Name = "Número evento")]
@@ -58,5 +61,6 @@ namespace ViewModels
         public string Usuario { get; set; }
         public DateTime Fecha { get; set; }
         public string Observacion { get; set; }
+        public Estado Estado { get; set; }
     }
 }

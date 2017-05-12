@@ -89,5 +89,23 @@ namespace GlobalEvents.Controllers
             CommentsService.CambiarEstadoComentario(reporte.CommentId, Estado.Reportado);
             return RedirectToAction("Details", "Events", new { id = comentario.EventId });
         }
+
+
+
+        public ViewResult Details(int id)
+        {
+            RepositorioClases.Comments comment = CommentsService.GetById(id);
+            ViewModels.Comments comentario = new ViewModels.Comments();
+            comentario.Comentario = comment.Comentario;
+            comentario.CommentId = comment.CommentId;
+            comentario.Estado = Estado.Reportado;
+            comentario.EventId = comment.EventId;
+            comentario.Fecha = comment.Fecha;
+            comentario.FechaUltimaActualizacion = comment.FechaUltimaActualizacion;
+            comentario.iDUsuario = comment.iDUsuario;
+            Users user = UserService.Get(comment.iDUsuario).FirstOrDefault();
+            comentario.Usuario = user.Nombre;
+            return View(comentario);
+        }
     }
 }
