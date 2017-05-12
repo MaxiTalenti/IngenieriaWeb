@@ -124,16 +124,20 @@
                 </div>
             }
             <!-- Barra debajo ediciones-->
-            @if (Html.IsSelected(controllers: "Users") || Html.IsSelected(controllers: "Events", actions: "Listado"))
+            @if (Html.IsSelected(controllers: "Users") || Html.IsSelected(controllers: "Events", actions: "Listado")
+                || Html.IsSelected(controllers: "Comments", actions: "ComentariosReportados"))
             {
                 <div class="nav-content">
                     <ul class="tabs tabs-transparent">
 
                         <li class="tab">
-                            <a class="@Html.IsSelected(controllers: "Users", cssClass: "active")" target="_top" href="~/Users/Index"><i class="fa fa-user-circle-o fa-fw"></i>Usuarios</a>
+                            <a class="@Html.IsSelected(controllers: "Users", cssClass: "active")" target="_top" href="~/Users/Index"><i class="fa fa-user-circle-o fa-fw"></i> Usuarios</a>
                         </li>
                         <li class="tab">
-                            <a class="@Html.IsSelected(controllers: "Events", actions: "Listado", cssClass: "active")" target="_top" href="~/Events/Listado"><i class="fa fa-calendar-times-o fa-fw"></i>Eventos</a>
+                            <a class="@Html.IsSelected(controllers: "Events", actions: "Listado", cssClass: "active")" target="_top" href="~/Events/Listado"><i class="fa fa-calendar-times-o fa-fw"></i> Eventos</a>
+                        </li>
+                        <li class="tab">
+                            <a class="@Html.IsSelected(controllers: "Comments", actions: "ComentariosReportados", cssClass: "active")" target="_top" href="~/Comments/ComentariosReportados"><i class="fa fa-comments-o"></i> Comentarios</a>
                         </li>
                     </ul>
                     @if (Html.IsSelected(controllers: "Users"))
