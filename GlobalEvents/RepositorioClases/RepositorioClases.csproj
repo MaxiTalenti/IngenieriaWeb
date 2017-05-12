@@ -84,6 +84,10 @@
     <Compile Include="Migrations\201705081528395_CommentsReportsStringLength.Designer.cs">
       <DependentUpon>201705081528395_CommentsReportsStringLength.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705121825167_AddReportesEventos.cs" />
+    <Compile Include="Migrations\201705121825167_AddReportesEventos.Designer.cs">
+      <DependentUpon>201705121825167_AddReportesEventos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705081528395_CommentsReportsStringLength.resx">
       <DependentUpon>201705081528395_CommentsReportsStringLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705121825167_AddReportesEventos.resx">
+      <DependentUpon>201705121825167_AddReportesEventos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

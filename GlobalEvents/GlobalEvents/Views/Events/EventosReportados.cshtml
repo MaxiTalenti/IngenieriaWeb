@@ -1,17 +1,16 @@
-﻿@model IEnumerable<ViewModels.ComentariosEventosModeracionModel>
+﻿@model IEnumerable<ViewModels.EventosModeracionModel>
 
 @{
-    ViewBag.Title = "ComentariosReportadosView";
+    ViewBag.Title = "EventosReportados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br />
-<h3>ComentariosReportadosView</h3>
+<h2>EventosReportados</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CommentId)
+            @Html.DisplayNameFor(model => model.ReporteId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IdUsuario)
@@ -37,7 +36,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CommentId)
+            @Html.DisplayFor(modelItem => item.ReporteId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IdUsuario)
@@ -57,9 +56,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.Observacion)
         </td>
-
         <td>
-            @Html.ActionLink("Revisar", "Details", new {  id=item.CommentId}) 
+            @Html.ActionLink("Revisar", "Details", new { id = item.EventId }) 
         </td>
     </tr>
 }

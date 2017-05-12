@@ -169,5 +169,13 @@ namespace Servicios
                 context.SaveChanges();
             }
         }
+
+        public static List<EventsReportes> ObtenerEventosReportados()
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.EventsReportes.Where(z => z.Resuelto == false).ToList();
+            }
+        }
     }
 }

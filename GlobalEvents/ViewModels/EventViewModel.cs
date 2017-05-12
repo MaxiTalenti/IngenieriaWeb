@@ -69,4 +69,16 @@ namespace ViewModels
         }
 
     }
+
+    public class EventosModeracionModel
+    {
+        public int ReporteId { get; set; }
+        public int IdUsuario { get; set; }
+        public long EventId { get; set; }
+        public string Evento { get; set; }
+        public string Usuario { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Observacion { get; set; }
+        public Estado Estado { get; set; }
+    }
 }

@@ -40,6 +40,9 @@ namespace RepositorioClases
 
         [ForeignKey("IdUsuario")]
         public virtual List<CommentsReportes> Reportes { get; set; }
+
+        [ForeignKey("IdUsuario")]
+        public virtual List<EventsReportes> ReportesEv { get; set; }
     }
 
     [Table("webpages_Membership")]

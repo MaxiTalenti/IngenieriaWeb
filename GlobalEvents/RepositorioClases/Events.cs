@@ -15,7 +15,7 @@ namespace RepositorioClases
 
         [Required]
         [StringLength(200)]
-        [Display(Name ="Evento")]
+        [Display(Name = "Evento")]
         public string NombreEvento { get; set; }
 
         [Required]
@@ -40,7 +40,7 @@ namespace RepositorioClases
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaFin { get; set; }
-        
+
         [Required]
         [Display(Name = "Usuario")]
         public int IdUser { get; set; }
@@ -73,6 +73,9 @@ namespace RepositorioClases
 
         [ForeignKey("IdEvent")]
         public virtual List<VotosUsersEvents> Votos { get; set; }
+
+        [ForeignKey("EventId")]
+        public virtual List<EventsReportes> Reportes { get; set; }
     }
 
     public partial class VotosUsersEvents
@@ -89,6 +92,27 @@ namespace RepositorioClases
 
         
         public virtual Users Usuarios { get; set; }
+    }
+
+    public partial class EventsReportes
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ReporteId { get; set; }
+
+        public long EventId { get; set; }
+
+        public int IdUsuario { get; set; }
+
+        [Required]
+        [StringLength(300)]
+        public string Observacion { get; set; }
+
+        public DateTime Fecha { get; set; }
+
+        public bool? Resuelto { get; set; }
+
+        public virtual Events Events { get; set; }
+        public virtual Users User { get; set; }
     }
 
     public enum EventState

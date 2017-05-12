@@ -10,6 +10,7 @@ using RepositorioClases;
 using Servicios;
 using GlobalEvents.Filters;
 using WebMatrix.WebData;
+using ViewModels;
 
 namespace GlobalEvents.Controllers
 {
@@ -230,6 +231,27 @@ namespace GlobalEvents.Controllers
             return Json(
                 Servicios.EventsService.GetForMap(id),
                 JsonRequestBehavior.AllowGet);
+        }
+
+        [MyAuthorize]
+        public ActionResult EventosReportados()
+        {
+            var comments = EventsService.ObtenerEventosReportados();
+            List<EventosModeracionModel> Lista = new List<EventosModeracionModel>();
+            foreach (EventsReportes reporte in comments)
+            {
+                EventosModeracionModel comentario = new EventosModeracionModel();
+                comentario.ReporteId = reporte.ReporteId;
+                comentario.EventId = reporte.EventId;
+                comentario.Evento = EventsService.Get(comentario.EventId).FirstOrDefault().NombreEvento;
+                comentario.Fecha = reporte.Fecha;
+                comentario.IdUsuario = reporte.IdUsuario;
+                comentario.Observacion = reporte.Observacion;
+                comentario.Usuario = UserService.Get(comentario.IdUsuario).FirstOrDefault().Usuario;
+                Lista.Add(comentario);
+                comentario = null;
+            }
+            return View(@"EventosReportados", Lista);
         }
     }
 }

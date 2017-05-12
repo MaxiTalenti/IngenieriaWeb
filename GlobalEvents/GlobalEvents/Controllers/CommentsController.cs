@@ -13,18 +13,9 @@ namespace GlobalEvents.Controllers
 {
     public class CommentsController : Controller
     {
+        [MyAuthorize]
         public ActionResult ComentariosReportados()
         {
-            //var comments = CommentsService.ObtenerComentariosReportados().Select(u => new ViewModels.ComentariosEventosModeracionModel()
-            //{
-            //    IdUsuario = u.IdUsuario,
-            //    CommentId = u.CommentId,
-            //    //EventId = u.,
-            //    Observacion = u.Observacion,
-            //    //Usuario = u.IdUsuario;
-            //    //Evento = u.Evento
-            //    Fecha = u.Fecha
-            //}).ToList();
             var comments = CommentsService.ObtenerComentariosReportados();
             List<ComentariosEventosModeracionModel> Lista = new List<ComentariosEventosModeracionModel>();
             foreach(CommentsReportes reporte in comments)
@@ -74,6 +65,7 @@ namespace GlobalEvents.Controllers
             return PartialView(@"~/Views/Events/CommentsView.cshtml", viewModel);
         }
 
+        [MyAuthorize]
         public ActionResult ReportarComentario(int? id) 
         {
             CommentsReportes reporte = new CommentsReportes{ CommentId = (int)id };
@@ -92,6 +84,7 @@ namespace GlobalEvents.Controllers
 
 
 
+        [MyAuthorize]
         public ViewResult Details(int id)
         {
             RepositorioClases.Comments comment = CommentsService.GetById(id);
