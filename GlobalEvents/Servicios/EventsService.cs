@@ -30,7 +30,7 @@ namespace Servicios
         /// <param name="events"></param>
         public static void Create(Events events, HttpPostedFileBase file, TimeSpan HoraInicio, TimeSpan HoraFin)
         {
-            String uriimage = "";
+            String uriimage = null;
             if (file != null)
             {
                 var path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data");
@@ -39,13 +39,9 @@ namespace Servicios
 
                 Servicios.Imagenes imagenes = new Imagenes();
                 ImageUploadResult result = imagenes.subirImagen(savedFileName);
-                if(result.Status == "OK")
+                if (result.Status == "OK")
                 {
                     uriimage = result.Uri;
-                }
-                else
-                {
-                    uriimage = null;
                 }
 
                 File.Delete(savedFileName);
@@ -105,7 +101,7 @@ namespace Servicios
         /// <param name="user">Usuario a editar</param>
         public static void Edit(Events events, HttpPostedFileBase file, TimeSpan HoraInicio, TimeSpan HoraFin)
         {
-            String uriimage = "";
+            String uriimage = null;
             if (file != null)
             {
                 if (file.ContentLength > 0)
@@ -120,10 +116,6 @@ namespace Servicios
                     {
                         uriimage = result.Uri;
                     }
-                    else
-                    {
-                        uriimage = null;
-                    }
 
                     File.Delete(savedFileName);
                 }
@@ -131,9 +123,9 @@ namespace Servicios
             using (Modelo context = new Modelo())
             {
                 Events even = context.Events.Where(u => u.Id == events.Id).FirstOrDefault();
-                if (uriimage == "")
+                if (uriimage == null && events.RutaImagen != null)
                 {
-                    uriimage = even.RutaImagen;
+                    uriimage = events.RutaImagen;
                 }
                 if (even != null)
                 {
