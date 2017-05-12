@@ -17,7 +17,7 @@ namespace GlobalEvents
                         "~/Scripts/respond.min.js",
                         "~/Scripts/materialize.js",
                         "~/Scripts/materialize.min.js",
-                        "~/Scripts/materialize.clockpicker"));
+                        "~/Scripts/materialize.clockpicker.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -32,12 +32,6 @@ namespace GlobalEvents
                       "~/Content/font-awesome.min.css",
                       "~/Content/materialize.css",
                       "~/Content/materialize.min.css"));
-
-            bundles.Add(new StyleBundle("~/Content/scss").Include(
-                      "~/Content/clockpicker.scss",
-                      "~/Content/components/_dark.scss",
-                      "~/Content/components/_primary.scss",
-                      "~/Content/components/_variables.scss"));
         }
     }
 }
