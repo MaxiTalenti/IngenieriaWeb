@@ -34,7 +34,6 @@
 
 @using (Html.BeginForm("Create", "Comments", FormMethod.Post, new { id = "commentForm" }))
 {
-
         foreach (var a in Model.CommentsList)
         {
             <div class="row">
@@ -44,6 +43,10 @@
                             <p>
                                 @a.Comentario
                             </p>
+                            <div>                                
+                                @Html.HiddenFor(x => x.CommentsList.SingleOrDefault(c=> c.CommentId == a.CommentId).CommentId)
+                                @Html.ActionLink("Reportar Comentario", "ReportarComentario", "Comments", new { id = a.CommentId}, null)
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -61,7 +64,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10 align-center">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <input type="submit" value="Comentar" class="btn btn-primary" />
             </div>
         </div>
     

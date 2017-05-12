@@ -73,5 +73,21 @@ namespace GlobalEvents.Controllers
 
             return PartialView(@"~/Views/Events/CommentsView.cshtml", viewModel);
         }
+
+        public ActionResult ReportarComentario(int? id) 
+        {
+            CommentsReportes reporte = new CommentsReportes{ CommentId = (int)id };
+            return View("ReportarComentario", reporte);
+        }
+
+        [HttpPost]
+        public ActionResult ReportarComentario(CommentsReportes reporte)
+        {
+            reporte.IdUsuario = WebSecurity.CurrentUserId;
+            CommentsService.CreateReporte(reporte);
+            RepositorioClases.Comments comentario = CommentsService.GetById(reporte.CommentId);
+            CommentsService.CambiarEstadoComentario(reporte.CommentId, Estado.Reportado);
+            return RedirectToAction("Details", "Events", new { id = comentario.EventId });
+        }
     }
 }

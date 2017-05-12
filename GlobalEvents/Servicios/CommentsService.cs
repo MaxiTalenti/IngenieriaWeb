@@ -19,6 +19,17 @@ namespace Servicios
             }
         }
 
+        public static bool CambiarEstadoComentario(int IdComment, Estado estado)
+        {
+            using (Modelo context = new Modelo())
+            {
+                Comments comentario = context.Comments.SingleOrDefault(c => c.CommentId == IdComment);
+                comentario.Estado = estado;
+                context.SaveChanges();
+            }
+            return true;
+        }
+
         public static List<CommentsReportes> ObtenerComentariosReportados()
         {
             using (Modelo context = new Modelo())
@@ -127,6 +138,22 @@ namespace Servicios
                     FechaUltimaActualizacion = DateTime.Now,
                     Like = 0,
                     UnLike = 0
+                });
+                context.SaveChanges();
+            }
+        }
+
+        public static void CreateReporte(CommentsReportes reporte)
+        {
+            using (Modelo context = new Modelo())
+            {
+                context.CommentsReportes.Add(new CommentsReportes()
+                {
+                    CommentId = reporte.CommentId,
+                    Fecha = DateTime.Now,
+                    IdUsuario = reporte.IdUsuario,
+                    Observacion = reporte.Observacion,
+                    Resuelto = false
                 });
                 context.SaveChanges();
             }

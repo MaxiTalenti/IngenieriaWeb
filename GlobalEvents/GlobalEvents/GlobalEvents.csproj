@@ -288,6 +288,7 @@
     <Content Include="Views\Events\Deportes.cshtml" />
     <Content Include="Views\Events\CommentsView.cshtml" />
     <Content Include="Views\Comments\ComentariosReportados.cshtml" />
+    <Content Include="Views\Comments\ReportarComentario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
