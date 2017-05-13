@@ -197,6 +197,7 @@ namespace GlobalEvents.Controllers
                 CommentId = u.CommentId,
                 EventId = u.EventId,
                 Comentario = u.Comentario,
+                ComentarioPadre = u.ComentarioPadre,
                 Like = u.Like,
                 UnLike = u.UnLike,
                 Fecha = u.Fecha

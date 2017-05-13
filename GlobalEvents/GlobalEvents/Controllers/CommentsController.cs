@@ -51,6 +51,7 @@ namespace GlobalEvents.Controllers
                 CommentId = u.CommentId,
                 EventId = u.EventId,
                 Comentario = u.Comentario,
+                ComentarioPadre = u.ComentarioPadre,
                 Like = u.Like,
                 UnLike = u.UnLike,
                 Fecha = u.Fecha
@@ -94,6 +95,7 @@ namespace GlobalEvents.Controllers
             comentario.Estado = Estado.Reportado;
             comentario.EventId = comment.EventId;
             comentario.Fecha = comment.Fecha;
+            comentario.ComentarioPadre = comment.ComentarioPadre;
             comentario.FechaUltimaActualizacion = comment.FechaUltimaActualizacion;
             comentario.iDUsuario = comment.iDUsuario;
             Users user = UserService.Get(comment.iDUsuario).FirstOrDefault();
