@@ -43,9 +43,12 @@
                         <p>
                             @a.Comentario
                         </p>
+                        <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: a.iDUsuario.ToString())</small></p>
                         <div>
                             @Html.HiddenFor(x => x.CommentsList.SingleOrDefault(c => c.CommentId == a.CommentId).CommentId)
-                            @Html.ActionLink("Reportar Comentario", "ReportarComentario", "Comments", new { id = a.CommentId }, null)
+                            <div class="right-align">
+                                @Html.ActionLink("Reportar", "ReportarComentario", "Comments", new { id = a.CommentId }, null)
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,9 +62,12 @@
                             <p>
                                 @b.Comentario
                             </p>
+                            <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: b.iDUsuario.ToString())</small></p>
                             <div>
                                 @Html.HiddenFor(x => x.CommentsList.SingleOrDefault(c => c.CommentId == b.CommentId).CommentId)
-                                @Html.ActionLink("Reportar", "ReportarComentario", "Comments", new { id = b.CommentId }, null)
+                                <div class="right-align">
+                                    @Html.ActionLink("Reportar", "ReportarComentario", "Comments", new { id = b.CommentId }, null)
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,23 +76,22 @@
         }
     </div>
 
-        <div class="input-field">
+
+
+        @Html.HiddenFor(x => x.IdEvento)
+
+    <div class="row">
+        <div class="input-field col s10 materialize-textarea">
             <i class="material-icons prefix" id="Comentario">chat_bubble</i>
             @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
             @Html.LabelFor(model => model.Comment)
             @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
         </div>
-
-        @Html.HiddenFor(x => x.IdEvento)
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10 align-center">
-                <input type="submit" value="Comentar" class="btn btn-primary" />
-            </div>
-            <div>
-                @Html.ActionLink("Volver", "Index", "Events")
-            </div>
+        <div class="input-field col s2">
+            <input type="submit" value="Enviar" class="btn btn-primary" />
         </div>
+    </div>
+    @Html.ActionLink("Volver", "Index", "Events")
     
 
 }
