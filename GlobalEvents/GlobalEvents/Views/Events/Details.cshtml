@@ -39,8 +39,10 @@
                 }
 
             </div>
-            <div class="col s12 m6">
-                <span class="card-info card-event-detail-info"><i class="fa fa-clock-o"></i> @Html.DisplayFor(modelItem => Model.HoraInicio) - @Html.DisplayFor(modelItem => Model.HoraFin)</span>
+            <div class="col s12 m6 right-align">
+                <span class="card-info card-event-detail-info">
+                    <i class="fa fa-clock-o"></i> @Html.DisplayFor(modelItem => Model.HoraInicio) - @Html.DisplayFor(modelItem => Model.HoraFin)
+                </span>
             </div>
         </div>
 
@@ -56,7 +58,10 @@
 
         <div id="map" style="width:100%;height:300px;"></div>
         <hr />
-
+        <div class="right-align">
+            <i class="fa fa-flag-o"></i>
+            @Html.ActionLink("Reportar", "ReportarEvento", new { id = Model.Id })
+        </div>
     </div>
 </div>
 

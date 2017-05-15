@@ -74,6 +74,7 @@ namespace GlobalEvents.Controllers
         }
 
         [HttpPost]
+        [MyAuthorize]
         public ActionResult ReportarComentario(CommentsReportes reporte)
         {
             reporte.IdUsuario = WebSecurity.CurrentUserId;

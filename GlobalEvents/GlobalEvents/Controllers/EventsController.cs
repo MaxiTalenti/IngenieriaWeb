@@ -90,6 +90,7 @@ namespace GlobalEvents.Controllers
         }
 
         [HttpGet]
+        [MyAuthorize]
         public ActionResult Listado()
         {
             List<Events> Lista = EventsService.ObtenerEventos();
@@ -164,6 +165,7 @@ namespace GlobalEvents.Controllers
         }
 
         // GET: Events/Delete/5
+        [MyAuthorize]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -181,6 +183,7 @@ namespace GlobalEvents.Controllers
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [MyAuthorize]
         public ActionResult DeleteConfirmed(long id)
         {
             Events events = EventsService.Get(id).FirstOrDefault();
@@ -263,6 +266,7 @@ namespace GlobalEvents.Controllers
         }
 
         [HttpPost]
+        [MyAuthorize]
         public ActionResult ReportarEvento(EventsReportes reporte)
         {
             reporte.IdUsuario = WebSecurity.CurrentUserId;
