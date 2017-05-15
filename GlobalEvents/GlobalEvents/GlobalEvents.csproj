@@ -164,6 +164,7 @@
     <Compile Include="Controllers\ControllersHelper\UserHelpers.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\InitializeSimpleMembership.cs" />
     <Compile Include="Global.asax.cs">
@@ -287,11 +288,11 @@
     <Content Include="Views\Events\Clases.cshtml" />
     <Content Include="Views\Events\Deportes.cshtml" />
     <Content Include="Views\Events\CommentsView.cshtml" />
-    <Content Include="Views\Comments\ComentariosReportados.cshtml" />
     <Content Include="Views\Comments\ReportarComentario.cshtml" />
     <Content Include="Views\Comments\Details.cshtml" />
-    <Content Include="Views\Events\EventosReportados.cshtml" />
     <Content Include="Views\Events\ReportarEvento.cshtml" />
+    <Content Include="Views\Comments\Listado.cshtml" />
+    <Content Include="Views\Manage\Reportes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
