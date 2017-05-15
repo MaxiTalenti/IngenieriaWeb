@@ -73,7 +73,7 @@ namespace RepositorioClases
     {
         Activo = 1,
         Reportado = 2,
-        Bloqueado = 3,
-        Eliminado = 4
+        Bloqueado = 3, // Cuando el administrador lo bloquea
+        Eliminado = 4 // Por el usuario
     }
 }

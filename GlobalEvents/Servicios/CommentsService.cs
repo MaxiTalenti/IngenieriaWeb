@@ -19,6 +19,14 @@ namespace Servicios
             }
         }
 
+        public static List<Comments> ObtenerComentarios()
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.Comments.ToList();
+            }
+        }
+
         public static bool CambiarEstadoComentario(int IdComment, Estado estado)
         {
             using (Modelo context = new Modelo())

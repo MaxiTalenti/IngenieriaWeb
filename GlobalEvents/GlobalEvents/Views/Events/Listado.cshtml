@@ -8,60 +8,64 @@
 <br />
 <br />
 
-<table class="table">
-    <thead class="thead-inverse">
-        <tr>
-            <th>
-                Usuario
-            </th>
-            <th>
-                Evento
-            </th>
-            <th>
-                Inicio
-            </th>
-            <th>
-                Fin
-            </th>
-            <th>
-                Categoría
-            </th>
-            <th>
-                Estado
-            </th>
+<div class="card">
+    <div class="card-content">
+        <table class="table striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>
+                        Usuario
+                    </th>
+                    <th>
+                        Evento
+                    </th>
+                    <th>
+                        Inicio
+                    </th>
+                    <th>
+                        Fin
+                    </th>
+                    <th>
+                        Categoría
+                    </th>
+                    <th>
+                        Estado
+                    </th>
 
-            <th>Acciones</th>
-        </tr>
-    </thead>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdUser)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreEvento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaFin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdCategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdUser)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreEvento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaInicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaFin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCategoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
 
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+        </div>
+</div>

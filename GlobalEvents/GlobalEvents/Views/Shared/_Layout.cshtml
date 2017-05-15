@@ -124,8 +124,12 @@
                 </div>
             }
             <!-- Barra debajo ediciones-->
-            @if (Html.IsSelected(controllers: "Users") || Html.IsSelected(controllers: "Events", actions: "Listado")
-                || Html.IsSelected(controllers: "Comments", actions: "ComentariosReportados"))
+            @if (Html.IsSelected(controllers: "Users", actions: "Index") ||
+                 Html.IsSelected(controllers: "Users", actions: "Edit") ||
+                 Html.IsSelected(controllers: "Events", actions: "Listado") ||
+                 Html.IsSelected(controllers: "Comments", actions: "Listado") ||
+                 Html.IsSelected(controllers: "Comments", actions: "Details") ||
+                 Html.IsSelected(controllers: "Manage", actions: "Reportes"))
             {
                 <div class="nav-content">
                     <ul class="tabs tabs-transparent">
@@ -134,10 +138,13 @@
                             <a class="@Html.IsSelected(controllers: "Users", cssClass: "active")" target="_top" href="~/Users/Index"><i class="fa fa-user-circle-o fa-fw"></i> Usuarios</a>
                         </li>
                         <li class="tab">
-                            <a class="@Html.IsSelected(controllers: "Events", actions: "Listado", cssClass: "active")" target="_top" href="~/Events/Listado"><i class="fa fa-calendar-o fa-fw"></i> Eventos</a>
+                            <a class="@Html.IsSelected(controllers: "Events", cssClass: "active")" target="_top" href="~/Events/Listado"><i class="fa fa-calendar-o fa-fw"></i> Eventos</a>
                         </li>
                         <li class="tab">
-                            <a class="@Html.IsSelected(controllers: "Comments", actions: "ComentariosReportados", cssClass: "active")" target="_top" href="~/Comments/ComentariosReportados"><i class="fa fa-comments-o fa-fw"></i> Comentarios</a>
+                            <a class="@Html.IsSelected(controllers: "Comments", cssClass: "active")" target="_top" href="~/Comments/Listado"><i class="fa fa-comments-o fa-fw"></i> Comentarios</a>
+                        </li>
+                        <li class="tab">
+                            <a class="@Html.IsSelected(controllers: "Manage", actions: "Reportes", cssClass: "active")" target="_top" href="~/Manage/Reportes"><i class="fa fa-flag-o fa-fw"></i> Reportes</a>
                         </li>
                     </ul>
                     @if (Html.IsSelected(controllers: "Users"))

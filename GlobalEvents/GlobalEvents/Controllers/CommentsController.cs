@@ -34,6 +34,13 @@ namespace GlobalEvents.Controllers
             return View(@"ComentariosReportados", Lista);
         }
 
+        [MyAuthorize]
+        public ActionResult Listado()
+        {
+            List<RepositorioClases.Comments> Lista = CommentsService.ObtenerComentarios();
+            return View(Lista);
+        }
+
         [HttpPost]
         //[ValidateAntiForgeryToken]
         [MyAuthorize]
@@ -87,6 +94,7 @@ namespace GlobalEvents.Controllers
 
 
         [MyAuthorize]
+        [HttpGet]
         public ViewResult Details(int id)
         {
             RepositorioClases.Comments comment = CommentsService.GetById(id);
@@ -103,5 +111,14 @@ namespace GlobalEvents.Controllers
             comentario.Usuario = user.Nombre;
             return View(comentario);
         }
+
+        [MyAuthorize]
+        [HttpPost]
+        public ActionResult Details(int idComentario, Estado estado)
+        {
+            CommentsService.CambiarEstadoComentario(idComentario, estado);
+            return RedirectToAction("Details", "Comments", new { id = idComentario });
+        }
+
     }
 }

@@ -5,87 +5,136 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<br />
+<br />
 
-<div>
-    <h4>Comments</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CommentId)
-        </dt>
+<div class="card">
+    <div class="card-content">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">
+                @Html.DisplayNameFor(model => model.CommentId)
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.CommentId)
+                </p>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CommentId)
-        </dd>
+            <label class="col-sm-2 col-form-label">
+                @Html.DisplayNameFor(model => model.Comentario)
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.Comentario)
+                </p>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.iDUsuario)
-        </dt>
+            @if (Model.ComentarioPadre != null)
+            {
+                <label class="col-sm-2 col-form-label">
+                    @Html.DisplayNameFor(model => model.ComentarioPadre)
+                </label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        @Html.DisplayFor(model => model.ComentarioPadre)
+                    </p>
+                </div>
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.iDUsuario)
-        </dd>
+            @if (Model.FechaUltimaActualizacion != null)
+            {
+                <label class="col-sm-2 col-form-label">
+                    @Html.DisplayNameFor(model => model.FechaUltimaActualizacion)
+                </label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        @Html.DisplayFor(model => model.FechaUltimaActualizacion)
+                    </p>
+                </div>
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EventId)
-        </dt>
+            <label class="col-sm-2 col-form-label">
+                @Html.DisplayNameFor(model => model.Fecha)
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.Fecha)
+                </p>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.EventId)
-        </dd>
+            <label class="col-sm-2 col-form-label">
+                @Html.DisplayNameFor(model => model.EventId)
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.EventId)
+                </p>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
+            <label class="col-sm-2 col-form-label">
+                @Html.DisplayNameFor(model => model.Fecha)
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.Fecha)
+                </p>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
+            <label class="col-sm-2 col-form-label">
+                @Html.DisplayNameFor(model => model.iDUsuario)
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.iDUsuario)
+                </p>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaUltimaActualizacion)
-        </dt>
+            <label class="col-sm-2 col-form-label">
+                @Html.DisplayNameFor(model => model.Like)
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.Like)
+                </p>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.FechaUltimaActualizacion)
-        </dd>
+            <label class="col-sm-2 col-form-label">
+                @Html.DisplayNameFor(model => model.UnLike)
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.UnLike)
+                </p>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ComentarioPadre)
-        </dt>
+            @using (Html.BeginForm())
+            {
+                <label class="col-sm-2 col-form-label">
+                    @Html.DisplayNameFor(model => model.Estado)
+                </label>
+                @Html.EnumDropDownListFor(model => model.Estado, null, new { @class = "form-control" })
 
-        <dd>
-            @Html.DisplayFor(model => model.ComentarioPadre)
-        </dd>
+                <script>
+$(document).ready(function () {
+                        $('select').material_select();
+            });</script>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Comentario)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Comentario)
-        </dd>
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                    </div>
+                </div>
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Like)
-        </dt>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Like)
-        </dd>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large green" href="~/Comments/Edit/@Model.CommentId">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UnLike)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UnLike)
-        </dd>
-
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

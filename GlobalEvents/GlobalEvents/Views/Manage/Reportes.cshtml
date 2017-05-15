@@ -1,0 +1,129 @@
+﻿@model RepositorioClases.Reportes
+@{
+    ViewBag.Title = "Reportes";
+}
+
+<br />
+<br />
+
+<div class="card">
+    <div class="card-content">
+        <table class="table striped">
+            <div class="card-title">Eventos reportados</div>
+            <thead class="thead-inverse">
+                <tr>
+                    <th>
+                        Evento
+                    </th>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Usuario
+                    </th>
+                    <th>
+                        Observación
+                    </th>
+                    <th>
+                        Reporte
+                    </th>
+                    <th>
+                        Resuelto
+                    </th>
+
+                    <th>Acción</th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model.Eventos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdUsuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Observacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReporteId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Resuelto)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Revisar", "Details", "Events", new { id = item.EventId }, null)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-content">
+        <table class="table striped">
+            <div class="card-title">Comentarios reportados</div>
+            <thead class="thead-inverse">
+                <tr>
+                    <th>
+                        Comentario
+                    </th>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Usuario
+                    </th>
+                    <th>
+                        Observación
+                    </th>
+                    <th>
+                        Reporte
+                    </th>
+                    <th>
+                        Resuelto
+                    </th>
+
+                    <th>Acción</th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model.Comentarios)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommentId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdUsuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Observacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReporteId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Resuelto)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Revisar", "Details", "Comments", new { id = item.ReporteId }, null)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
