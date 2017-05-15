@@ -47,7 +47,10 @@
                     <li>
                         @if (WebSecurity.IsAuthenticated)
                         {
-                            @Html.ActionLink("Administración", "Index", "Users", new { area = "" }, null)
+                            if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].ToString() == "Admin")
+                            {
+                                @Html.ActionLink("Administración", "Index", "Users", new { area = "" }, null)
+                            }
                         }
                     </li>
                     <li>
