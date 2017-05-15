@@ -27,9 +27,6 @@
                     <th>
                         Reporte
                     </th>
-                    <th>
-                        Resuelto
-                    </th>
 
                     <th>Acción</th>
                 </tr>
@@ -53,10 +50,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ReporteId)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Resuelto)
-                    </td>
-
                     <td>
                         @Html.ActionLink("Revisar", "Details", "Events", new { id = item.EventId }, null)
                     </td>
@@ -88,9 +81,6 @@
                     <th>
                         Reporte
                     </th>
-                    <th>
-                        Resuelto
-                    </th>
 
                     <th>Acción</th>
                 </tr>
@@ -113,9 +103,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ReporteId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Resuelto)
                     </td>
 
                     <td>
