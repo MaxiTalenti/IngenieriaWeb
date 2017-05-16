@@ -56,7 +56,7 @@ namespace GlobalEvents.Filters
             if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 // El usuario no esta autenticado.
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Login", returnURL =  filterContext.HttpContext.Request.Url.AbsolutePath }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Login", returnURL = filterContext.HttpContext.Request.Url.AbsolutePath }));
                 //base.HandleUnauthorizedRequest(filterContext);
             }
             else
@@ -64,11 +64,11 @@ namespace GlobalEvents.Filters
                 // Esta autenticado.
                 // Acà falta ver el tema de los roles.
 
-                /*
-                if (!this.Roles.Split(',').Any(filterContext.HttpContext.User.IsInRole))
+
+                if (!filterContext.HttpContext.User.IsInRole(Roles))
                 {
-                    // The user is not in any of the listed roles => 
-                    // show the unauthorized view
+                    //The user is not in any of the listed roles => 
+                    //show the unauthorized view
                     filterContext.Result = new ViewResult
                     {
                         ViewName = "~/Views/Shared/Unauthorized.cshtml"
@@ -78,7 +78,7 @@ namespace GlobalEvents.Filters
                 {
                     base.HandleUnauthorizedRequest(filterContext);
                 }
-                */
+
             }
         }
     }
