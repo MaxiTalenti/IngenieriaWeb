@@ -38,14 +38,6 @@ namespace Servicios
             return true;
         }
 
-        public static List<CommentsReportes> ObtenerComentariosReportados()
-        {
-            using (Modelo context = new Modelo())
-            {
-                return context.CommentsReportes.Where(z => z.Resuelto == false).ToList();
-            }
-        }
-
         public static Comments GetById(long id)
         {
             using (Modelo context = new Modelo())
@@ -150,23 +142,6 @@ namespace Servicios
                 });
                 context.SaveChanges();
             }
-        }
-
-        public static void CreateReporte(CommentsReportes reporte)
-        {
-            using (Modelo context = new Modelo())
-            {
-                context.CommentsReportes.Add(new CommentsReportes()
-                {
-                    CommentId = reporte.CommentId,
-                    Fecha = DateTime.Now,
-                    IdUsuario = reporte.IdUsuario,
-                    Observacion = reporte.Observacion,
-                    Resuelto = false
-                });
-                context.SaveChanges();
-            }
-
         }
     }
 }

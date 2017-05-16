@@ -171,38 +171,6 @@ namespace Servicios
         }
 
         /// <summary>
-        /// Obtener Lista Eventos Reportados
-        /// </summary>
-        /// <returns></returns>
-        public static List<EventsReportes> ObtenerEventosReportados()
-        {
-            using (Modelo context = new Modelo())
-            {
-                return context.EventsReportes.Where(z => z.Resuelto == false).ToList();
-            }
-        }
-
-        /// <summary>
-        /// Reportar un evento
-        /// </summary>
-        /// <param name="reporte"></param>
-        public static void CreateReporte(EventsReportes reporte)
-        {
-            using (Modelo context = new Modelo())
-            {
-                context.EventsReportes.Add(new EventsReportes()
-                {
-                    EventId = reporte.EventId,
-                    Fecha = DateTime.Now,
-                    IdUsuario = reporte.IdUsuario,
-                    Observacion = reporte.Observacion,
-                    Resuelto = false
-                });
-                context.SaveChanges();
-            }
-        }
-
-        /// <summary>
         /// Cambiar el estado de un evento
         /// </summary>
         /// <param name="EventId"></param>

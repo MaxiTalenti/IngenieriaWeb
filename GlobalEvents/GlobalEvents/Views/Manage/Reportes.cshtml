@@ -8,72 +8,85 @@
 
 <div class="card">
     <div class="card-content">
-        <table class="table striped centered">
-            <div class="card-title">Eventos reportados</div>
-            <thead class="thead-inverse">
-                <tr>
-                    <th>
-                        Evento
-                    </th>
-                    <th>
-                        Reportes
-                    </th>
+        @if (Model.Eventos.Count > 0)
+        {
+            <table class="table striped centered">
+                <div class="card-title center-align">Eventos reportados</div>
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>
+                            Evento
+                        </th>
+                        <th>
+                            Reportes
+                        </th>
 
-                    <th>Revisar</th>
-                </tr>
-            </thead>
+                        <th>Revisar</th>
+                    </tr>
+                </thead>
 
-            @foreach (var item in Model.Eventos.GroupBy(z => z.EventId).OrderByDescending(z => z.Count()))
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Key)
-                    </td>
-                    <td>
-                        @item.Count()
-                    </td>
-                    <td>
-                        @Html.ActionLink("Revisar", "Details", "Events", new { id = item.Key }, null)
-                    </td>
-                </tr>
-            }
+                @foreach (var item in Model.Eventos.GroupBy(z => z.EventId).OrderByDescending(z => z.Count()))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Key)
+                        </td>
+                        <td>
+                            @item.Count()
+                        </td>
+                        <td>
+                            @Html.ActionLink("Revisar", "EventReported", "Manage", new { id = item.Key }, null)
+                        </td>
+                    </tr>
+                }
 
-        </table>
+            </table>
+        }
+        else
+        {
+            <div class="card-title center-align">No hay eventos reportados</div>
+        }
     </div>
 </div>
 
 <div class="card">
     <div class="card-content">
-        <table class="table striped centered">
-            <div class="card-title">Comentarios reportados</div>
-            <thead class="thead-inverse">
-                <tr>
-                    <th>
-                        Comentario
-                    </th>
-                    <th>
-                        Reportes
-                    </th>
+        @if (Model.Comentarios.Count > 0)
+        {
+            <table class="table striped centered">
+                <div class="card-title center-align">Comentarios reportados</div>
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>
+                            Comentario
+                        </th>
+                        <th>
+                            Reportes
+                        </th>
 
-                    <th>Acción</th>
-                </tr>
-            </thead>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
 
-            @foreach (var item in Model.Comentarios.GroupBy(z => z.CommentId).OrderByDescending(z => z.Count()))
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Key)
-                    </td>
-                    <td>
-                        @item.Count()
-                    </td>
-                    <td>
-                        @Html.ActionLink("Revisar", "CommentReported", "Manage", new { id = item.Key }, null)
-                    </td>
-                </tr>
-            }
-
-        </table>
+                @foreach (var item in Model.Comentarios.GroupBy(z => z.CommentId).OrderByDescending(z => z.Count()))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Key)
+                        </td>
+                        <td>
+                            @item.Count()
+                        </td>
+                        <td>
+                            @Html.ActionLink("Revisar", "CommentReported", "Manage", new { id = item.Key }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <div class="card-title center-align">No hay comentarios reportados</div>
+        }
     </div>
 </div>

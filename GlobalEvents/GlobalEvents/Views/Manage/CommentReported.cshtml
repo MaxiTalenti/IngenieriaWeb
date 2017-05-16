@@ -33,11 +33,11 @@
                 <label class="col-sm-2 col-form-label">
                     @Html.DisplayNameFor(model => model.Comentario.ComentarioPadre)
                 </label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static">
-                            @Html.DisplayFor(model => model.Comentario.ComentarioPadre)
-                        </p>
-                    </div>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        @Html.DisplayFor(model => model.Comentario.ComentarioPadre)
+                    </p>
+                </div>
             }
 
             @if (Model.Comentario.FechaUltimaActualizacion != null)
@@ -45,11 +45,11 @@
                 <label class="col-sm-2 col-form-label">
                     @Html.DisplayNameFor(model => model.Comentario.FechaUltimaActualizacion)
                 </label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static">
-                            @Html.DisplayFor(model => model.Comentario.FechaUltimaActualizacion)
-                        </p>
-                    </div>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        @Html.DisplayFor(model => model.Comentario.FechaUltimaActualizacion)
+                    </p>
+                </div>
             }
 
             <label class="col-sm-2 col-form-label">
@@ -84,7 +84,7 @@
             </label>
             <div class="col-sm-10">
                 <p class="form-control-static">
-                    @Html.DisplayFor(model => model.Comentario.iDUsuario)
+                    @Html.getNameUser(id: @Model.Comentario.iDUsuario.ToString())
                 </p>
             </div>
 
@@ -106,17 +106,42 @@
                 </p>
             </div>
 
-            @Html.HiddenFor(model => model.Comentario.CommentId)
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Comentario.CommentId)
 
-            <label class="col-sm-2 col-form-label">
-                @Html.DisplayNameFor(model => model.Comentario.Estado)
-            </label>
-            <div class="col-sm-10">
-                <p class="form-control-static">
-                    @Html.DisplayFor(model => model.Comentario.Estado)
-                </p>
+                <label class="col-sm-2 col-form-label">
+                    @Html.DisplayNameFor(model => model.Comentario.Estado)
+                </label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        @Html.DisplayFor(model => model.Comentario.Estado)
+                    </p>
+                </div>
+
+                <label class="col-sm-2 col-form-label">
+                    @Html.DisplayNameFor(model => model.Comentario.Estado)
+                </label>
+                @Html.EnumDropDownListFor(model => model.Comentario.Estado)
+
+                <script>
+                    $(document).ready(function () {
+                        $('select').material_select();
+                    });</script>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="input-field col s6">
+                                <input type="submit" value="Actualizar estado" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div class="input-field col s6 right-align">
+                            <input type="button" value="Cerrar caso" class="btn btn-primary red" onclick="location.href='@Url.Action("CerrarReporteComentario", "Manage", new { @ComentarioId = Model.Comentario.CommentId })'" />
+                        </div>
+                    </div>
+            }
             </div>
-        </div>
     </div>
 </div>
 

@@ -8,9 +8,7 @@
 <br />
 <br />
 
-@using (Html.BeginForm())
-{
-    <div class="card">
+<div class="card">
         <div class="card-content">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">
@@ -108,31 +106,9 @@
                         @Html.DisplayFor(model => model.UnLike)
                     </p>
                 </div>
-
-                @Html.HiddenFor(model => model.CommentId)
-
-                <label class="col-sm-2 col-form-label">
-                    @Html.DisplayNameFor(model => model.Estado)
-                </label>
-                @Html.EnumDropDownListFor(model => model.Estado)
-
-                <script>
-                    $(document).ready(function () {
-                        $('select').material_select();
-                    });</script>
-
-
-                @Html.AntiForgeryToken()
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Guardar" class="btn btn-primary" />
-                    </div>
-                </div>
             </div>
-
         </div>
     </div>
-}
 
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large green" href="~/Comments/Edit/@Model.CommentId">

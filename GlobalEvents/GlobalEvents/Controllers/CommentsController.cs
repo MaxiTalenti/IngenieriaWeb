@@ -16,7 +16,7 @@ namespace GlobalEvents.Controllers
         [MyAuthorize]
         public ActionResult ComentariosReportados()
         {
-            var comments = CommentsService.ObtenerComentariosReportados();
+            var comments = ReportServices.ObtenerComentariosReportados();
             List<ComentariosEventosModeracionModel> Lista = new List<ComentariosEventosModeracionModel>();
             foreach(CommentsReportes reporte in comments)
             {
@@ -85,7 +85,7 @@ namespace GlobalEvents.Controllers
         public ActionResult ReportarComentario(CommentsReportes reporte)
         {
             reporte.IdUsuario = WebSecurity.CurrentUserId;
-            CommentsService.CreateReporte(reporte);
+            ReportServices.CreateReporte(reporte);
             RepositorioClases.Comments comentario = CommentsService.GetById(reporte.CommentId);
             CommentsService.CambiarEstadoComentario(reporte.CommentId, Estado.Reportado);
             return RedirectToAction("Details", "Events", new { id = comentario.EventId });
@@ -110,14 +110,6 @@ namespace GlobalEvents.Controllers
             Users user = UserService.Get(comment.iDUsuario).FirstOrDefault();
             comentario.Usuario = user.Nombre;
             return View(comentario);
-        }
-
-        [MyAuthorize]
-        [HttpPost]
-        public ActionResult Details([Bind(Include = "CommentId,Estado")] RepositorioClases.Comments comm)
-        {
-            CommentsService.CambiarEstadoComentario(comm.CommentId, comm.Estado);
-            return RedirectToAction("Details", "Comments", new { id = comm.CommentId });
         }
     }
 }

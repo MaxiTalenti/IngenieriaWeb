@@ -240,7 +240,7 @@ namespace GlobalEvents.Controllers
         [MyAuthorize]
         public ActionResult EventosReportados()
         {
-            var comments = EventsService.ObtenerEventosReportados();
+            var comments = ReportServices.ObtenerEventosReportados();
             List<EventosModeracionModel> Lista = new List<EventosModeracionModel>();
             foreach (EventsReportes reporte in comments)
             {
@@ -270,7 +270,7 @@ namespace GlobalEvents.Controllers
         public ActionResult ReportarEvento(EventsReportes reporte)
         {
             reporte.IdUsuario = WebSecurity.CurrentUserId;
-            EventsService.CreateReporte(reporte);
+            ReportServices.CreateReporte(reporte);
             EventsService.CambiarEstadoEvento(reporte.EventId, EventState.Reportado);
             return RedirectToAction("Details", "Events", new { id = reporte.EventId });
         }
