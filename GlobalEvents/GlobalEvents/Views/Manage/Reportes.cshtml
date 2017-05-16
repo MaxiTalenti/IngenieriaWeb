@@ -8,7 +8,7 @@
 
 <div class="card">
     <div class="card-content">
-        <table class="table striped">
+        <table class="table striped centered">
             <div class="card-title">Eventos reportados</div>
             <thead class="thead-inverse">
                 <tr>
@@ -16,42 +16,24 @@
                         Evento
                     </th>
                     <th>
-                        Fecha
-                    </th>
-                    <th>
-                        Usuario
-                    </th>
-                    <th>
-                        Observación
-                    </th>
-                    <th>
-                        Reporte
+                        Reportes
                     </th>
 
-                    <th>Acción</th>
+                    <th>Revisar</th>
                 </tr>
             </thead>
 
-            @foreach (var item in Model.Eventos)
+            @foreach (var item in Model.Eventos.GroupBy(z => z.EventId).OrderByDescending(z => z.Count()))
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.EventId)
+                        @Html.DisplayFor(modelItem => item.Key)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Fecha)
+                        @item.Count()
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IdUsuario)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Observacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReporteId)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Revisar", "Details", "Events", new { id = item.EventId }, null)
+                        @Html.ActionLink("Revisar", "Details", "Events", new { id = item.Key }, null)
                     </td>
                 </tr>
             }
@@ -62,7 +44,7 @@
 
 <div class="card">
     <div class="card-content">
-        <table class="table striped">
+        <table class="table striped centered">
             <div class="card-title">Comentarios reportados</div>
             <thead class="thead-inverse">
                 <tr>
@@ -70,43 +52,24 @@
                         Comentario
                     </th>
                     <th>
-                        Fecha
-                    </th>
-                    <th>
-                        Usuario
-                    </th>
-                    <th>
-                        Observación
-                    </th>
-                    <th>
-                        Reporte
+                        Reportes
                     </th>
 
                     <th>Acción</th>
                 </tr>
             </thead>
 
-            @foreach (var item in Model.Comentarios)
+            @foreach (var item in Model.Comentarios.GroupBy(z => z.CommentId).OrderByDescending(z => z.Count()))
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CommentId)
+                        @Html.DisplayFor(modelItem => item.Key)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Fecha)
+                        @item.Count()
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IdUsuario)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Observacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReporteId)
-                    </td>
-
-                    <td>
-                        @Html.ActionLink("Revisar", "Details", "Comments", new { id = item.ReporteId }, null)
+                        @Html.ActionLink("Revisar", "CommentReported", "Manage", new { id = item.Key }, null)
                     </td>
                 </tr>
             }

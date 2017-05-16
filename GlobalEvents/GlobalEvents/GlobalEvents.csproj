@@ -293,6 +293,8 @@
     <Content Include="Views\Events\ReportarEvento.cshtml" />
     <Content Include="Views\Comments\Listado.cshtml" />
     <Content Include="Views\Manage\Reportes.cshtml" />
+    <Content Include="Views\Manage\EventReported.cshtml" />
+    <Content Include="Views\Manage\CommentReported.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

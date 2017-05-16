@@ -12,6 +12,9 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>
+                        Id
+                    </th>
+                    <th>
                         Comentario
                     </th>
                     <th>
@@ -32,7 +35,17 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Comentario)
+                        @Html.DisplayFor(modelItem => item.CommentId)
+                    </td>
+                    <td>
+                        @if (@Html.DisplayFor(modelItem => item.Comentario).ToString().Length > 20)
+                        {
+                            @Html.DisplayFor(modelItem => item.Comentario).ToString().Substring(0, 20)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.Comentario)
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.iDUsuario)

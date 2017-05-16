@@ -101,7 +101,7 @@ namespace GlobalEvents.Controllers
             ViewModels.Comments comentario = new ViewModels.Comments();
             comentario.Comentario = comment.Comentario;
             comentario.CommentId = comment.CommentId;
-            comentario.Estado = Estado.Reportado;
+            comentario.Estado = comment.Estado;
             comentario.EventId = comment.EventId;
             comentario.Fecha = comment.Fecha;
             comentario.ComentarioPadre = comment.ComentarioPadre;
@@ -114,11 +114,10 @@ namespace GlobalEvents.Controllers
 
         [MyAuthorize]
         [HttpPost]
-        public ActionResult Details(int idComentario, Estado estado)
+        public ActionResult Details([Bind(Include = "CommentId,Estado")] RepositorioClases.Comments comm)
         {
-            CommentsService.CambiarEstadoComentario(idComentario, estado);
-            return RedirectToAction("Details", "Comments", new { id = idComentario });
+            CommentsService.CambiarEstadoComentario(comm.CommentId, comm.Estado);
+            return RedirectToAction("Details", "Comments", new { id = comm.CommentId });
         }
-
     }
 }

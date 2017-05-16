@@ -14,7 +14,10 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>
-                        Usuario
+                        Id
+                    </th>
+                    <th>
+                        Destacado
                     </th>
                     <th>
                         Evento
@@ -40,7 +43,10 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IdUser)
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.Destacado, new { disabled = "disabled" })
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.NombreEvento)
@@ -69,3 +75,12 @@
         </table>
         </div>
 </div>
+
+<!--Script para los checkbox-->
+<script>$(document).ready(function () {
+     $('input[type=checkbox]').each(function () {
+     if (this.nextSibling.nodeName != 'label') {
+     $(this).after('<label for="' + this.id + '"></label>')
+    }
+  })
+})</script>

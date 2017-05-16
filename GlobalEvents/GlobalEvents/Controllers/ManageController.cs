@@ -5,19 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using Servicios;
 using GlobalEvents.Filters;
+using RepositorioClases;
 
 namespace GlobalEvents.Controllers
 {
 
     [Authorize(Roles = "Admin")]
     public class ManageController : Controller
-    {
-        // GET: Manage
-        public ActionResult Index()
-        {
-            return View();
-        }
-     
+    {   
         public ActionResult Reportes()
         {
             List<RepositorioClases.CommentsReportes> Comentarios = CommentsService.ObtenerComentariosReportados();
@@ -28,76 +23,37 @@ namespace GlobalEvents.Controllers
             return View(a);
         }
 
-        // GET: Manage/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        [MyAuthorize]
+        /// <summary>
+        /// el id es el del comentario
+        /// </summary>
+        public ActionResult CommentReported(int id)
         {
-            return View();
+            // Obtiene el comentario.
+            Comments comment = CommentsService.GetById(id);
+            // Genera objeto con comentario y todos los reportes.
+            CommentsDetailsReport reporte = new CommentsDetailsReport();
+            Comments comentario = new Comments {
+                CommentId = comment.CommentId,
+                Estado = comment.Estado,
+                EventId = comment.EventId,
+                Fecha = comment.Fecha,
+                ComentarioPadre = comment.ComentarioPadre,
+                FechaUltimaActualizacion = comment.FechaUltimaActualizacion,
+                iDUsuario = comment.iDUsuario,
+                Like = comment.Like,
+                UnLike = comment.UnLike
+            };
+            
+            // Busca nombre de usuario
+            Users user = UserService.Get(comment.iDUsuario).FirstOrDefault();
+            comentario.Comentario = user.Nombre;
+            reporte.Comentario = comentario;
+            List<CommentsReportes> Reportes = CommentsService.ObtenerComentariosReportados().Where(z => z.CommentId == id).ToList();
+            reporte.Reportes = Reportes;
+            return View(reporte);
         }
 
-        // GET: Manage/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Manage/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Manage/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Manage/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Manage/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Manage/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
