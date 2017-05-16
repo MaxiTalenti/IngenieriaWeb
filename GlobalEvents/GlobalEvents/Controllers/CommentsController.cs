@@ -11,9 +11,10 @@ using WebMatrix.WebData;
 
 namespace GlobalEvents.Controllers
 {
+    [MyAuthorize(Roles = "Admin")]
     public class CommentsController : Controller
     {
-        [MyAuthorize]
+        
         public ActionResult ComentariosReportados()
         {
             var comments = ReportServices.ObtenerComentariosReportados();
