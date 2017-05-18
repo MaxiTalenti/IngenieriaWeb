@@ -42,33 +42,12 @@ namespace Servicios
         {
             using (Modelo context = new Modelo())
             {
-                // la propiedad HasValue de los objetos que son Nullables o permiten tomar valores nulos, equivale a hacer la pregunta if (valor != null)
-                // la expresión id.HasValue ? id.Value == u.Id : true
-                // equivale a (id.HasValue && id.Value == u.Id) || (!id.HasValue)
-                // lo que hacen es filtrar solo cuando viene un valor en la variable, ahorrándonos hacer un if antes y repetir la consulta.
-
-
-                //var detalle = (from d in context.Users
-                //              select  new Users
-                //{
-                //    Email = d.Email,
-                //    Id = d.Id,
-                //    Name = d.Name,
-                //    Password = d.Password
-                //}).ToList();
-
-                //return context.Users.ToList();
-
-                //return new List<Users>();
-
-                //return context.Users.Where(u => !u.DeletedDate.HasValue && (id.HasValue ? id.Value == u.Id : true)).ToList();// Select(u => new Users()
-                return context.Users.Where(u => id.HasValue ? id.Value == u.Id : true).Where(z => z.Estado != UserState.Eliminado).ToList();// Select(u => new Users()
-                //{
-                //    Email = u.Email,
-                //    Id = u.Id,
-                //    Name = u.Name,
-                //    Password = u.Password
-                //}).ToList();
+                return context.Users
+                    .Where(u => id.HasValue ?
+                        id.Value == u.Id :
+                        true)
+                    .Where(z => z.Estado != UserState.Eliminado)
+                    .ToList();
             }
         }
 

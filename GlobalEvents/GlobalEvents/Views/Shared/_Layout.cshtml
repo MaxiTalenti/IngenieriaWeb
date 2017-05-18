@@ -71,7 +71,7 @@
                     <li class="@Html.IsSelected(controllers: "Users", cssClass: "active")">
                         @if (WebSecurity.IsAuthenticated)
                         {
-                            @Html.ActionLink("Administración", "Index", "Users", new { area = "" }, null)
+                            @Html.ActionLink("Administración", "Listado", "Users", new { area = "" }, null)
                         }
                     </li>
                     <li class="@Html.IsSelected(controllers: "Home", actions: "Login", cssClass: "active")">
@@ -143,7 +143,7 @@
                     <ul class="tabs tabs-transparent">
 
                         <li class="tab">
-                            <a class="@Html.IsSelected(controllers: "Users", cssClass: "active")" target="_top" href="~/Users/Index"><i class="fa fa-user-circle-o fa-fw"></i> Usuarios</a>
+                            <a class="@Html.IsSelected(controllers: "Users", cssClass: "active")" target="_top" href="~/Users/Listado"><i class="fa fa-user-circle-o fa-fw"></i> Usuarios</a>
                         </li>
                         <li class="tab">
                             <a class="@Html.IsSelected(controllers: "Events", cssClass: "active")" target="_top" href="~/Events/Listado"><i class="fa fa-calendar-o fa-fw"></i> Eventos</a>

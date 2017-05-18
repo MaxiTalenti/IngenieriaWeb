@@ -23,7 +23,7 @@ namespace GlobalEvents.Controllers
 
         // GET: Users
 
-        public ViewResult Index()
+        public ViewResult Listado()
         {
             return View(UserService.Get(null).Select(u => new ListUserViewModel()
             {
@@ -41,7 +41,7 @@ namespace GlobalEvents.Controllers
         [AllowAnonymous]
         public ViewResult Details(int? id)
         {
-            if (id == null || UserService.Get(id) == null)
+            if (id == null || UserService.Get(id).Count == 0)
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
@@ -107,14 +107,14 @@ namespace GlobalEvents.Controllers
         public ActionResult Edit(int? id)
         {
             // Solo va a poder editar su propio usuario o todos si es admin
-            if (UserService.Get((int)id) == null  ||
+            if (id == 0 ||
                 (WebSecurity.CurrentUserId != id &&
                 !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
 
-            Users user = UserService.Get((int)id).Select(u => new Users()
+            Users user = UserService.Get(id).Select(u => new Users()
             {
                 Email = u.Email,
                 Id = u.Id,
@@ -134,7 +134,7 @@ namespace GlobalEvents.Controllers
         public ActionResult Edit(Users user)
         {
             // Solo va a poder editar su propio usuario o todos si es admin
-            if (UserService.Get((int)user.Id) == null ||
+            if (user == null ||
                 (WebSecurity.CurrentUserId != user.Id &&
                 !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
             {
@@ -194,7 +194,7 @@ namespace GlobalEvents.Controllers
         public ActionResult ChangePassword(int id)
         {
             // Solo va a poder cambiar su propio usuario o todos si es admin
-            if (UserService.Get((int)id) == null ||
+            if (UserService.Get(id).Count == 0 ||
                 (WebSecurity.CurrentUserId != id &&
                 !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
             {
@@ -213,7 +213,7 @@ namespace GlobalEvents.Controllers
         public ActionResult ChangePassword(EditPasswordModel editModel)
         {
             // Solo va a poder editar su propio usuario o todos si es admin
-            if (UserService.Get(WebSecurity.GetUserId(editModel.Usuario)) == null ||
+            if (UserService.Get(WebSecurity.GetUserId(editModel.Usuario)).Count == 0 ||
                 (WebSecurity.CurrentUserName != editModel.Usuario &&
                 !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
             {

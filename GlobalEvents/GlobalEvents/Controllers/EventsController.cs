@@ -218,6 +218,10 @@ namespace GlobalEvents.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Events events = EventsService.Get(id).FirstOrDefault();
+            if (events == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             if (events.IdUser == WebSecurity.CurrentUserId || Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
             {
                 EventsService.Delete(events);
@@ -296,9 +300,9 @@ namespace GlobalEvents.Controllers
         }
 
         [MyAuthorize]
-        public ActionResult ReportarEvento(int? id)
+        public ActionResult ReportarEvento(int id)
         {
-            if (EventsService.Get(id) == null)
+            if (EventsService.Get(id).Count == 0)
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
