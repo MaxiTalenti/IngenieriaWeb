@@ -146,7 +146,7 @@ namespace ViewModels
 
     public enum Changes
     {
-        Cambio_Contaseña = 1,
+        Cambio_Contraseña = 1,
         Verificacion_Cuenta = 2,
         Edito_Cuenta_Personal = 3,
         Edito_Cuenta = 4,
