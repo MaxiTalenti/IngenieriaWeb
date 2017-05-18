@@ -141,6 +141,12 @@ namespace GlobalEvents.Controllers
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
 
+            // Solo va a poder cambiar el estado si es admin, por más que lo fuerze.
+            if (!Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+            {
+                user.Estado = UserService.Get(user.Id).FirstOrDefault().Estado;
+            }
+
             if (ModelState.IsValid)
             {
                 UserService.Edit(new Users()

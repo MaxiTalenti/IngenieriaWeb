@@ -50,10 +50,13 @@
                     </div>
                 </div>
 
-                <label class="col-sm-2 col-form-label">
-                    @Html.DisplayNameFor(model => model.Estado)
-                </label>
-                @Html.EnumDropDownListFor(model => model.Estado)
+                @if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+                {
+                    <label class="col-sm-2 col-form-label">
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </label>
+                    @Html.EnumDropDownListFor(model => model.Estado)
+                }
 
                 <script>
                     $(document).ready(function () {
