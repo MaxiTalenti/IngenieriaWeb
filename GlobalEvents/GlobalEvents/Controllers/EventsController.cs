@@ -74,6 +74,12 @@ namespace GlobalEvents.Controllers
             return View(Lista);
         }
 
+        public ActionResult Otros()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Otros).ToList();
+            return View(Lista);
+        }
+
         // GET: Events/Details/5
         public ActionResult Details(long? id)
         {

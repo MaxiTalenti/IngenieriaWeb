@@ -94,13 +94,14 @@
                 Html.IsSelected(controllers: "Events", actions: "Gastronomia") ||
                 Html.IsSelected(controllers: "Events", actions: "Clases") ||
                 Html.IsSelected(controllers: "Events", actions: "Deportes") ||
-                Html.IsSelected(controllers: "Events", actions: "Index"))
+                Html.IsSelected(controllers: "Events", actions: "Index") ||
+                Html.IsSelected(controllers: "Events", actions: "Otros"))
             {
                 <div class="nav-content">
                     <ul class="tabs tabs-transparent">
 
                         <li class="tab">
-                            <a class="@Html.IsSelected(controllers: "Events", actions:"Destacados", cssClass: "active")" target="_top" href="~/Events/Destacados"><i class="fa fa-star-o fa-fw"></i> Destacados</a>
+                            <a class="@Html.IsSelected(controllers: "Events", actions:"Destacados", cssClass: "active")" target="_top" href="~/Events/Destacados"><i class="fa fa-star fa-fw"></i> Destacados</a>
                         </li>
                         <li class="tab">
                             <a class="@Html.IsSelected(controllers: "Events", actions:"Musica", cssClass: "active")" target="_top" href="~/Events/Musica"><i class="fa fa-music fa-fw"></i> Música</a>
@@ -119,6 +120,9 @@
                         </li>
                         <li class="tab">
                             <a class="@Html.IsSelected(controllers: "Events", actions:"Deportes", cssClass: "active")" target="_top" href="~/Events/Deportes"><i class="fa fa-futbol-o fa-fw"></i> Deportes</a>
+                        </li>
+                        <li class="tab">
+                            <a class="@Html.IsSelected(controllers: "Events", actions:"Otros", cssClass: "active")" target="_top" href="~/Events/Otros"><i class="fa fa-folder-@Html.IsSelected(controllers: "Events", actions:"Otros", cssClass: "open-")o fa-fw")></i> Otros</a>
                         </li>
                     </ul>
                     <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal pulse" href="~/Events/Create">
