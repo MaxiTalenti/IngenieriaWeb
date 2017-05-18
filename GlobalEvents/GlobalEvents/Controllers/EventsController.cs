@@ -177,6 +177,11 @@ namespace GlobalEvents.Controllers
                 // Por las dudas que se haga un post directamente.
                 if (events.IdUser == WebSecurity.CurrentUserId || Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
                 {
+                    // Solo va a poder cambiar el estado si es admin, por más que lo fuerze.
+                    if (!Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+                    {
+                        events.Estado = EventsService.Get(events.Id).FirstOrDefault().Estado;
+                    }
                     EventsService.Edit(events, file, Inicio, Fin);
                     return RedirectToAction("Index");
                 }
