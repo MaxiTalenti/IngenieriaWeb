@@ -298,6 +298,7 @@
     <Content Include="Views\Manage\CommentReported.cshtml" />
     <Content Include="Views\Events\Otros.cshtml" />
     <Content Include="Views\Shared\PermisosNecesarios.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

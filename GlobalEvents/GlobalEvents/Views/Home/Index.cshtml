@@ -2,6 +2,21 @@
     ViewBag.Title = "Home Page";
 }
 
+@using (Html.BeginForm("Search", "Home", FormMethod.Post, new { id = "frmAction" }))
+{
+    <nav>
+        <div class="nav-wrapper">
+            <form>
+                <div class="input-field">
+                    <input id="search" type="search" required>
+                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                </div>
+            </form>
+        </div>
+    </nav>
+}
+
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
         <br><br>
@@ -43,6 +58,7 @@
     <div class="section">
     </div>
 </div>
+
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

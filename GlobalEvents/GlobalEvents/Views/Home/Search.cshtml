@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ViewModels.FullSearchModel>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreEvento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EncontradoEn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Direccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreEvento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EncontradoEn)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

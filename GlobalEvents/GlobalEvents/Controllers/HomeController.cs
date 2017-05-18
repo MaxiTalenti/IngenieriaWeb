@@ -8,6 +8,7 @@ using WebMatrix.WebData;
 using GlobalEvents.Filters;
 using RepositorioClases;
 using System.Web.Security;
+using System.Data.SqlClient;
 
 namespace GlobalEvents.Controllers
 {
@@ -111,5 +112,27 @@ namespace GlobalEvents.Controllers
             };
             return RedirectToAction("VerifyAccount", model);
         }
+
+        public List<FullSearchModel> SearchResults(string Busqueda)
+        {
+            using (var modelo = new Modelo())
+            {
+                //Get student name of string type
+                var resultado = modelo.Database.SqlQuery<FullSearchModel>("sp_BusquedaFullText @Busqueda", new SqlParameter("Busqueda", Busqueda));
+
+                //Or can call SP by following way
+                //var courseList = ctx.Courses.SqlQuery("exec GetCoursesByStudentId @StudentId ", idParam).ToList<Course>();
+
+                return resultado.ToList();
+            }
+        }
+
+        public ActionResult Search(string Busqueda)
+        {
+            List<FullSearchModel> Result = SearchResults(Busqueda);
+            return View(Result);
+        }
+
+
     }
 }
