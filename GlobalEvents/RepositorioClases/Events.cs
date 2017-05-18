@@ -131,6 +131,7 @@ namespace RepositorioClases
         Artes = 3,
         Gastronomia = 4,
         Clases = 5,
-        Deportes = 6
+        Deportes = 6,
+        Otros = 7
     }
 }
