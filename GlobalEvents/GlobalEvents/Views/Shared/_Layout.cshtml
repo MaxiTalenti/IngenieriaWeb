@@ -49,7 +49,7 @@
                         {
                             if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].ToString() == "Admin")
                             {
-                                @Html.ActionLink("Administración", "Index", "Users", new { area = "" }, null)
+                                @Html.ActionLink("Administración", "Listado", "Users", new { area = "" }, null)
                             }
                         }
                     </li>
@@ -131,7 +131,7 @@
                 </div>
             }
             <!-- Barra debajo ediciones-->
-            @if (Html.IsSelected(controllers: "Users", actions: "Index") ||
+            @if (Html.IsSelected(controllers: "Users", actions: "Listado") ||
                  Html.IsSelected(controllers: "Users", actions: "Edit") ||
                  Html.IsSelected(controllers: "Events", actions: "Listado") ||
                  Html.IsSelected(controllers: "Comments", actions: "Listado") ||

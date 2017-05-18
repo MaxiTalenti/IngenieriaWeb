@@ -93,7 +93,7 @@ namespace GlobalEvents.Controllers
                     Email = user.Email,
                     Usuario = user.Email // Inicialmente se le setea el mismo valor, luego se podrá cambiar.
                 });*/
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "El nombre de usuario o la contraseña son incorrectos.");
@@ -153,7 +153,7 @@ namespace GlobalEvents.Controllers
                     Estado = user.Estado
                 });
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Users", new { id = user.Id });
             }
             return View(user);
         }
@@ -188,7 +188,7 @@ namespace GlobalEvents.Controllers
                 Id = id
             });
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Listado", "Users");
         }
 
         public ActionResult ChangePassword(int id)
@@ -231,7 +231,7 @@ namespace GlobalEvents.Controllers
                 ModelState.AddModelError("", "La contraseña ingresada es incorrecta.");
                 return View(editModel);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

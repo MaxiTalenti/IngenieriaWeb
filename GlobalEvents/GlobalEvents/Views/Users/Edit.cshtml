@@ -50,6 +50,16 @@
                     </div>
                 </div>
 
+                <label class="col-sm-2 col-form-label">
+                    @Html.DisplayNameFor(model => model.Estado)
+                </label>
+                @Html.EnumDropDownListFor(model => model.Estado)
+
+                <script>
+                    $(document).ready(function () {
+                        $('select').material_select();
+                    });</script>
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Guardar" class="btn btn-primary" />
