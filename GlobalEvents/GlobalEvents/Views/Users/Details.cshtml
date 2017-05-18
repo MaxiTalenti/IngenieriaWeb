@@ -61,6 +61,12 @@
                     @Html.DisplayFor(model => model.Email)
                 </p>
             </div>
+
+            <br />
+            <div>
+                
+                @Html.ActionLink("Volver a usuarios", "Index")
+            </div>
         </div>
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large green" href="~/Users/Edit/@Model.Id">
