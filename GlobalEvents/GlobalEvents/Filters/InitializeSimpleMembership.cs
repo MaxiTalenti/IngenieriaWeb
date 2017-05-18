@@ -51,6 +51,11 @@ namespace GlobalEvents.Filters
 
     public class MyAuthorizeAttribute : AuthorizeAttribute
     {
+        /// <summary>
+        /// Este método solo se ejecuta en el caso de que no tenga la autorización necesaria
+        /// definida en el controlador.
+        /// </summary>
+        /// <param name="filterContext"></param>
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
@@ -63,15 +68,12 @@ namespace GlobalEvents.Filters
             {
                 // Esta autenticado.
                 // Acà falta ver el tema de los roles.
-
-
                 if (!filterContext.HttpContext.User.IsInRole(Roles))
                 {
-                    //The user is not in any of the listed roles => 
-                    //show the unauthorized view
+                    // El usuario no tiene el rol correspondiente, se muestra una vista general.
                     filterContext.Result = new ViewResult
                     {
-                        ViewName = "~/Views/Shared/Unauthorized.cshtml"
+                        ViewName = "~/Views/Shared/PermisosNecesarios.cshtml"
                     };
                 }
                 else

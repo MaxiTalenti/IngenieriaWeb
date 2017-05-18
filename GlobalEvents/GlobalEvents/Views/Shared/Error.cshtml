@@ -1,15 +1,13 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>Al procesar la solicitud, intente nuevamente iniciando desde la página principal.</h2>
-        Comuniquese con un administrador de GlobalEvents si el error continua.
-    </hgroup>
-</body>
-</html>
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="card">
+    <div class="card-title">Error</div>
+    <div class="card-content">
+        Ocurrió un error, si considera que es incorrecto, contáctese con el Administrador del Sistema.
+    </div>
+</div>
