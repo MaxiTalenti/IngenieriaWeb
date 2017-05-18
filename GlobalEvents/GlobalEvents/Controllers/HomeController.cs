@@ -11,18 +11,15 @@ using System.Web.Security;
 
 namespace GlobalEvents.Controllers
 {
-    [MyAuthorize]
     [InitializeSimpleMembership]
     public class HomeController : Controller
     {
-        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult Login(String returnURL)
         {
             ViewBag.returnURL = returnURL;
@@ -37,7 +34,6 @@ namespace GlobalEvents.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult Login(LoginModel model, String returnURL)
         { 
             ViewBag.returnURL = returnURL;
@@ -96,16 +92,18 @@ namespace GlobalEvents.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult VerifyAccount(ChangesModel model)
         {
             return View(model);
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public ActionResult ValidarToken(String Token)
+        public ActionResult ValidarToken(String Token = "")
         {
+            if (Token == "")
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             ChangesModel model = new ChangesModel()
             {
                 Cambio = Changes.Verificacion_Cuenta,

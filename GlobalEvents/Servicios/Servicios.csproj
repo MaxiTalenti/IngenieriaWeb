@@ -107,10 +107,6 @@
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Datos\Datos.csproj">
-      <Project>{ab1f4019-103e-4f90-acdb-6b59a1c5be42}</Project>
-      <Name>Datos</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RepositorioClases\RepositorioClases.csproj">
       <Project>{CF5B8CF4-526A-41F5-B964-82CE44E4C62D}</Project>
       <Name>RepositorioClases</Name>

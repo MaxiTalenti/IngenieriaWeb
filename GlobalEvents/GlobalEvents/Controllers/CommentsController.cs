@@ -11,6 +11,7 @@ using WebMatrix.WebData;
 
 namespace GlobalEvents.Controllers
 {
+    [InitializeSimpleMembership]
     [MyAuthorize(Roles = "Admin")]
     public class CommentsController : Controller
     {
@@ -35,7 +36,6 @@ namespace GlobalEvents.Controllers
             return View(@"ComentariosReportados", Lista);
         }
 
-        [MyAuthorize]
         public ActionResult Listado()
         {
             List<RepositorioClases.Comments> Lista = CommentsService.ObtenerComentarios();
@@ -44,7 +44,6 @@ namespace GlobalEvents.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        [MyAuthorize]
         public PartialViewResult Create(CommentsModel viewModel)
         {
             if (ModelState.IsValid)
@@ -65,7 +64,7 @@ namespace GlobalEvents.Controllers
                 Fecha = u.Fecha
             }).ToList();
 
-            viewModel = new ViewModels.CommentsModel
+            viewModel = new CommentsModel
             {
                 CommentsList = comments,
                 Comment = string.Empty
@@ -74,17 +73,23 @@ namespace GlobalEvents.Controllers
             return PartialView(@"~/Views/Events/CommentsView.cshtml", viewModel);
         }
 
-        [MyAuthorize]
         public ActionResult ReportarComentario(int? id) 
         {
             CommentsReportes reporte = new CommentsReportes{ CommentId = (int)id };
+            if (CommentsService.GetById((int)id) == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             return View("ReportarComentario", reporte);
         }
 
         [HttpPost]
-        [MyAuthorize]
         public ActionResult ReportarComentario(CommentsReportes reporte)
         {
+            if (CommentsService.GetById(reporte.CommentId) == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             reporte.IdUsuario = WebSecurity.CurrentUserId;
             ReportServices.CreateReporte(reporte);
             RepositorioClases.Comments comentario = CommentsService.GetById(reporte.CommentId);
@@ -92,13 +97,14 @@ namespace GlobalEvents.Controllers
             return RedirectToAction("Details", "Events", new { id = comentario.EventId });
         }
 
-
-
-        [MyAuthorize]
         [HttpGet]
         public ViewResult Details(int id)
         {
             RepositorioClases.Comments comment = CommentsService.GetById(id);
+            if (comment == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             ViewModels.Comments comentario = new ViewModels.Comments();
             comentario.Comentario = comment.Comentario;
             comentario.CommentId = comment.CommentId;

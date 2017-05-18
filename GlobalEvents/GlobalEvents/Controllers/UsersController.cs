@@ -38,10 +38,14 @@ namespace GlobalEvents.Controllers
 
         //
         // GET: /User/Details/5
-
-        public ViewResult Details(int id)
+        [AllowAnonymous]
+        public ViewResult Details(int? id)
         {
-            ListUserViewModel user = UserService.Get(id).Select(u => new ListUserViewModel()
+            if (id == null || UserService.Get(id) == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+            ListUserViewModel user = UserService.Get((int)id).Select(u => new ListUserViewModel()
             {
                 Id = u.Id,
                 Email = u.Email,
@@ -100,9 +104,17 @@ namespace GlobalEvents.Controllers
         //
         // GET: /User/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            Users user = UserService.Get(id).Select(u => new Users()
+            // Solo va a poder editar su propio usuario o todos si es admin
+            if (UserService.Get((int)id) == null  ||
+                (WebSecurity.CurrentUserId != id &&
+                !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+
+            Users user = UserService.Get((int)id).Select(u => new Users()
             {
                 Email = u.Email,
                 Id = u.Id,
@@ -121,6 +133,14 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         public ActionResult Edit(Users user)
         {
+            // Solo va a poder editar su propio usuario o todos si es admin
+            if (UserService.Get((int)user.Id) == null ||
+                (WebSecurity.CurrentUserId != user.Id &&
+                !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+
             if (ModelState.IsValid)
             {
                 UserService.Edit(new Users()
@@ -140,7 +160,8 @@ namespace GlobalEvents.Controllers
 
         //
         // GET: /User/Delete/5
-
+        // Solo va a poder eliminar un administrador
+        [MyAuthorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             Users user = UserService.Get(id).Select(u => new Users()
@@ -157,7 +178,8 @@ namespace GlobalEvents.Controllers
 
         //
         // POST: /User/Delete/5
-
+        // Solo va a poder eliminar un administrador
+        [MyAuthorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -171,16 +193,18 @@ namespace GlobalEvents.Controllers
 
         public ActionResult ChangePassword(int id)
         {
+            // Solo va a poder cambiar su propio usuario o todos si es admin
+            if (UserService.Get((int)id) == null ||
+                (WebSecurity.CurrentUserId != id &&
+                !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+
             EditPasswordModel user = UserService.Get(id).Select(u => new EditPasswordModel()
             {
                 Usuario = u.Usuario
             }).FirstOrDefault();
-
-            // Si el usuario no existe (Porque se pasa a mano la url, se vuelve al index).
-            if (user == null)
-            {
-                return RedirectToAction("Index");
-            }
 
             return View(user);
         }
@@ -188,6 +212,14 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         public ActionResult ChangePassword(EditPasswordModel editModel)
         {
+            // Solo va a poder editar su propio usuario o todos si es admin
+            if (UserService.Get(WebSecurity.GetUserId(editModel.Usuario)) == null ||
+                (WebSecurity.CurrentUserName != editModel.Usuario &&
+                !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+
             Users user = UserService.Get(WebSecurity.GetUserId(editModel.Usuario)).Select(u => new Users()
             {
                 Email = u.Email,

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,9 +10,11 @@ using Servicios;
 using GlobalEvents.Filters;
 using WebMatrix.WebData;
 using ViewModels;
+using System.Web.Security;
 
 namespace GlobalEvents.Controllers
 {
+    [InitializeSimpleMembership]
     public class EventsController : Controller
     {
         private Modelo db = new Modelo();
@@ -96,7 +97,7 @@ namespace GlobalEvents.Controllers
         }
 
         [HttpGet]
-        [MyAuthorize]
+        [MyAuthorize(Roles ="Admin")]
         public ActionResult Listado()
         {
             List<Events> Lista = EventsService.ObtenerEventos();
@@ -107,7 +108,7 @@ namespace GlobalEvents.Controllers
         [MyAuthorize]
         public ActionResult Create()
         {
-            Events model = new Events { IdCategoria = Categorias.Musica, FechaInicio = DateTime.Now, FechaFin = DateTime.Now};
+            Events model = new Events { IdCategoria = Categorias.Otros, FechaInicio = DateTime.Now, FechaFin = DateTime.Now};
             return View(model);
         }
 
@@ -138,14 +139,23 @@ namespace GlobalEvents.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
             Events events = EventsService.Get(id).FirstOrDefault();
             if (events == null)
             {
-                return HttpNotFound();
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
-            return View(events);
+            // Solo si el usuario es el creador del evento o es administrador puede editarlo.
+            if (events.IdUser == WebSecurity.CurrentUserId || Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+            {
+                return View(events);
+            }
+            else
+            {
+                return Errores.MostrarError(DatosErrores.Permisos);
+            }
+            
         }
 
         // POST: Events/Edit/5
@@ -162,10 +172,18 @@ namespace GlobalEvents.Controllers
                 TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
                 TimeSpan Fin = TimeSpan.Parse(HoraFin);
                 events.IdUser = WebSecurity.CurrentUserId;
-                //db.Entry(events).State = EntityState.Modified;
-                //db.SaveChanges();
-                EventsService.Edit(events, file, Inicio, Fin);
-                return RedirectToAction("Index");
+
+                // Solo si el usuario es el creador del evento o es administrador puede editarlo.
+                // Por las dudas que se haga un post directamente.
+                if (events.IdUser == WebSecurity.CurrentUserId || Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+                {
+                    EventsService.Edit(events, file, Inicio, Fin);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return Errores.MostrarError(DatosErrores.Permisos);
+                }
             }
             return View(events);
         }
@@ -176,14 +194,21 @@ namespace GlobalEvents.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
             Events events = EventsService.Get(id).FirstOrDefault();
             if (events == null)
             {
-                return HttpNotFound();
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
-            return View(events);
+            if (events.IdUser == WebSecurity.CurrentUserId || Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+            {
+                return View(events);
+            }
+            else
+            {
+                return Errores.MostrarError(DatosErrores.Permisos);
+            }
         }
 
         // POST: Events/Delete/5
@@ -193,10 +218,16 @@ namespace GlobalEvents.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Events events = EventsService.Get(id).FirstOrDefault();
-            EventsService.Delete(events);
-            return RedirectToAction("Index");
+            if (events.IdUser == WebSecurity.CurrentUserId || Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+            {
+                EventsService.Delete(events);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return Errores.MostrarError(DatosErrores.Permisos);
+            }
         }
-
 
         public ActionResult GetEventCommets(int IdEvento)
         {
@@ -212,7 +243,7 @@ namespace GlobalEvents.Controllers
                 Fecha = u.Fecha
             }).ToList();
 
-            var viewModel = new ViewModels.CommentsModel
+            var viewModel = new CommentsModel
             {
                 CommentsList = comments,
                 Comment = ""
@@ -243,7 +274,7 @@ namespace GlobalEvents.Controllers
                 JsonRequestBehavior.AllowGet);
         }
 
-        [MyAuthorize]
+        [MyAuthorize(Roles = "Admin")]
         public ActionResult EventosReportados()
         {
             var comments = ReportServices.ObtenerEventosReportados();
@@ -267,6 +298,10 @@ namespace GlobalEvents.Controllers
         [MyAuthorize]
         public ActionResult ReportarEvento(int? id)
         {
+            if (EventsService.Get(id) == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             EventsReportes reporte = new EventsReportes { EventId = (int)id };
             return View("ReportarEvento", reporte);
         }

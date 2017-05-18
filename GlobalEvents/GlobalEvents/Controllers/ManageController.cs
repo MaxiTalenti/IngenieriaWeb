@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Servicios;
 using GlobalEvents.Filters;
@@ -9,29 +8,38 @@ using RepositorioClases;
 
 namespace GlobalEvents.Controllers
 {
-
-    [Authorize(Roles = "Admin")]
+    [InitializeSimpleMembership]
+    [MyAuthorize(Roles = "Admin")]
     public class ManageController : Controller
     {   
         public ActionResult Reportes()
         {
             List<CommentsReportes> Comentarios = ReportServices.ObtenerComentariosReportados();
             List<EventsReportes> Eventos = ReportServices.ObtenerEventosReportados();
-            var a = new RepositorioClases.Reportes();
+            var a = new Reportes();
             a.Comentarios = Comentarios;
             a.Eventos = Eventos;
             return View(a);
         }
 
         [HttpGet]
-        [MyAuthorize]
         /// <summary>
         /// el id es el del comentario
         /// </summary>
-        public ActionResult CommentReported(int id)
+        public ActionResult CommentReported(int? id)
         {
+            if (id == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             // Obtiene el comentario.
-            Comments comment = CommentsService.GetById(id);
+            Comments comment = CommentsService.GetById((int)id);
+            // Si no hay comentario con ese id.
+            if (comment == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+
             // Genera objeto con comentario y todos los reportes.
             CommentsDetailsReport reporte = new CommentsDetailsReport();
             Comments comentario = new Comments {
@@ -53,18 +61,24 @@ namespace GlobalEvents.Controllers
             return View(reporte);
         }
 
-        [MyAuthorize]
         [HttpPost]
         public ActionResult CommentReported([Bind(Prefix = "Comentario", Include = "CommentId,Estado")] Comments comm)
         {
+            if (CommentsService.GetById(comm.CommentId) == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             CommentsService.CambiarEstadoComentario(comm.CommentId, comm.Estado);
             return RedirectToAction("Details", "Comments", new { id = comm.CommentId });
         }
 
-        [MyAuthorize]
         [HttpGet]
         public ActionResult CerrarReporteComentario(int ComentarioId)
         {
+            if (CommentsService.GetById(ComentarioId) == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             ReportServices.ResolverReportesComentarios(ComentarioId);
             return RedirectToAction("Details", "Comments", new { id = ComentarioId });
         }
@@ -72,7 +86,6 @@ namespace GlobalEvents.Controllers
         ///  Parte de eventos
 
         [HttpGet]
-        [MyAuthorize]
         /// <summary>
         /// el id es el del comentario
         /// </summary>
@@ -80,6 +93,10 @@ namespace GlobalEvents.Controllers
         {
             // Obtiene el evento.
             Events comment = EventsService.Get(id).SingleOrDefault();
+            if (comment == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
             // Genera objeto con evento y todos los reportes.
             EventsDetailsReport reporte = new EventsDetailsReport();
             Events evento = new Events
@@ -106,7 +123,6 @@ namespace GlobalEvents.Controllers
             return View(reporte);
         }
 
-        [MyAuthorize]
         [HttpPost]
         public ActionResult EventReported([Bind(Prefix = "Eventos", Include = "Id,Estado")] Events even)
         {
@@ -114,11 +130,14 @@ namespace GlobalEvents.Controllers
             return RedirectToAction("Details", "Events", new { id = even.Id });
         }
 
-        [MyAuthorize]
         [HttpGet]
-        public ActionResult CerrarReporteEventos(int EventoId)
+        public ActionResult CerrarReporteEventos(int? EventoId)
         {
-            ReportServices.ResolverReportesEventos(EventoId);
+            if (EventoId == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+            ReportServices.ResolverReportesEventos((int)EventoId);
             return RedirectToAction("Details", "Events", new { id = EventoId });
         }
 
