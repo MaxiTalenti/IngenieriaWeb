@@ -5,15 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Search</h2>
-
-
-
+<br />
 <div>
     @using (Html.BeginForm("Search", "Home", FormMethod.Post))
     {
         <nav>
-            <div class="nav-wrapper">
+            <div class="nav-wrapper green">
                 <form id="searchForm">
                     <div class="input-field">
                         @Html.TextBoxFor(x => x.searchString, new { @type = "search", @id = "search" });
@@ -26,12 +23,49 @@
     }
 </div>
 
-@if  (Model.Lista != null)
+@if (Model != null && Model.Lista != null)
+{
+    if (Model.Lista.Count == 0)
+    {
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title center-align">No se encontraron elementos</div>
+            </div>
+        </div>
+    }
+}
+
+<div class="card">
+    <div class="card-content">
+        <div class="card-title"><i class="fa fa-calendar-o fa-fw"></i>Eventos</div>
+        @foreach (var item in Model.Lista.Where(z => z.EncontradoEn == "Evento"))
+        {
+            <div class="card grey hoverable">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s10">
+                            @item.NombreEvento
+                        </div>
+                        <div class="col s2 right-align">
+                            <button class="btn btn-default">
+                                <a href="~/Events/Details/@item.Id">
+                                    <i class="fa fa-search fa-fw black-text"></i>
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model.Lista != null && Model.Lista.Count > 0)
 {
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Lista.FirstOrDefault().Descripcion)
+                @Html.DisplayNameFor(model => model.Lista.FirstOrDefault().IdUser)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Lista.FirstOrDefault().Direccion)
@@ -51,33 +85,29 @@
             <th></th>
         </tr>
 
-    @foreach (var item in Model.Lista) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreEvento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EncontradoEn)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model.Lista)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EncontradoEn)
+                </td>
+            </tr>
+        }
 
     </table>
 }
