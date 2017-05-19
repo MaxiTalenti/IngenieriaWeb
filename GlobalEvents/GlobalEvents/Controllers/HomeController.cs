@@ -127,10 +127,11 @@ namespace GlobalEvents.Controllers
             }
         }
 
-        //public ActionResult Search()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public ActionResult Search()
+        {
+           return View();
+        }
 
         [HttpPost]
         public ActionResult Search(HomeViewModel viewModel)

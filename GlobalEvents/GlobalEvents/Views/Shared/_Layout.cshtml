@@ -32,6 +32,7 @@
                 <!-- Logo -->
                 <a href="#!" class="brand-logo center">GlobalEvents</a>
 
+                <!-- Menu movil -->
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
@@ -44,6 +45,9 @@
                 </ul>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li>
+                        <a href="~/Home/Search"><i class="material-icons">search</i></a>
+                    </li>
                     <li>
                         @if (WebSecurity.IsAuthenticated)
                         {
@@ -64,6 +68,7 @@
                         }
                     </li>
                 </ul>
+
                 <!-- Esto es para cuando se hace muy chica la pantalla-->
                 <ul class="side-nav" id="mobile-demo">
                     <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
@@ -71,7 +76,10 @@
                     <li class="@Html.IsSelected(controllers: "Users", cssClass: "active")">
                         @if (WebSecurity.IsAuthenticated)
                         {
-                            @Html.ActionLink("Administración", "Listado", "Users", new { area = "" }, null)
+                            if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+                            {
+                                @Html.ActionLink("Administración", "Listado", "Users", new { area = "" }, null)
+                            }
                         }
                     </li>
                     <li class="@Html.IsSelected(controllers: "Home", actions: "Login", cssClass: "active")">
@@ -86,6 +94,7 @@
                     </li>
                 </ul>
             </div>
+
             <!-- Barra debajo para categorías-->
             @if (Html.IsSelected(controllers: "Events", actions: "Destacados") ||
                 Html.IsSelected(controllers: "Events", actions: "Musica") ||
@@ -130,6 +139,7 @@
                     </a>
                 </div>
             }
+
             <!-- Barra debajo ediciones-->
             @if (Html.IsSelected(controllers: "Users", actions: "Listado") ||
                  Html.IsSelected(controllers: "Users", actions: "Edit") ||
@@ -172,7 +182,9 @@
         </nav>
     </div>
 
-    <script>$(".button-collapse").sideNav();</script>
+    <script>$( document ).ready(function(){
+    $(".button-collapse").sideNav();
+    });</script>
 
     <div class="container body-content">
         @RenderBody()
