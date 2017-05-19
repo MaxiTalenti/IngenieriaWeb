@@ -17,7 +17,7 @@ namespace GlobalEvents.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(new HomeViewModel());
         }
 
         [HttpGet]
@@ -127,12 +127,22 @@ namespace GlobalEvents.Controllers
             }
         }
 
-        public ActionResult Search(string Busqueda)
+        //public ActionResult Search()
+        //{
+        //    return View();
+        //}
+
+        [HttpPost]
+        public ActionResult Search(HomeViewModel viewModel)
         {
-            List<FullSearchModel> Result = SearchResults(Busqueda);
-            return View(Result);
+            List<FullSearchModel> Result = SearchResults(viewModel.searchString);
+            return View("Search", Result);
         }
 
+        public class HomeViewModel
+        {
+            public string searchString { get; set; }
+        }
 
     }
 }

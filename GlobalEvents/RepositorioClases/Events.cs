@@ -46,7 +46,7 @@ namespace RepositorioClases
         public int IdUser { get; set; }
 
         [Required]
-        [Range(0, 6, ErrorMessage = "Seleccione una categoría correcta")]
+        [Range(0, 7, ErrorMessage = "Seleccione una categoría correcta")]
         public Categorias IdCategoria { get; set; }
 
         [Required]

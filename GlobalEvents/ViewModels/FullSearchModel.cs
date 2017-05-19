@@ -8,6 +8,7 @@ namespace ViewModels
 {
     public class FullSearchModel
     {
+
         public string Descripcion { get; set; }
         public string Direccion { get; set; }
         public long Id { get; set; }
