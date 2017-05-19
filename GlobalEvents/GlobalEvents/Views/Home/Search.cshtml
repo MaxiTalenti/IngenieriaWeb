@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ViewModels.FullSearchModel>
+﻿@model ViewModels.FullModel
 
 @{
     ViewBag.Title = "Search";
@@ -7,58 +7,77 @@
 
 <h2>Search</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Categoria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NombreEvento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EncontradoEn)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Direccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categoria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreEvento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EncontradoEn)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+
+<div>
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+    {
+        <nav>
+            <div class="nav-wrapper">
+                <form id="searchForm">
+                    <div class="input-field">
+                        @Html.TextBoxFor(x => x.searchString, new { @type = "search", @id = "search" });
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    }
+</div>
+
+@if  (Model.Lista != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lista.FirstOrDefault().Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lista.FirstOrDefault().Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lista.FirstOrDefault().Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lista.FirstOrDefault().NombreEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lista.FirstOrDefault().Usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lista.FirstOrDefault().EncontradoEn)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model.Lista) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreEvento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EncontradoEn)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>
 }
-
-</table>

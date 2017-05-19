@@ -17,7 +17,7 @@ namespace GlobalEvents.Controllers
     {
         public ActionResult Index()
         {
-            return View(new HomeViewModel());
+            return View();
         }
 
         [HttpGet]
@@ -113,37 +113,41 @@ namespace GlobalEvents.Controllers
             return RedirectToAction("VerifyAccount", model);
         }
 
-        public List<FullSearchModel> SearchResults(string Busqueda)
+        public FullModel SearchResults(string Busqueda)
         {
-            using (var modelo = new Modelo())
+            FullModel model = new FullModel();
+            if (Busqueda != null)
             {
-                //Get student name of string type
-                var resultado = modelo.Database.SqlQuery<FullSearchModel>("sp_BusquedaFullText @Busqueda", new SqlParameter("Busqueda", Busqueda));
+                using (var modelo = new Modelo())
+                {
+                    //Get student name of string type
+                    var resultado = modelo.Database.SqlQuery<FullSearchModel>("sp_BusquedaFullText @Busqueda", new SqlParameter("Busqueda", Busqueda));
 
-                //Or can call SP by following way
-                //var courseList = ctx.Courses.SqlQuery("exec GetCoursesByStudentId @StudentId ", idParam).ToList<Course>();
-
-                return resultado.ToList();
+                    //Or can call SP by following way
+                    //var courseList = ctx.Courses.SqlQuery("exec GetCoursesByStudentId @StudentId ", idParam).ToList<Course>();
+                    
+                    model.Lista = resultado.ToList();
+                    model.searchString = Busqueda;
+                    
+                }
             }
+            return model;
         }
 
         [HttpGet]
         public ActionResult Search()
         {
-           return View();
+           return View(new FullModel());
         }
 
         [HttpPost]
-        public ActionResult Search(HomeViewModel viewModel)
+        public ActionResult Search(FullModel viewModel)
         {
-            List<FullSearchModel> Result = SearchResults(viewModel.searchString);
+            FullModel Result = SearchResults(viewModel.searchString);
             return View("Search", Result);
         }
 
-        public class HomeViewModel
-        {
-            public string searchString { get; set; }
-        }
+
 
     }
 }

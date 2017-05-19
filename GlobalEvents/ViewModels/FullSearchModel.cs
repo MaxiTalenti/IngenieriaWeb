@@ -17,4 +17,11 @@ namespace ViewModels
         public string Usuario { get; set; }
         public string EncontradoEn { get; set; }
     }
+
+    public class FullModel
+    {
+        public List<FullSearchModel> Lista { get; set; }
+
+        public string searchString { get; set; }
+    }
 }
