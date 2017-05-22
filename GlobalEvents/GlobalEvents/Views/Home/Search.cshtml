@@ -10,7 +10,7 @@
     @using (Html.BeginForm("Search", "Home", FormMethod.Post))
     {
         <nav>
-            <div class="nav-wrapper green">
+            <div class="nav-wrapper grey">
                 <form id="searchForm">
                     <div class="input-field">
                         @Html.TextBoxFor(x => x.searchString, new { @type = "search", @id = "search" });
@@ -35,27 +35,25 @@
     }
 }
 
-@if (Model != null && Model.Lista != null)
+@if (Model != null && Model.Lista != null && Model.Lista.Where(z => z.EncontradoEn == "Evento").Count() > 0)
 {
     if (Model.Lista.Count > 0)
     {
         <div class="card">
             <div class="card-content">
                 <div class="card-title"><i class="fa fa-calendar-o fa-fw"></i>Eventos</div>
-                @foreach (var item in Model.Lista.Where(z => z.EncontradoEn == "Evento"))
+                @foreach (var item in Model.Lista.Where(z => z.EncontradoEn == "Evento").GroupBy(z => z.Id))
                 {
-                    <div class="card grey hoverable">
+                    <div class="card hoverable">
                         <div class="card-content">
                             <div class="row">
                                 <div class="col s10">
-                                    @item.NombreEvento
+                                    @Html.getEvent(item.Key.ToString())
                                 </div>
                                 <div class="col s2 right-align">
-                                    <button class="btn btn-default">
-                                        <a href="~/Events/Details/@item.Id">
-                                            <i class="fa fa-search fa-fw black-text"></i>
-                                        </a>
-                                    </button>
+                                    <a href="~/Events/Details/@item.Key" class="btn btn-default">
+                                        <i class="fa fa-search fa-fw black-text"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -65,6 +63,65 @@
         </div>
     }
 }
+
+@if (Model != null && Model.Lista != null && Model.Lista.Where(z => z.EncontradoEn == "Categoria").Count() > 0)
+{
+    if (Model.Lista.Count > 0)
+    {
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title"><i class="fa fa-calendar-o fa-fw"></i>Categorías</div>
+                @foreach (var item in Model.Lista.Where(z => z.EncontradoEn == "Categoria"))
+                {
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s10">
+                                    @item.Categoria
+                                </div>
+                                <div class="col s2 right-align">
+                                    <a href="~/Events/@item.Categoria" class="btn btn-default">
+                                        <i class="fa fa-search fa-fw black-text"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+
+@if (Model != null && Model.Lista != null && Model.Lista.Where(z => z.EncontradoEn == "Usuario").Count() > 0)
+{
+    if (Model.Lista.Count > 0)
+    {
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title"><i class="fa fa-calendar-o fa-fw"></i>Usuario</div>
+                @foreach (var item in Model.Lista.Where(z => z.EncontradoEn == "Usuario").GroupBy(z => z.IdUser))
+                {
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s10">
+                                    @Html.getNameUser(item.Key.ToString())
+                                </div>
+                                <div class="col s2 right-align">
+                                    <a href="~/Users/Details/@item.Key" class="btn btn-default">
+                                        <i class="fa fa-search fa-fw black-text"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+
 
 @if (Model.Lista != null && Model.Lista.Count > 0)
 {

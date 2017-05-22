@@ -30,10 +30,22 @@ namespace GlobalEvents.Helpers
                 case "Deportes":
                     return "fa fa-futbol-o fa-fw";
                     break;
+                case "Otros":
+                    return "fa fa-folder-o fa-fw";
+                    break;
                 default:
                     return "fa fa-exclamation fa-fw";
                     break;
             }
+        }
+
+        public static string getEvent(this HtmlHelper html, string id)
+        {
+            List<RepositorioClases.Events> Evento = Servicios.EventsService.Get(Int32.Parse(id));
+            String Name = "";
+            if (Evento.Count > 0)
+                Name = Evento.First().NombreEvento;
+            return Name == "" ? "No existe" : Name;
         }
     }
 }
