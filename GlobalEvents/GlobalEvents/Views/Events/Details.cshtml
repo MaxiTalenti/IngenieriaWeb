@@ -193,4 +193,20 @@
             }
         });
     });
+
+
+    function responderComentario(id)
+    {
+        var url = '/Comments/ResponderComentarios'
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: { 'Commentid': id },
+            dataType: 'text',
+            success: function (result) {
+                $("#comment" + id).append(result);
+            }
+        });
+    }
+
 </script>

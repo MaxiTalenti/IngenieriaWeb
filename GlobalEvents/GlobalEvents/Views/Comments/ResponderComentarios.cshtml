@@ -2,29 +2,26 @@
 
 
 
-@*<!-- Modal Trigger -->
-<a class="waves-effect waves-light btn" href="#modal1">Comentar</a>
 
-<!-- Modal Structure -->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <div class="input-field col s12">
-            <textarea id="textarea1" class="materialize-textarea"></textarea>
-            <label for="textarea1">Comentario</label>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea"></textarea>
+                <label for="textarea1">Comentario</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
         </div>
     </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-    </div>
-</div>
 
-<script>
-    $(document).ready(function () {
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('.modal').modal();
-    });
-</script>*@
-
+    <script>
+        $(document).ready(function () {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+        });
+    </script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
@@ -33,10 +30,10 @@
 
 
 
-<div class="row">
+@*<div class="row">
     @foreach (var a in Model.CommentsList.OrderBy(z => z.Fecha).Where(z => z.ComentarioPadre == null))
     {
-        <div class="col s12 m12" id="@("comment" + a.CommentId)">
+        <div class="col s12 m12">
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
                     <p>
@@ -44,7 +41,7 @@
                     </p>
                     <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: a.iDUsuario.ToString())</small></p>
                     <div>
-                    @Html.HiddenFor(model => model.CommentsList.SingleOrDefault(c=> c.CommentId == a.CommentId).CommentId)
+                        @Html.HiddenFor(x => x.CommentsList.SingleOrDefault(c => c.CommentId == a.CommentId).CommentId)
                         <div class="right-align">
                             <a href="#" onclick="responderComentario(@a.CommentId)">Responder</a>
                             &nbsp;
@@ -76,13 +73,14 @@
             </div>
         }
     }
-</div>
+</div>*@
 
 
-@using (Html.BeginForm("Create", "Comments", FormMethod.Post, new { id = "commentForm" }))
+@using (Html.BeginForm("ResponderComentarios", "Comments", FormMethod.Post, new { id = "commentFatherId" }))
 {
 
     @Html.HiddenFor(x => x.IdEvento)
+    @Html.HiddenFor(x=> x.IdComment)
     <div class="row">
         <div class="input-field col s10 materialize-textarea">
             <i class="material-icons prefix" id="Comentario">chat_bubble</i>
@@ -94,7 +92,8 @@
             <input type="submit" value="Enviar" class="btn btn-primary" />
         </div>
     </div>
-    @Html.ActionLink("Volver", "Index", "Events")
 
 }
+
+
 
