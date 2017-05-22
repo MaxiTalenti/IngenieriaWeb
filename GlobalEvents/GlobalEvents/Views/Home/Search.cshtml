@@ -35,30 +35,36 @@
     }
 }
 
-<div class="card">
-    <div class="card-content">
-        <div class="card-title"><i class="fa fa-calendar-o fa-fw"></i>Eventos</div>
-        @foreach (var item in Model.Lista.Where(z => z.EncontradoEn == "Evento"))
-        {
-            <div class="card grey hoverable">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col s10">
-                            @item.NombreEvento
-                        </div>
-                        <div class="col s2 right-align">
-                            <button class="btn btn-default">
-                                <a href="~/Events/Details/@item.Id">
-                                    <i class="fa fa-search fa-fw black-text"></i>
-                                </a>
-                            </button>
+@if (Model != null && Model.Lista != null)
+{
+    if (Model.Lista.Count > 0)
+    {
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title"><i class="fa fa-calendar-o fa-fw"></i>Eventos</div>
+                @foreach (var item in Model.Lista.Where(z => z.EncontradoEn == "Evento"))
+                {
+                    <div class="card grey hoverable">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s10">
+                                    @item.NombreEvento
+                                </div>
+                                <div class="col s2 right-align">
+                                    <button class="btn btn-default">
+                                        <a href="~/Events/Details/@item.Id">
+                                            <i class="fa fa-search fa-fw black-text"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
-        }
-    </div>
-</div>
+        </div>
+    }
+}
 
 @if (Model.Lista != null && Model.Lista.Count > 0)
 {
