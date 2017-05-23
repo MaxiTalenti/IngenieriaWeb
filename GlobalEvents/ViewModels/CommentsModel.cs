@@ -17,6 +17,8 @@ namespace ViewModels
         public string Comment { get; set; }
 
         public long IdEvento { get; set; }
+
+        public long IdComment { get; set; }
     }
 
     public class Comments
@@ -40,7 +42,7 @@ namespace ViewModels
         [Required]
         public DateTime FechaUltimaActualizacion { get; set; }
 
-        public int? ComentarioPadre { get; set; }
+        public long? ComentarioPadre { get; set; }
 
         [Required]
         [StringLength(3000, ErrorMessage = "No se permite que el comentario sea mayor a los 5000 carácteres")]

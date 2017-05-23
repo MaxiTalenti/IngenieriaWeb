@@ -118,5 +118,61 @@ namespace GlobalEvents.Controllers
             comentario.Usuario = user.Nombre;
             return View(comentario);
         }
+
+        [HttpGet]
+        public ViewResult ResponderComentarios(string Commentid)
+        {
+            //Commentid = 2;
+            RepositorioClases.Comments coment = CommentsService.GetById(Convert.ToInt64(Commentid));
+            var comments = CommentsService.ObtenerComentarios(coment.EventId).Select(u => new ViewModels.Comments()
+            {
+                iDUsuario = u.iDUsuario,
+                CommentId = u.CommentId,
+                EventId = u.EventId,
+                Comentario = u.Comentario,
+                ComentarioPadre = u.ComentarioPadre,
+                Like = u.Like,
+                UnLike = u.UnLike,
+                Fecha = u.Fecha
+            }).ToList();
+
+            var viewModel = new CommentsModel
+            {
+                CommentsList = comments,
+                Comment = string.Empty,
+                IdComment = Convert.ToInt64(Commentid),
+                IdEvento = coment.EventId
+                
+            };
+            return View("ResponderComentarios", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult ResponderComentarios(CommentsModel viewModel)
+        {
+            using (var context = new Modelo())
+            {
+                var comment = new RepositorioClases.Comments();
+                comment.Comentario = viewModel.Comment;
+                comment.ComentarioPadre = viewModel.IdComment;
+                comment.Estado = Estado.Activo;
+                comment.EventId = viewModel.IdEvento;
+                comment.Fecha = DateTime.Now;
+                comment.FechaUltimaActualizacion = DateTime.Now;
+                comment.iDUsuario = WebSecurity.CurrentUserId;
+                comment.Like = 0;
+                comment.UnLike = 0;
+                context.Comments.Add(comment);
+                context.SaveChanges();
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                CommentsService.Create(viewModel.Comment, viewModel.IdEvento, WebSecurity.CurrentUserId);
+                //return RedirectToAction("Index");
+            }
+            return RedirectToAction("Details", "Events", new { id = viewModel.IdEvento });
+        }
     }
 }

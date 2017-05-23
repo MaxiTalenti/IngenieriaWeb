@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201705121825167_AddReportesEventos.Designer.cs">
       <DependentUpon>201705121825167_AddReportesEventos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705221929246_cambiandoidcomentariopadre.cs" />
+    <Compile Include="Migrations\201705221929246_cambiandoidcomentariopadre.Designer.cs">
+      <DependentUpon>201705221929246_cambiandoidcomentariopadre.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705121825167_AddReportesEventos.resx">
       <DependentUpon>201705121825167_AddReportesEventos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705221929246_cambiandoidcomentariopadre.resx">
+      <DependentUpon>201705221929246_cambiandoidcomentariopadre.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
