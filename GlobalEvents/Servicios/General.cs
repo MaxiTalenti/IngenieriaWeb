@@ -23,7 +23,7 @@ namespace Servicios
                 };
 
                 client.Send("informacion.globalevents@gmail.com", email, "Confirma tu cuenta", "Ingresa a la siguiente URL para verificar su cuenta: " +
-                   "http://" + HttpContext.Current.Request.Url.Authority + "/Home/ValidarToken?Token=" + token);
+                   "http://" + (HttpContext.Current.Request.Url.Authority.Contains("localhost") ? HttpContext.Current.Request.Url.Authority : HttpContext.Current.Request.Url.Host) + "/Home/ValidarToken?Token=" + token);
                 return true;
             }
             catch
