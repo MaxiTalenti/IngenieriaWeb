@@ -5,86 +5,42 @@
 }
 
 <br />
-<br />
-<br />
 
-<!-- Editar màs adelante
-@using (Html.BeginForm())
-{
-<div class="row">
-    <form class="col s12">
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">account_circle</i>
-                <label for="email" data-error="wrong" data-success="right">Email</label>
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.LabelFor(model => model.Email, null, null)
-                @Html.ValidationMessageFor(model => model.Email, "", new { htmlAttributes = new { @class = "text-danger" } })
+<div class="card">
+    <div class="card-title center-align">Crear usuario</div>
+        @using (Html.BeginForm())
+        {
+            <div class="card-content">
+                <div class="input-field">
+                    <i class="material-icons prefix">mail</i>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @data_length = "250" } })
+                    @Html.LabelFor(model => model.Email, new { @data_error = "Error", @data_success = "" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "validate" })
+                </div>
+
+                <div class="input-field">
+                    <i class="material-icons prefix">label</i>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @data_length = "50" } })
+                    @Html.LabelFor(model => model.Password, new { @data_error = "Error", @data_success = "" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "validate" })
+                </div>
+
+                <div class="input-field">
+                    <i class="material-icons prefix">label</i>
+                    @Html.EditorFor(model => model.repeatPassword, new { htmlAttributes = new { @class = "form-control", @data_length = "50" } })
+                    @Html.LabelFor(model => model.repeatPassword, new { @data_error = "Error", @data_success = "" })
+                    @Html.ValidationMessageFor(model => model.repeatPassword, "", new { @class = "validate" })
+                </div>
             </div>
+        <div class="card-action center-align">
+            <input type="submit" value="Crear" class="btn btn-primary" />
         </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <i class="material-icons prefix">account_circle</i>
-                <input id="icon_prefix" type="text" class="validate">
-                <label for="icon_prefix">Contraseña</label>
-            </div>
-            <div class="input-field col s6">
-                <i class="material-icons prefix">phone</i>
-                <input id="icon_telephone" type="tel" class="validate">
-                <label for="icon_telephone">Repetir contraseña</label>
-            </div>
-        </div>
-    </form>
+        }
 </div>
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Crear" class="btn btn-primary" />
-    </div>
-</div>
-}
--->
 
-
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(false, "Errores:", new { @class = "alert alert-danger" })
-    <fieldset>
-        <legend>Crear usuario</legend>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.repeatPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.repeatPassword, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.repeatPassword, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Crear" class="btn btn-primary" />
-            </div>
-        </div>
-</fieldset>
-}
-
-@if (WebSecurity.IsAuthenticated)
+@if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
 {
     <div>
-        @Html.ActionLink("Volver al listado", "Listado")
+        @Html.ActionLink("Ir al listado", "Listado")
     </div>
 }
