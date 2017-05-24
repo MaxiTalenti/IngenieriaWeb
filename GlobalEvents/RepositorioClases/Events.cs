@@ -127,16 +127,21 @@ namespace RepositorioClases
         public int Puntuacion { get; set; }
     }
 
-    public partial class AsistenciasEventos
+    public partial class InteresesEventos
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long IdAsistencia { get; set; }
+        public long IdInteres { get; set; }
         [Required]
         public long EventId { get; set; }
         [Required]
-        public int IdUsuario { get; set; }
+        public int UserId { get; set; }
         [Required]
-        public int TipoAsistencia { get; set; }
+        public Intereses Tipo { get; set; }
+        [Required]
+        public DateTime Fecha { get; set; }
+        [Required]
+        public bool Anulado { get; set; }
+        public DateTime FechaAnulacion { get; set; }
     }
 
     public enum EventState
@@ -157,6 +162,12 @@ namespace RepositorioClases
         Clases = 5,
         Deportes = 6,
         Otros = 7
+    }
+
+    public enum Intereses
+    {
+        Asistire = 1,
+        Me_Gusta = 2
     }
 
 }
