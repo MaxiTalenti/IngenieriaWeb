@@ -58,12 +58,33 @@
 
         <div id="map" style="width:100%;height:300px;"></div>
         <hr />
+
+        @if (Model.FechaFin < DateTime.Now)
+        {
+            <fieldset class="rating">
+                <legend>¿Qué le pareció el evento?</legend>
+                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Increíble!">5 stars</label>
+                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Muy bueno">4 stars</label>
+                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Bueno">3 stars</label>
+                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Regular">2 stars</label>
+                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Una pérdida de tiempo">1 star</label>
+            </fieldset>
+        }
+        <br />
+        <br />
+        <br />
+        <br />
+
+
         <div class="right-align">
             <i class="fa fa-flag-o"></i>
             @Html.ActionLink("Reportar", "ReportarEvento", new { id = Model.Id })
         </div>
     </div>
 </div>
+
+
+
 
 @*<!-- Modal Trigger -->
 <a class="waves-effect waves-light btn" href="#modal1">Comentar</a>
@@ -166,6 +187,8 @@
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPHbsGCp8vpDA1vMKAFWsU0Odc8Mz5SAA&callback=initMap" async defer></script>
+
+
 
 
 @* ------------------------------------------------------------------------------------------------------------------------------------------------------ *@

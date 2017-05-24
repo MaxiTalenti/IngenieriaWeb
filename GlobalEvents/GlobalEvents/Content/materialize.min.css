@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Materialize v0.98.2 (http://materializecss.com)
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
@@ -3176,6 +3176,7 @@ nav ul a span.badge {
         padding-top: 0;
     }
 
+
 .row {
     margin-left: auto;
     margin-right: auto;
@@ -6064,7 +6065,7 @@ textarea {
 }
 
 [type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
-    border: 2px solid #5a5a5a;
+    border: 2px none #5a5a5a;
 }
 
 [type="radio"]:not(:checked) + label:after {
@@ -6077,11 +6078,11 @@ textarea {
 }
 
 [type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
-    border: 2px solid #26a69a;
+    border: 2px none #26a69a;
 }
 
 [type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
-    background-color: #26a69a;
+    background-color: transparent;
 }
 
 [type="radio"]:checked + label:after {
