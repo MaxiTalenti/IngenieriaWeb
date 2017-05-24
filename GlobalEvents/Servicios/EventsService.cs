@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Security;
 
 namespace Servicios
 {
@@ -186,5 +187,41 @@ namespace Servicios
             }
             return true;
         }
+
+        public static bool InteresesEventos(int EventId, int UserId, Intereses Tipo, bool Anular = false)
+        {
+            using (Modelo context = new Modelo())
+            {
+                InteresesEventos interes = context.InteresesEventos
+                        .Where(z => z.EventId == EventId)
+                        .Where(z => z.Tipo == Tipo)
+                        .SingleOrDefault(c => c.UserId == UserId);
+
+                if (interes == null)
+                {
+                    // No existe este interés.
+                    context.InteresesEventos.Add(new InteresesEventos()
+                    {
+                        EventId = EventId,
+                        UserId = UserId,
+                        Tipo = Tipo,
+                        Fecha = DateTime.Now,
+                        Anulado = false
+                    });
+                    context.SaveChanges();
+                }
+                else
+                {
+                    // Ya existe el interes, cambiar el estado.
+                    interes.Anulado = Anular;
+                    if (Anular)
+                        interes.FechaAnulacion = DateTime.Now;
+                    context.SaveChanges();
+                }
+            }
+            return true;
+        }
+
+
     }
 }
