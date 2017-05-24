@@ -115,6 +115,30 @@ namespace RepositorioClases
         public virtual Users User { get; set; }
     }
 
+    public partial class PuntuacionesEventos
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long IdPuntuacion { get; set; }
+        [Required]
+        public long EventId { get; set; }
+        [Required]
+        public int IdUsuario { get; set;}
+        [Required]
+        public int Puntuacion { get; set; }
+    }
+
+    public partial class AsistenciasEventos
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long IdAsistencia { get; set; }
+        [Required]
+        public long EventId { get; set; }
+        [Required]
+        public int IdUsuario { get; set; }
+        [Required]
+        public int TipoAsistencia { get; set; }
+    }
+
     public enum EventState
     {
         Habilitado = 1,
@@ -134,4 +158,5 @@ namespace RepositorioClases
         Deportes = 6,
         Otros = 7
     }
+
 }

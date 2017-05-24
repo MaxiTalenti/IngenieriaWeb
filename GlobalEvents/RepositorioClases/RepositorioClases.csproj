@@ -52,45 +52,9 @@
   <ItemGroup>
     <Compile Include="Comments.cs" />
     <Compile Include="Events.cs" />
-    <Compile Include="Migrations\201705021736222_Inicial.cs" />
-    <Compile Include="Migrations\201705021736222_Inicial.Designer.cs">
-      <DependentUpon>201705021736222_Inicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705041145136_ModifComments.cs" />
-    <Compile Include="Migrations\201705041145136_ModifComments.Designer.cs">
-      <DependentUpon>201705041145136_ModifComments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705041314349_ModifTipoDatoComPadre.cs" />
-    <Compile Include="Migrations\201705041314349_ModifTipoDatoComPadre.Designer.cs">
-      <DependentUpon>201705041314349_ModifTipoDatoComPadre.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705051342500_AddVotosUserEvents.cs" />
-    <Compile Include="Migrations\201705051342500_AddVotosUserEvents.Designer.cs">
-      <DependentUpon>201705051342500_AddVotosUserEvents.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705081338199_CommentsReportes.cs" />
-    <Compile Include="Migrations\201705081338199_CommentsReportes.Designer.cs">
-      <DependentUpon>201705081338199_CommentsReportes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705081340540_CommentsReportsObservacion.cs" />
-    <Compile Include="Migrations\201705081340540_CommentsReportsObservacion.Designer.cs">
-      <DependentUpon>201705081340540_CommentsReportsObservacion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705081356351_CommentsReportsFechaResuelto.cs" />
-    <Compile Include="Migrations\201705081356351_CommentsReportsFechaResuelto.Designer.cs">
-      <DependentUpon>201705081356351_CommentsReportsFechaResuelto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705081528395_CommentsReportsStringLength.cs" />
-    <Compile Include="Migrations\201705081528395_CommentsReportsStringLength.Designer.cs">
-      <DependentUpon>201705081528395_CommentsReportsStringLength.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705121825167_AddReportesEventos.cs" />
-    <Compile Include="Migrations\201705121825167_AddReportesEventos.Designer.cs">
-      <DependentUpon>201705121825167_AddReportesEventos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705221929246_cambiandoidcomentariopadre.cs" />
-    <Compile Include="Migrations\201705221929246_cambiandoidcomentariopadre.Designer.cs">
-      <DependentUpon>201705221929246_cambiandoidcomentariopadre.cs</DependentUpon>
+    <Compile Include="Migrations\201705241232348_TablesPuntuacionesyAsistencias.cs" />
+    <Compile Include="Migrations\201705241232348_TablesPuntuacionesyAsistencias.Designer.cs">
+      <DependentUpon>201705241232348_TablesPuntuacionesyAsistencias.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modelo.cs" />
@@ -103,35 +67,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705021736222_Inicial.resx">
-      <DependentUpon>201705021736222_Inicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705041145136_ModifComments.resx">
-      <DependentUpon>201705041145136_ModifComments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705041314349_ModifTipoDatoComPadre.resx">
-      <DependentUpon>201705041314349_ModifTipoDatoComPadre.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705051342500_AddVotosUserEvents.resx">
-      <DependentUpon>201705051342500_AddVotosUserEvents.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705081338199_CommentsReportes.resx">
-      <DependentUpon>201705081338199_CommentsReportes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705081340540_CommentsReportsObservacion.resx">
-      <DependentUpon>201705081340540_CommentsReportsObservacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705081356351_CommentsReportsFechaResuelto.resx">
-      <DependentUpon>201705081356351_CommentsReportsFechaResuelto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705081528395_CommentsReportsStringLength.resx">
-      <DependentUpon>201705081528395_CommentsReportsStringLength.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705121825167_AddReportesEventos.resx">
-      <DependentUpon>201705121825167_AddReportesEventos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705221929246_cambiandoidcomentariopadre.resx">
-      <DependentUpon>201705221929246_cambiandoidcomentariopadre.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705241232348_TablesPuntuacionesyAsistencias.resx">
+      <DependentUpon>201705241232348_TablesPuntuacionesyAsistencias.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,13 +7,13 @@ namespace RepositorioClases.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CommentsReportsObservacion : IMigrationMetadata
+    public sealed partial class TablesPuntuacionesyAsistencias : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CommentsReportsObservacion));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(TablesPuntuacionesyAsistencias));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705081340540_CommentsReportsObservacion"; }
+            get { return "201705241232348_TablesPuntuacionesyAsistencias"; }
         }
         
         string IMigrationMetadata.Source
