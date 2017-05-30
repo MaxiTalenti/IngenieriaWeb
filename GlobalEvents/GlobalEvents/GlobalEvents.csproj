@@ -177,7 +177,6 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Imagenes\bootstrap-solid.svg" />
-    <Content Include="Content\Imagenes\stars.png" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="img\lightbox\default-skin.png" />
