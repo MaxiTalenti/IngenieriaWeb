@@ -8984,7 +8984,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
     }
 
         .rating:not(:checked) > label:before {
-            content: '★';
+            content: '★ ';
             font-size: 35px;
             margin-top: -1px;
         }
