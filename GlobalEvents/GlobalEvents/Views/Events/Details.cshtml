@@ -227,7 +227,11 @@
             data: { 'Commentid': id },
             dataType: 'text',
             success: function (result) {
-                $("#comment" + id).append(result);
+                if (result.includes("loginForm")) {
+                    window.location.replace("/Home/Login");
+                } else {
+                    $("#comment" + id).append(result);
+                }
             }
         });
     }

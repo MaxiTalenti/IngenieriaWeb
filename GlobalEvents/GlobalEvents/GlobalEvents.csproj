@@ -303,6 +303,8 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Web.sitemap" />
     <Content Include="Views\Comments\ResponderComentarios.cshtml" />
+    <Content Include="Views\Users\ReportarUsuario.cshtml" />
+    <Content Include="Views\Users\UsuariosReportados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

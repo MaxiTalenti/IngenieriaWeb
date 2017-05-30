@@ -33,6 +33,14 @@ namespace Servicios
             }
         }
 
+        public static List<UsersReportes> ObtenerUsuariosReportados()
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.UsersReportes.Where(z => z.Resuelto == false).ToList();
+            }
+        }
+
         /// <summary>
         /// Reportar un evento
         /// </summary>
@@ -64,6 +72,22 @@ namespace Servicios
                 context.CommentsReportes.Add(new CommentsReportes()
                 {
                     CommentId = reporte.CommentId,
+                    Fecha = DateTime.Now,
+                    IdUsuario = reporte.IdUsuario,
+                    Observacion = reporte.Observacion,
+                    Resuelto = false
+                });
+                context.SaveChanges();
+            }
+        }
+
+        public static void CreateReporte(UsersReportes reporte)
+        {
+            using (Modelo context = new Modelo())
+            {
+                context.UsersReportes.Add(new UsersReportes()
+                {
+                    UserId = reporte.UserId,
                     Fecha = DateTime.Now,
                     IdUsuario = reporte.IdUsuario,
                     Observacion = reporte.Observacion,

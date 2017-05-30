@@ -124,9 +124,9 @@ namespace Servicios
             using (Modelo context = new Modelo())
             {
                 Events even = context.Events.Where(u => u.Id == events.Id).FirstOrDefault();
-                if (uriimage == null && events.RutaImagen != null)
+                if (uriimage == null && even.RutaImagen != null)
                 {
-                    uriimage = events.RutaImagen;
+                    uriimage = even.RutaImagen;
                 }
                 if (even != null)
                 {

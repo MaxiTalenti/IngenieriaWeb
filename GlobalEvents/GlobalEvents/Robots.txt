@@ -4,5 +4,3 @@ Disallow: /Users
 Disallow: /Events/Listado
 Disallow: /Comments/Listado
 Disallow: /Manage
-
-Sitemap: http://eventosingweb.apphb.com/sitemap.xml

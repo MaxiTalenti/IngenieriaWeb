@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Servicios;
 using RepositorioClases;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ViewModels
 {
@@ -32,6 +33,8 @@ namespace ViewModels
         [Required]
         [Display(Name = "Estado")]
         public UserState Estado { get; set; }
+
+        public bool? UsuarioDestacado { get; set; }
 
     }
 
@@ -152,5 +155,17 @@ namespace ViewModels
         Edito_Cuenta = 4,
         Elimino_Cuenta = 5,
         Cambio_Estado_Cuenta = 6
+    }
+
+    public class UsersModeracionModel
+    {
+        public int ReporteId { get; set; }
+        public long UserIdReportado { get; set; }
+        public long IdUsuario { get; set; }
+        public string UsuarioReportado { get; set; }
+        public string Usuario { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Observacion { get; set; }
+        public Estado Estado { get; set; }
     }
 }

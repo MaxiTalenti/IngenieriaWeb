@@ -60,6 +60,12 @@
                     <li>
                         @if (WebSecurity.IsAuthenticated)
                         {
+                            @Html.ActionLink("Perfil", "Details", "Users", new { Id = WebSecurity.CurrentUserId }, null)
+                        }
+                    </li>
+                    <li>
+                        @if (WebSecurity.IsAuthenticated)
+                        {
                             @Html.ActionLink("Desconectarse", "Logout", "Home", new { returnURL = HttpContext.Current.Request.Url.AbsolutePath }, null)
                         }
                         else

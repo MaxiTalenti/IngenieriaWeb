@@ -12,7 +12,7 @@ using WebMatrix.WebData;
 namespace GlobalEvents.Controllers
 {
     [InitializeSimpleMembership]
-    [MyAuthorize(Roles = "Admin")]
+    [MyAuthorize]
     public class CommentsController : Controller
     {
         

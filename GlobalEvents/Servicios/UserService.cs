@@ -38,7 +38,7 @@ namespace Servicios
         /// </summary>
         /// <param name="id">Busca por id (opcional)</param>
         /// <returns>Lista de usuario/s</returns>
-        public static List<Users> Get(int? id)
+        public static List<Users> Get(long? id)
         {
             using (Modelo context = new Modelo())
             {
@@ -95,6 +95,17 @@ namespace Servicios
                 // el objeto en memoria persiste los cambios en la base de datos cuando hago un save sobre el contexto.
                 context.SaveChanges();
             }
+        }
+
+        public static bool CambiarEstadoUsuario(long UserId, UserState estado)
+        {
+            using (Modelo context = new Modelo())
+            {
+                Users usuario = context.Users.SingleOrDefault(c => c.Id == UserId);
+                usuario.Estado = estado;
+                context.SaveChanges();
+            }
+            return true;
         }
     }
 }

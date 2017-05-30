@@ -63,15 +63,28 @@
             </div>
 
             <br />
+
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large green" href="~/Users/Edit/@Model.Id">
+                    <i class="large material-icons">mode_edit</i>
+                </a>
+            </div>
+            @if (Model.Id == WebSecurity.CurrentUserId)
+            {
+                <div class="left-align">
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Id })
+                </div>
+            }
+            <div class="right-align">
+                <i class="fa fa-flag-o"></i>
+                @Html.ActionLink("Reportar", "ReportarUsuario", new { id = Model.Id })
+            </div>
+
+            <br />
             <div>
                 
                 @Html.ActionLink("Volver a usuarios", "Listado")
             </div>
-        </div>
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large green" href="~/Users/Edit/@Model.Id">
-                <i class="large material-icons">mode_edit</i>
-            </a>
         </div>
         </div>
 </div>

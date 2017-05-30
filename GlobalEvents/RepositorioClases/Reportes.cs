@@ -23,4 +23,9 @@ namespace RepositorioClases
         public virtual Events Eventos { get; set; }
         public virtual List<EventsReportes> Reportes { get; set; }
     }
+
+    public partial class UsersDetailReport
+    {
+        
+    }
 }

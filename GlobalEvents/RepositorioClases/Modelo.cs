@@ -23,6 +23,7 @@ namespace RepositorioClases
         public virtual DbSet<EventsReportes> EventsReportes { get; set; }
         public virtual DbSet<PuntuacionesEventos> PuntuacionesEventos { get; set; }
         public virtual DbSet<InteresesEventos> InteresesEventos { get; set; }
+        public virtual DbSet<UsersReportes> UsersReportes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder builder)
         {
