@@ -61,11 +61,21 @@ namespace ViewModels
 
             [Required]
             [StringLength(200)]
-            public HttpPostedFileBase RutaImagen { get; set; }
+            public string RutaImagen { get; set; }
+
+            public Nullable<TimeSpan> HoraInicio { get; set; }
+
+            public Nullable<TimeSpan> HoraFin { get; set; }
 
             [Required]
             public EventState Estado { get; set; }
 
+        }
+
+        public partial class EventModel
+        {
+            public EventVM ViewModel { get; set; }
+            public int Puntuacion { get; set; }
         }
 
     }

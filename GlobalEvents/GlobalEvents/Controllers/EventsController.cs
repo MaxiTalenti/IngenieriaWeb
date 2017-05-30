@@ -82,6 +82,7 @@ namespace GlobalEvents.Controllers
         }
 
         // GET: Events/Details/5
+        [HttpGet]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -89,11 +90,45 @@ namespace GlobalEvents.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Events events = EventsService.Get(id).FirstOrDefault();
-            if (events == null)
+            EventViewModel.EventModel EventModel = new EventViewModel.EventModel();
+            EventViewModel.EventVM model = new EventViewModel.EventVM();
+            model.Descripcion = events.Descripcion;
+            model.Destacado = events.Destacado;
+            model.Direccion = events.Direccion;
+            model.Estado = events.Estado;
+            model.FechaFin = events.FechaFin;
+            model.FechaInicio = events.FechaInicio;
+            model.Id = events.Id;
+            model.IdCategoria = events.IdCategoria;
+            model.IdUser = events.IdUser;
+            model.lat = events.lat;
+            model.lng = events.lng;
+            model.NombreEvento = events.NombreEvento;
+            model.RutaImagen = events.RutaImagen;
+            model.HoraFin = events.HoraFin;
+            model.HoraInicio = events.HoraInicio;
+            EventModel.ViewModel = model;
+
+            var punt = new PuntuacionesEventos();
+            using (Modelo context = new Modelo())
+            {
+                punt = context.PuntuacionesEventos.SingleOrDefault(C => C.IdUsuario == WebSecurity.CurrentUserId && C.EventId == model.Id);   
+            }
+
+            if (punt != null)
+            {
+                EventModel.Puntuacion = punt.Puntuacion;
+            }
+            else
+            {
+                EventModel.Puntuacion = 0;
+            }
+
+            if (EventModel == null)
             {
                 return HttpNotFound();
             }
-            return View(events);
+            return View(EventModel);
         }
 
         [HttpGet]
@@ -321,6 +356,33 @@ namespace GlobalEvents.Controllers
             ReportServices.CreateReporte(reporte);
             EventsService.CambiarEstadoEvento(reporte.EventId, EventState.Reportado);
             return RedirectToAction("Details", "Events", new { id = reporte.EventId });
+        }
+
+        [HttpPost]
+        [MyAuthorize]
+        public void PuntuarEvento(long Id, int Puntuacion)
+        {
+            PuntuacionesEventos punt = new PuntuacionesEventos();
+            using (Modelo context = new Modelo())
+            {
+                punt = context.PuntuacionesEventos.SingleOrDefault(C => C.IdUsuario == WebSecurity.CurrentUserId && C.EventId == Id);
+                if(punt != null)
+                {
+                    punt.Puntuacion = Puntuacion;
+                    context.SaveChanges();
+                }
+                else
+                {
+                    punt = new PuntuacionesEventos();
+                    punt.EventId = Id;
+                    punt.Puntuacion = Puntuacion;
+                    punt.IdUsuario = WebSecurity.CurrentUserId;
+                    context.PuntuacionesEventos.Add(punt);
+                    context.SaveChanges();
+                }
+            }
+
+            //return RedirectToAction("Details", new { id = Id });
         }
     }
 }

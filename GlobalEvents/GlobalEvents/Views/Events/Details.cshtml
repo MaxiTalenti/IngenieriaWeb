@@ -1,4 +1,4 @@
-﻿@model RepositorioClases.Events
+﻿@model ViewModels.EventViewModel.EventModel
 
 @{
     ViewBag.Title = "Details";
@@ -8,47 +8,47 @@
 <br />
 
 <div class="card #00897b teal darken-1 hoverable">
-    @if (Model.RutaImagen != null)
+    @if (Model.ViewModel.RutaImagen != null)
     {
         <div class="card-image">
-            <img src="@Html.DisplayFor(modelItem => Model.RutaImagen)">
+            <img src="@Html.DisplayFor(modelItem => Model.ViewModel.RutaImagen)">
         </div>
     }
     <div class="card-content white-text">
 
         <div class="col s12 m12 right-align">
-            <span class="card-info card-event-detail-info"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => Model.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => Model.IdCategoria) </span>
+            <span class="card-info card-event-detail-info"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => Model.ViewModel.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => Model.ViewModel.IdCategoria) </span>
         </div>
 
-        <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => Model.NombreEvento)</span>
-        <p class="card-subtitle text-darken-2">@Html.DisplayFor(modelItem => Model.Descripcion)</p>
-        <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => Model.IdUser).ToString())</small></p>
+        <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => Model.ViewModel.NombreEvento)</span>
+        <p class="card-subtitle text-darken-2">@Html.DisplayFor(modelItem => Model.ViewModel.Descripcion)</p>
+        <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => Model.ViewModel.IdUser).ToString())</small></p>
         <hr />
 
         <!-- IdUser -->
 
         <div class="row card-row">
             <div class="col s12 m6">
-                @if (Model.FechaFin == Model.FechaInicio)
+                @if (Model.ViewModel.FechaFin == Model.ViewModel.FechaInicio)
                 {
-                    <span class="card-info card-event-detail-info"><i class="fa fa-calendar-times-o"></i> @Html.DisplayFor(modelItem => Model.FechaInicio)</span>
+                    <span class="card-info card-event-detail-info"><i class="fa fa-calendar-times-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.FechaInicio)</span>
                 }
                 else
                 {
-                    <span class="card-info card-event-detail-info"><i class="fa fa-calendar-times-o"></i> @Html.DisplayFor(modelItem => Model.FechaInicio) al @Html.DisplayFor(modelItem => Model.FechaFin)</span>
+                    <span class="card-info card-event-detail-info"><i class="fa fa-calendar-times-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.FechaInicio) al @Html.DisplayFor(modelItem => Model.ViewModel.FechaFin)</span>
                 }
 
             </div>
             <div class="col s12 m6 right-align">
                 <span class="card-info card-event-detail-info">
-                    <i class="fa fa-clock-o"></i> @Html.DisplayFor(modelItem => Model.HoraInicio) - @Html.DisplayFor(modelItem => Model.HoraFin)
+                    <i class="fa fa-clock-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.HoraInicio) - @Html.DisplayFor(modelItem => Model.ViewModel.HoraFin)
                 </span>
             </div>
         </div>
 
         <div class="row card-row">
             <div class="col s12 m6">
-                <span class="card-info card-event-detail-info"><i class="fa fa-address-card-o"></i> @Html.DisplayFor(modelItem => Model.Direccion)</span>
+                <span class="card-info card-event-detail-info"><i class="fa fa-address-card-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.Direccion)</span>
             </div>
             <!--<div class="col s12 m6">
                 <span class="card-info card-event-detail-info">12.00 €</span>
@@ -59,17 +59,24 @@
         <div id="map" style="width:100%;height:300px;"></div>
         <hr />
 
-        @if (Model.FechaFin < DateTime.Now)
-        {
-            <fieldset class="rating">
-                <legend>¿Qué le pareció el evento?</legend>
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Increíble!">5 stars</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Muy bueno">4 stars</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Bueno">3 stars</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Regular">2 stars</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Una pérdida de tiempo">1 star</label>
-            </fieldset>
-        }
+            @if (Model.ViewModel.FechaFin < DateTime.Now)
+            {
+                if (Model.Puntuacion > 0)
+                {
+                    <h4>Usted ha puntuado este evento con @Model.Puntuacion estrellas</h4>
+                }
+                else
+                {
+                    <fieldset class="rating">
+                        <legend>¿Qué le pareció el evento?</legend>
+                        <input type="radio" id="star5" name="rating" value="5" onclick="EnviarPuntuacion(@Model.ViewModel.Id, 5)" /><label for="star5" title="Increíble!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" onclick="EnviarPuntuacion(@Model.ViewModel.Id, 4)" /><label for="star4" title="Muy bueno">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" onclick="EnviarPuntuacion(@Model.ViewModel.Id, 3)" /><label for="star3" title="Bueno">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" onclick="EnviarPuntuacion(@Model.ViewModel.Id, 2)" /><label for="star2" title="Regular">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" onclick="EnviarPuntuacion(@Model.ViewModel.Id, 1)" /><label for="star1" title="Una pérdida de tiempo">1 star</label>
+                    </fieldset>
+                }
+            }
         <br />
         <br />
         <br />
@@ -78,7 +85,7 @@
 
         <div class="right-align">
             <i class="fa fa-flag-o"></i>
-            @Html.ActionLink("Reportar", "ReportarEvento", new { id = Model.Id })
+            @Html.ActionLink("Reportar", "ReportarEvento", new { id = Model.ViewModel.Id })
         </div>
     </div>
 </div>
@@ -126,7 +133,7 @@
     }*@
 
 <div id="comentariosDiv">
-    @Html.Action("GetEventCommets", "Events", new { IdEvento = Model.Id })
+    @Html.Action("GetEventCommets", "Events", new { IdEvento = Model.ViewModel.Id })
 </div>
 
 
@@ -134,7 +141,7 @@
 @if (WebSecurity.IsAuthenticated)
 {
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large green" href="~/Events/Edit/@Model.Id">
+        <a class="btn-floating btn-large green" href="~/Events/Edit/@Model.ViewModel.Id">
             <i class="large material-icons">mode_edit</i>
         </a>
     </div>
@@ -155,7 +162,7 @@
     function initMap() {
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat:@Model.lat, lng: @Model.lng },
+            center: { lat:@Model.ViewModel.lat, lng: @Model.ViewModel.lng },
             zoom: 15
         });
 
@@ -163,7 +170,7 @@
 
 
         var myMarker = new google.maps.Marker({
-            position: new google.maps.LatLng(@Model.lat, @Model.lng),
+            position: new google.maps.LatLng(@Model.ViewModel.lat, @Model.ViewModel.lng),
             draggable: false
         });
 
@@ -231,6 +238,25 @@
                     window.location.replace("/Home/Login");
                 } else {
                     $("#comment" + id).append(result);
+                }
+            }
+        });
+    }
+
+
+    function EnviarPuntuacion(id, Puntuacion) {
+        var url = '/Events/PuntuarEvento'
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                'Id': id, 'Puntuacion' : Puntuacion},
+            dataType: 'text',
+            success: function (result) {
+                if (result.includes("loginForm")) {
+                    window.location.replace("/Home/Login");
+                } else {
+                    window.location.reload();
                 }
             }
         });

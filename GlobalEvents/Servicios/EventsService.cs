@@ -88,6 +88,7 @@ namespace Servicios
             }
         }
 
+
         public static List<Events> GetForMap(long? id)
         {
             using (Modelo context = new Modelo())
