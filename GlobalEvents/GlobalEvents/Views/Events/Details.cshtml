@@ -16,48 +16,57 @@
     }
     <div class="card-content white-text">
 
-        <div class="col s12 m12 right-align">
-            <span class="card-info card-event-detail-info"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => Model.ViewModel.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => Model.ViewModel.IdCategoria) </span>
-        </div>
-
-        <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => Model.ViewModel.NombreEvento)</span>
-        <p class="card-subtitle text-darken-2">@Html.DisplayFor(modelItem => Model.ViewModel.Descripcion)</p>
-        <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => Model.ViewModel.IdUser).ToString())</small></p>
-        <hr />
-
-        <!-- IdUser -->
-
-        <div class="row card-row">
-            <div class="col s12 m6">
-                @if (Model.ViewModel.FechaFin == Model.ViewModel.FechaInicio)
-                {
-                    <span class="card-info card-event-detail-info"><i class="fa fa-calendar-times-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.FechaInicio)</span>
-                }
-                else
-                {
-                    <span class="card-info card-event-detail-info"><i class="fa fa-calendar-times-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.FechaInicio) al @Html.DisplayFor(modelItem => Model.ViewModel.FechaFin)</span>
-                }
-
+            <div class="row">
+                <div class="col s12 m8 left-align">
+                    <a href="~/Users/Details/@Model.ViewModel.IdUser">
+                        <div class="chip">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-XTtpVFr21gRcxHk_D2ZoENOxFxtVFKVIe9Wpf61P93ERViS" alt="Contact Person">
+                            @Html.getNameUser(id: @Html.DisplayFor(modelItem => Model.ViewModel.IdUser).ToString())
+                        </div>
+                    </a>
+                </div>
+                <div class="col s12 m4 right-align">
+                    <span class="card-info card-event-detail-info"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => Model.ViewModel.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => Model.ViewModel.IdCategoria) </span>
+                </div>
             </div>
-            <div class="col s12 m6 right-align">
-                <span class="card-info card-event-detail-info">
-                    <i class="fa fa-clock-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.HoraInicio) - @Html.DisplayFor(modelItem => Model.ViewModel.HoraFin)
-                </span>
-            </div>
-        </div>
 
-        <div class="row card-row">
-            <div class="col s12 m6">
-                <span class="card-info card-event-detail-info"><i class="fa fa-address-card-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.Direccion)</span>
+            <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => Model.ViewModel.NombreEvento)</span>
+            <p class="card-subtitle text-darken-2">@Html.DisplayFor(modelItem => Model.ViewModel.Descripcion)</p>
+            <hr />
+
+            <!-- IdUser -->
+
+            <div class="row card-row">
+                <div class="col s12 m6">
+                    @if (Model.ViewModel.FechaFin == Model.ViewModel.FechaInicio)
+                    {
+                        <span class="card-info card-event-detail-info"><i class="fa fa-calendar-times-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.FechaInicio)</span>
+                    }
+                    else
+                    {
+                        <span class="card-info card-event-detail-info"><i class="fa fa-calendar-times-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.FechaInicio) al @Html.DisplayFor(modelItem => Model.ViewModel.FechaFin)</span>
+                    }
+
+                </div>
+                <div class="col s12 m6 right-align">
+                    <span class="card-info card-event-detail-info">
+                        <i class="fa fa-clock-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.HoraInicio) - @Html.DisplayFor(modelItem => Model.ViewModel.HoraFin)
+                    </span>
+                </div>
             </div>
-            <!--<div class="col s12 m6">
+
+            <div class="row card-row">
+                <div class="col s12 m6">
+                    <span class="card-info card-event-detail-info"><i class="fa fa-address-card-o"></i> @Html.DisplayFor(modelItem => Model.ViewModel.Direccion)</span>
+                </div>
+                <!--<div class="col s12 m6">
                 <span class="card-info card-event-detail-info">12.00 €</span>
             </div>-->
-        </div>
-        <hr />
+            </div>
+            <hr />
 
-        <div id="map" style="width:100%;height:300px;"></div>
-        <hr />
+            <div id="map" style="width:100%;height:300px;"></div>
+            <hr />
 
             @if (Model.ViewModel.FechaFin < DateTime.Now)
             {
@@ -77,17 +86,17 @@
                     </fieldset>
                 }
             }
-        <br />
-        <br />
-        <br />
-        <br />
+            <br />
+            <br />
+            <br />
+            <br />
 
 
-        <div class="right-align">
-            <i class="fa fa-flag-o"></i>
-            @Html.ActionLink("Reportar", "ReportarEvento", new { id = Model.ViewModel.Id })
+            <div class="right-align">
+                <i class="fa fa-flag-o"></i>
+                @Html.ActionLink("Reportar", "ReportarEvento", new { id = Model.ViewModel.Id })
+            </div>
         </div>
-    </div>
 </div>
 
 
