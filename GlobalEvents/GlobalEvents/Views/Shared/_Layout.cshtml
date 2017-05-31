@@ -48,19 +48,19 @@
                     <li>
                         <a href="~/Home/Search"><i class="material-icons">search</i></a>
                     </li>
+                    @if (WebSecurity.IsAuthenticated)
+                    {
+                        <li>
+                            <a href="~/Users/Details/@WebSecurity.CurrentUserId"><i class="material-icons">perm_identity</i></a>
+                        </li>
+                    }
                     <li>
                         @if (WebSecurity.IsAuthenticated)
                         {
                             if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].ToString() == "Admin")
                             {
-                                @Html.ActionLink("Administración", "Listado", "Users", new { area = "" }, null)
+                                <a href="~/Users/Listado"><i class="material-icons">settings</i></a>
                             }
-                        }
-                    </li>
-                    <li>
-                        @if (WebSecurity.IsAuthenticated)
-                        {
-                            @Html.ActionLink("Perfil", "Details", "Users", new { Id = WebSecurity.CurrentUserId }, null)
                         }
                     </li>
                     <li>
