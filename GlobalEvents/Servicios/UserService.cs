@@ -107,5 +107,29 @@ namespace Servicios
             }
             return true;
         }
+
+        public static List<UsersReportes> ObtenerUsuariosReportados()
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.UsersReportes.Where(z => z.Resuelto == false).ToList();
+            }
+        }
+
+        public static void ResolverReportesUsuarios(int idUsuario)
+        {
+            using (Modelo context = new Modelo())
+            {
+                List<UsersReportes> users = context.UsersReportes
+                    .Where(z => z.IdUsuario == idUsuario)
+                    .Where(z => z.Resuelto == false)
+                    .ToList();
+                foreach (var a in users)
+                {
+                    a.Resuelto = true;
+                }
+                context.SaveChanges();
+            }
+        }
     }
 }

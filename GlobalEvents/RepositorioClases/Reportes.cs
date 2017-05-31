@@ -10,6 +10,7 @@ namespace RepositorioClases
     {
         public virtual List<CommentsReportes> Comentarios { get; set;}
         public virtual List<EventsReportes> Eventos { get; set; }
+        public virtual List<UsersReportes> Usuarios { get; set; }
     }
 
     public partial class CommentsDetailsReport
@@ -26,6 +27,7 @@ namespace RepositorioClases
 
     public partial class UsersDetailReport
     {
-        
+        public virtual Users Usuarios { get; set; }
+        public virtual List<UsersReportes> Reportes { get; set; }
     }
 }

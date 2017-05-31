@@ -146,6 +146,6 @@ namespace RepositorioClases
 
         public DateTime Fecha { get; set; }
 
-        public bool? Resuelto { get; set; }
+        public bool Resuelto { get; set; }
     }
 }

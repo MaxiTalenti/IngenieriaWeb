@@ -16,9 +16,11 @@ namespace GlobalEvents.Controllers
         {
             List<CommentsReportes> Comentarios = ReportServices.ObtenerComentariosReportados();
             List<EventsReportes> Eventos = ReportServices.ObtenerEventosReportados();
+            List<UsersReportes> Usuarios = UserService.ObtenerUsuariosReportados();
             var a = new Reportes();
             a.Comentarios = Comentarios;
             a.Eventos = Eventos;
+            a.Usuarios = Usuarios;
             return View(a);
         }
 
@@ -139,6 +141,50 @@ namespace GlobalEvents.Controllers
             }
             ReportServices.ResolverReportesEventos((int)EventoId);
             return RedirectToAction("Details", "Events", new { id = EventoId });
+        }
+
+        //// Parte de usuarios
+
+        [HttpGet]
+        /// <summary>
+        /// el id es el del usuario
+        /// </summary>
+        public ActionResult UserReported(int id)
+        {
+            // Obtiene el evento.
+            Users usuario = UserService.Get(id).SingleOrDefault();
+            if (usuario == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+            // Genera objeto con evento y todos los reportes.
+            UsersDetailReport reporte = new UsersDetailReport();
+
+            reporte.Usuarios = usuario;
+            List<UsersReportes> Reportes = ReportServices.ObtenerUsuariosReportados().Where(z => z.IdUsuario == id).Where(z => z.Resuelto == false).ToList();
+            reporte.Reportes = Reportes;
+            return View(reporte);
+        }
+
+        [HttpPost]
+        /// <summary>
+        /// Se realiza cuando se hace un post con el sumbit en esa vista
+        /// </summary>
+        public ActionResult UserReported([Bind(Prefix = "Users", Include = "Id,Estado")] Users user)
+        {
+            UserService.CambiarEstadoUsuario(user.Id, user.Estado);
+            return RedirectToAction("Details", "Users", new { id = user.Id });
+        }
+
+        [HttpGet]
+        public ActionResult CerrarReporteUsuario(int? UserId)
+        {
+            if (UserId == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+            UserService.ResolverReportesUsuarios((int)UserId);
+            return RedirectToAction("Details", "Users", new { id = UserId });
         }
 
     }
