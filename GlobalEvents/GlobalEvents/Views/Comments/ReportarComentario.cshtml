@@ -6,41 +6,45 @@
 }
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Reportar comentario</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-           
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.CommentId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CommentId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="row">
+    <div class="input-field col s3"></div>
+    <div class="input-field col s6 ">
+        <div class="card">
+            <div class="card-title center-align">¿Por qué lo reportas?</div>
+            <div class="center-align">Mientras más específico seas, más nos ayudará a entender el reporte.</div>
+            <div class="card-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+                        @Html.HiddenFor(model => model.CommentId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CommentId, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Observacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="input-field">
+                            @Html.TextAreaFor(model => model.Observacion, new { @class = "materialize-textarea", @data_length = "500" })
+                            @Html.LabelFor(model => model.Observacion)
+                            @Html.ValidationMessageFor(model => model.Observacion, "", new { @class = "validate" })
+                        </div>
 
-        
+                        <script>$('#Descripcion').trigger('autoresize');</script>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Enviar Reporte" class="btn btn-default" />
+                        <br />
+                        <div class="form-group center-align">
+                            <input type="submit" value="Enviar Reporte" class="btn btn-default red" />
+                        </div>
+                    </div>
+                }
+                <div>
+                    @Html.ActionLink("Volver", "Index")
+                </div>
             </div>
         </div>
     </div>
-}
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
