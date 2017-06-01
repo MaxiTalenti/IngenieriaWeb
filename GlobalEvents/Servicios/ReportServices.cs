@@ -129,12 +129,16 @@ namespace Servicios
             }
         }
 
-        //public static List<Reportes> ObtenerReportesPorUsuario(int UserId)
-        //{
-        //    using (Modelo context = new Modelo())
-        //    {
-        //        return context.EventsReportes.Where(z => z.IdUsuario == UserId).ToList();
-        //    }
-        //}
+        public static Reportes ObtenerReportesPorUsuario(int UserId)
+        {
+            Reportes reportes = new Reportes();
+            using (Modelo context = new Modelo())
+            {
+                reportes.Comentarios = context.CommentsReportes.Where(z => z.IdUsuario == UserId).ToList();
+                reportes.Eventos = context.EventsReportes.Where(z => z.IdUsuario == UserId).ToList();
+                reportes.Usuarios = context.UsersReportes.Where(z => z.IdUsuario == UserId).ToList();
+            }
+            return reportes;
+        }
     }
 }
