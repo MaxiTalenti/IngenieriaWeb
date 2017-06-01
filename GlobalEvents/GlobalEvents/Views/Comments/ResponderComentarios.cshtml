@@ -1,8 +1,5 @@
 ﻿@model ViewModels.CommentsModel
 
-
-
-
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
         <div class="modal-content">
@@ -26,54 +23,6 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
-
-
-
-
-@*<div class="row">
-    @foreach (var a in Model.CommentsList.OrderBy(z => z.Fecha).Where(z => z.ComentarioPadre == null))
-    {
-        <div class="col s12 m12">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <p>
-                        @a.Comentario
-                    </p>
-                    <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: a.iDUsuario.ToString())</small></p>
-                    <div>
-                        @Html.HiddenFor(x => x.CommentsList.SingleOrDefault(c => c.CommentId == a.CommentId).CommentId)
-                        <div class="right-align">
-                            <a href="#" onclick="responderComentario(@a.CommentId)">Responder</a>
-                            &nbsp;
-                            &nbsp;
-                            @Html.ActionLink("Reportar", "ReportarComentario", "Comments", new { id = a.CommentId }, null)
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        foreach (var b in Model.CommentsList.OrderBy(z => z.Fecha).Where(z => z.ComentarioPadre == a.CommentId))
-        {
-            <div class="col s12 m1"></div>
-            <div class="col s12 m11">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <p>
-                            @b.Comentario
-                        </p>
-                        <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: b.iDUsuario.ToString())</small></p>
-                        <div>
-                            @Html.HiddenFor(x => x.CommentsList.SingleOrDefault(c => c.CommentId == b.CommentId).CommentId)
-                            <div class="right-align">
-                                @Html.ActionLink("Reportar", "ReportarComentario", "Comments", new { id = b.CommentId }, null)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    }
-</div>*@
 
 
 @using (Html.BeginForm("ResponderComentarios", "Comments", FormMethod.Post, new { id = "commentFatherId" }))
