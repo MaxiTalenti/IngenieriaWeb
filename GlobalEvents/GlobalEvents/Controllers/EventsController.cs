@@ -151,6 +151,7 @@ namespace GlobalEvents.Controllers
             }
             intereseseventmodel.InteresUsuario = intvm;
             intereseseventmodel.Asistencias = EventsService.ObtenerAsistenciasEvento(IDEvento);
+            intereseseventmodel.Interesados = EventsService.ObtenerInteresadosEvento(IDEvento);
             Events evento = EventsService.Get(IDEvento).FirstOrDefault();
             intereseseventmodel.FechaFin = evento.FechaFin;
             intereseseventmodel.IdEvento = IDEvento;
@@ -324,28 +325,62 @@ namespace GlobalEvents.Controllers
 
         [HttpPost]
         [MyAuthorize]
-        public ActionResult EnviarInteres(long id)
+        public ActionResult EnviarInteres(long id, int Tipo)
         {
+
             InteresesEventos interes = new InteresesEventos();
             using (Modelo context = new Modelo())
             {
                 interes = context.InteresesEventos.SingleOrDefault(c => c.EventId == id && c.UserId == WebSecurity.CurrentUserId && c.Anulado == false);
                 if (interes != null)
                 {
-                    context.InteresesEventos.Remove(interes);
-                    context.SaveChanges();
+                    if (interes.Tipo == Intereses.Me_Gusta && Tipo == 1)
+                    {
+                        context.InteresesEventos.Remove(interes);
+                        context.SaveChanges();
+                        interes = new InteresesEventos();
+                        interes.EventId = id;
+                        interes.Fecha = DateTime.Now;
+                        if (Tipo == 1)
+                        {
+                            interes.Tipo = Intereses.Asistire;
+                        }
+                        else
+                        {
+                            interes.Tipo = Intereses.Me_Gusta;
+                        }
+                        interes.UserId = WebSecurity.CurrentUserId;
+                        context.InteresesEventos.Add(interes);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        context.InteresesEventos.Remove(interes);
+                        context.SaveChanges();
+                    }
+                    
                 }
                 else
                 {
                     interes = new InteresesEventos();
                     interes.EventId = id;
                     interes.Fecha = DateTime.Now;
-                    interes.Tipo = Intereses.Asistire;
+                    if (Tipo == 1)
+                    {
+                        interes.Tipo = Intereses.Asistire;
+                    }
+                    else
+                    {
+                        interes.Tipo = Intereses.Me_Gusta;
+                    }
                     interes.UserId = WebSecurity.CurrentUserId;
                     context.InteresesEventos.Add(interes);
                     context.SaveChanges();
                 }
+                
             }
+            
+
             return RedirectToAction("AsistenciaEvento", new { IdEvento = id });
         }
 

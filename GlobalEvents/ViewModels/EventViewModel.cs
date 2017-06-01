@@ -96,6 +96,7 @@ namespace ViewModels
     {
         public InteresesViewModel InteresUsuario { get; set; }
         public Int64 Asistencias { get; set; }
+        public Int64 Interesados { get; set; }
         public DateTime FechaFin { get; set; }
         public Int64 IdEvento { get; set; }
     }

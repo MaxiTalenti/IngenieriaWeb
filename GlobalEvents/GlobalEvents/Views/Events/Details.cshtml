@@ -283,13 +283,14 @@
             }
 
 
-            function EnviarAsistencia(id) {
+            function EnviarAsistencia(id, Tipo) {
                 var url = '/Events/EnviarInteres'
                 $.ajax({
                     url: url,
                     type: "POST",
                     data: {
-                        'id': id
+                        'id': id,
+                        'Tipo': Tipo
                     },
                     dataType: 'text',
                     success: function (result) {

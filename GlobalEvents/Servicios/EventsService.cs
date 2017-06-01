@@ -227,7 +227,7 @@ namespace Servicios
         {
             using (Modelo context = new Modelo())
             {
-                return context.InteresesEventos.SingleOrDefault(c => c.EventId == idEvent && c.UserId == IdUser && c.Tipo == Intereses.Asistire);
+                return context.InteresesEventos.SingleOrDefault(c => c.EventId == idEvent && c.UserId == IdUser);
             }
         }
 
@@ -238,6 +238,16 @@ namespace Servicios
             using (Modelo context = new Modelo())
             {
                 cantidad = context.InteresesEventos.Where(c => c.Anulado == false && c.Tipo == Intereses.Asistire && c.EventId == IdEvent).ToList().Count;
+            }
+            return cantidad;
+        }
+
+        public static int ObtenerInteresadosEvento(long IdEvent)
+        {
+            int cantidad = 0;
+            using (Modelo context = new Modelo())
+            {
+                cantidad = context.InteresesEventos.Where(c => c.Anulado == false && c.Tipo == Intereses.Me_Gusta && c.EventId == IdEvent).ToList().Count;
             }
             return cantidad;
         }
