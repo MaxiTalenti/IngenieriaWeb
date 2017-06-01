@@ -141,7 +141,7 @@ namespace RepositorioClases
         public DateTime Fecha { get; set; }
         [Required]
         public bool Anulado { get; set; }
-        public DateTime FechaAnulacion { get; set; }
+        public DateTime? FechaAnulacion { get; set; }
     }
 
     public enum EventState

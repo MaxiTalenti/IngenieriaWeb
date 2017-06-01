@@ -124,11 +124,38 @@ namespace GlobalEvents.Controllers
                 EventModel.Puntuacion = 0;
             }
 
+
+         
             if (EventModel == null)
             {
                 return HttpNotFound();
             }
             return View(EventModel);
+        }
+
+        [HttpGet]
+        public ActionResult AsistenciaEvento(Int64 IDEvento)
+        {
+            InteresesEventos interes = EventsService.ObtenerInteresUsuarioEvento(WebSecurity.CurrentUserId, IDEvento);
+            InteresesEventosModel intereseseventmodel = new InteresesEventosModel();
+            InteresesViewModel intvm = new InteresesViewModel();
+            if (interes != null)
+            {
+                intvm.Anulado = interes.Anulado;
+                intvm.EventId = interes.EventId;
+                intvm.Fecha = interes.Fecha;
+                intvm.FechaAnulacion = interes.FechaAnulacion;
+                intvm.IdInteres = interes.IdInteres;
+                intvm.Tipo = interes.Tipo;
+                intvm.UserId = interes.UserId;
+            }
+            intereseseventmodel.InteresUsuario = intvm;
+            intereseseventmodel.Asistencias = EventsService.ObtenerAsistenciasEvento(IDEvento);
+            Events evento = EventsService.Get(IDEvento).FirstOrDefault();
+            intereseseventmodel.FechaFin = evento.FechaFin;
+            intereseseventmodel.IdEvento = IDEvento;
+            
+            return PartialView(@"~/Views/Events/AsistenciaEvento.cshtml", intereseseventmodel);
         }
 
         [HttpGet]
@@ -293,6 +320,26 @@ namespace GlobalEvents.Controllers
 
             return PartialView(@"~/Views/Events/CommentsView.cshtml", viewModel);
         }
+
+
+        [HttpPost]
+        [MyAuthorize]
+        public ActionResult EnviarInteres(long id)
+        {
+            InteresesEventos interes = new InteresesEventos();
+            interes.EventId = id;
+            interes.Fecha = DateTime.Now;
+            interes.Tipo = Intereses.Asistire;            
+            interes.UserId = WebSecurity.CurrentUserId;
+            using (Modelo context = new Modelo())
+            {
+                context.InteresesEventos.Add(interes);
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("AsistenciaEvento", new { IdEvento = id });
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -223,6 +223,23 @@ namespace Servicios
             return true;
         }
 
+        public static InteresesEventos ObtenerInteresUsuarioEvento(long IdUser, long idEvent)
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.InteresesEventos.SingleOrDefault(c => c.EventId == idEvent && c.UserId == IdUser && c.Tipo == Intereses.Asistire);
+            }
+        }
 
+
+        public static int ObtenerAsistenciasEvento(long IdEvent)
+        {
+            int cantidad = 0;
+            using (Modelo context = new Modelo())
+            {
+                cantidad = context.InteresesEventos.Where(c => c.Anulado == false && c.Tipo == Intereses.Asistire && c.EventId == IdEvent).ToList().Count;
+            }
+            return cantidad;
+        }
     }
 }

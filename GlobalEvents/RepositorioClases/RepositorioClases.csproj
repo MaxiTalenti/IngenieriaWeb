@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201705301413363_UserDestacado.Designer.cs">
       <DependentUpon>201705301413363_UserDestacado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706011312330_FechaAnulacionNullable.cs" />
+    <Compile Include="Migrations\201706011312330_FechaAnulacionNullable.Designer.cs">
+      <DependentUpon>201706011312330_FechaAnulacionNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705301413363_UserDestacado.resx">
       <DependentUpon>201705301413363_UserDestacado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706011312330_FechaAnulacionNullable.resx">
+      <DependentUpon>201706011312330_FechaAnulacionNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

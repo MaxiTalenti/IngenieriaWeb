@@ -1,0 +1,26 @@
+﻿@model ViewModels.InteresesEventosModel
+
+@using (Html.BeginForm("EnviarInteres", "Events", FormMethod.Post, new { id = "commentForm" }))
+{
+    <div class="col s12 m12 right-align">
+        @if (Model.FechaFin > DateTime.Now)
+        {
+            if (Model.InteresUsuario.IdInteres == 0)
+            {
+                <a class="waves-effect waves-light btn blue" onclick="EnviarAsistencia(@Model.IdEvento)"><i class="material-icons left">done</i>Asistiré</a>
+            }
+            else
+            {
+                <h5> Asistirás a este evento! </h5>
+            }
+        }
+    </div>
+
+    <div class="row">
+        <div class="col s11 m11 right-align">
+            <h5 id="CantAsistencias"> @Model.Asistencias</h5>
+        </div>
+    </div>
+
+}
+

@@ -91,4 +91,29 @@ namespace ViewModels
         public string Observacion { get; set; }
         public Estado Estado { get; set; }
     }
+
+    public class InteresesEventosModel
+    {
+        public InteresesViewModel InteresUsuario { get; set; }
+        public Int64 Asistencias { get; set; }
+        public DateTime FechaFin { get; set; }
+        public Int64 IdEvento { get; set; }
+    }
+
+    public class InteresesViewModel
+    {
+        
+        public long IdInteres { get; set; }
+        [Required]
+        public long EventId { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        [Required]
+        public Intereses Tipo { get; set; }
+        [Required]
+        public DateTime Fecha { get; set; }
+        [Required]
+        public bool Anulado { get; set; }
+        public DateTime? FechaAnulacion { get; set; }
+    }
 }
