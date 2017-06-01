@@ -153,10 +153,36 @@ namespace Servicios
             Rank -= eventos.Where(z => z.Estado == RepositorioClases.EventState.Eliminado).Count() * 3;
             Rank += comentarios.Where(z => z.Estado == RepositorioClases.Estado.Activo).Count() / 20;
             Rank -= comentarios.Where(z => z.Estado == RepositorioClases.Estado.Bloqueado).Count() * 5;
-            Rank -= comentarios.Where(z => z.Estado == RepositorioClases.Estado.Eliminado).Count() * 3;
+            Rank -= comentarios.Where(z => z.Estado == RepositorioClases.Estado.Eliminado).Count();
 
             if (Rank > 20)
                 EventsService.DestacarUsuario(UserId, true);
+        }
+
+        public static long ObtenerRankPorUsuario(int UserId)
+        {
+            RepositorioClases.Users usuario = UserService.Get(UserId).SingleOrDefault();
+            // Eventos creados por el usuario.
+            List<RepositorioClases.Events> eventos = EventsService.Get(null)
+                .Where(z => z.IdUser == UserId)
+                .ToList();
+            // Comentarios creados por el usuario.
+            List<RepositorioClases.Comments> comentarios = CommentsService.ObtenerComentarios()
+                .Where(z => z.iDUsuario == UserId)
+                .ToList();
+            // Reportes creados por el usuario.
+            //List<RepositorioClases.Reportes> reportes = ReportServices.ObtenerReportesPorUsuario(UserId).
+            //ToList();
+
+            long Rank = 0;
+            Rank += eventos.Where(z => z.Estado == RepositorioClases.EventState.Habilitado).Count();
+            Rank -= eventos.Where(z => z.Estado == RepositorioClases.EventState.Bloqueado).Count() * 5;
+            Rank -= eventos.Where(z => z.Estado == RepositorioClases.EventState.Eliminado).Count() * 3;
+            Rank += comentarios.Where(z => z.Estado == RepositorioClases.Estado.Activo).Count() / 20;
+            Rank -= comentarios.Where(z => z.Estado == RepositorioClases.Estado.Bloqueado).Count() * 5;
+            Rank -= comentarios.Where(z => z.Estado == RepositorioClases.Estado.Eliminado).Count();
+
+            return Rank;
         }
     }
 }

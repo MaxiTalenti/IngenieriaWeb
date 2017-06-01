@@ -27,6 +27,16 @@ namespace Servicios
             }
         }
 
+        public static List<Comments> ObtenerComentarios(int UserId)
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.Comments
+                    .Where(z => z.iDUsuario == UserId)
+                    .ToList();
+            }
+        }
+
         public static bool CambiarEstadoComentario(int IdComment, Estado estado)
         {
             using (Modelo context = new Modelo())

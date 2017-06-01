@@ -88,6 +88,18 @@ namespace Servicios
             }
         }
 
+        /// <summary>
+        /// Obtiene los eventos a partir de un id de usuario.
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        public static List<Events> Get(int UserId)
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.Events.Where(u => u.IdUser == UserId).ToList();
+            }
+        }
 
         public static List<Events> GetForMap(long? id)
         {
@@ -240,6 +252,50 @@ namespace Servicios
                 cantidad = context.InteresesEventos.Where(c => c.Anulado == false && c.Tipo == Intereses.Asistire && c.EventId == IdEvent).ToList().Count;
             }
             return cantidad;
+        }
+
+        /// <summary>
+        /// Obtiene la cantidad de eventos a los que ya fue (Ya finalizaron).
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        public static List<Events> ObtenerEventosAsistidos(int UserId)
+        {
+            List<Events> eventos = new List<Events>();
+            using (Modelo context = new Modelo())
+            {
+                foreach (var a in context.InteresesEventos
+                                    .Where(z => z.UserId == UserId)
+                                    .Where(z => z.Tipo == Intereses.Asistire))
+                {
+                    Events evento = context.Events.Where(z => z.Id == a.EventId).SingleOrDefault();
+                    if (evento.FechaFin < DateTime.Now)
+                        eventos.Add(evento);
+                }
+            }
+            return eventos;
+        }
+
+        /// <summary>
+        /// Obtiene los eventos a los cuales tiene deseo (No puso que asiste y todavia no se realizaron).
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        public static List<Events> ObtenerEventosDeseados(int UserId)
+        {
+            List<Events> eventos = new List<Events>();
+            using (Modelo context = new Modelo())
+            {
+                foreach (var a in context.InteresesEventos
+                                    .Where(z => z.UserId == UserId)
+                                    .Where(z => z.Tipo == Intereses.Me_Gusta))
+                {
+                    Events evento = context.Events.Where(z => z.Id == a.EventId).SingleOrDefault();
+                    if (evento.FechaFin > DateTime.Now)
+                        eventos.Add(evento);
+                }
+            }
+            return eventos;
         }
 
         public static void DestacarUsuario(int UserId, bool Destacar)

@@ -91,22 +91,18 @@
                     }
                 }
             </div>
-
-            <div id="AsistenciasDiv">
-                @Html.Action("AsistenciaEvento", "Events", new { IDEvento = Model.ViewModel.Id })
-            </div>
-            
         </div>
 
-            <br />
-            <br />
-            <br />
-            <br />
+        <div id="AsistenciasDiv">
+            @Html.Action("AsistenciaEvento", "Events", new { IDEvento = Model.ViewModel.Id })
+        </div>
+           
+        <br />
 
-            <div class="right-align">
+            <a class="right-align white-text" href="~/Events/ReportarEvento/@Model.ViewModel.Id">
                 <i class="fa fa-flag-o"></i>
-                @Html.ActionLink("Reportar", "ReportarEvento", new { id = Model.ViewModel.Id })
-            </div>
+                Reportar
+            </a>
         </div>
         </div>
 

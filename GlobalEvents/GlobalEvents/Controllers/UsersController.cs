@@ -52,7 +52,12 @@ namespace GlobalEvents.Controllers
                 Name = u.Nombre,
                 Apellido = u.Apellido,
                 Usuario = u.Usuario,
-                Estado = u.Estado
+                Estado = u.Estado,
+                Comentarios = CommentsService.ObtenerComentarios((int)id).Count,
+                Eventos = EventsService.Get((int)id).Count,
+                EventosAsistidos = EventsService.ObtenerEventosAsistidos((int)id).Count,
+                ListaDeDeseos = EventsService.ObtenerEventosDeseados((int)id).Count,
+                Rank = Rolls.ObtenerRankPorUsuario((int)id) 
             }).FirstOrDefault();
 
             return View(user);
