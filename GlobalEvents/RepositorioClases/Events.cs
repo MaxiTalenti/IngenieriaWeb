@@ -150,7 +150,7 @@ namespace RepositorioClases
         Bloqueado = 2,
         Reportado = 3,
         Eliminado = 4,
-        Inhabilitado = 5
+        Pendiente_De_Aprobacion = 5
     }
 
     public enum Categorias

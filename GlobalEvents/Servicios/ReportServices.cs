@@ -128,5 +128,13 @@ namespace Servicios
                 context.SaveChanges();
             }
         }
+
+        public static List<Reportes> ObtenerReportesPorUsuario(int UserId)
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.EventsReportes.Where(z => z.IdUsuario == UserId).ToList();
+            }
+        }
     }
 }

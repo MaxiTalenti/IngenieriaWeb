@@ -72,6 +72,52 @@ namespace ViewModels
 
         }
 
+        public partial class EventCreateModel
+        {
+            [Required]
+            [StringLength(200)]
+            [Display(Name = "Evento")]
+            public string NombreEvento { get; set; }
+
+            [Required]
+            [StringLength(50)]
+            public string lat { get; set; }
+
+            [Required]
+            [StringLength(50)]
+            public string lng { get; set; }
+
+            [Required]
+            [StringLength(500)]
+            public string Descripcion { get; set; }
+
+            [Required]
+            [DataType(DataType.DateTime)]
+            [Display(Name = "Fecha Inicio")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime FechaInicio { get; set; }
+
+            [Display(Name = "Fecha Finalización")]
+            [DataType(DataType.DateTime)]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime FechaFin { get; set; }
+
+            [Required]
+            [Range(0, 7, ErrorMessage = "Seleccione una categoría correcta")]
+            public Categorias IdCategoria { get; set; }
+
+            [Required]
+            [StringLength(200)]
+            public string Direccion { get; set; }
+
+            public String RutaImagen { get; set; }
+
+            [Required]
+            public Nullable<TimeSpan> HoraInicio { get; set; }
+            [Required]
+            public Nullable<TimeSpan> HoraFin { get; set; }
+        }
+
         public partial class EventModel
         {
             public EventVM ViewModel { get; set; }

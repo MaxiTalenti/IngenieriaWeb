@@ -179,15 +179,35 @@ namespace GlobalEvents.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [MyAuthorize]
-        public ActionResult Create([Bind(Include = "Id,NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,IdUser,Estado,Destacado,Direccion,IdCategoria,RutaImagen,HoraInicio,HoraFin")]
-        Events events, HttpPostedFileBase file, string HoraInicio, string HoraFin)
+        public ActionResult Create([Bind(Include = "NombreEvento,lat,lng,Descripcion,FechaInicio,FechaFin,Direccion,IdCategoria,RutaImagen,HoraInicio,HoraFin")]
+        EventViewModel.EventCreateModel events, HttpPostedFileBase file, string HoraInicio, string HoraFin)
         {
             if (ModelState.IsValid)
             {
                 TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
                 TimeSpan Fin = TimeSpan.Parse(HoraFin);
-                events.IdUser = WebSecurity.CurrentUserId;               
-                EventsService.Create(events, file, Inicio, Fin);
+
+                Events evento = new Events()
+                {
+                    Descripcion = events.Descripcion,
+                    Direccion = events.Direccion,
+                    FechaFin = events.FechaFin,
+                    FechaInicio = events.FechaInicio,
+                    IdCategoria = events.IdCategoria,
+                    IdUser = WebSecurity.CurrentUserId,
+                    lat = events.lat,
+                    lng = events.lng,
+                    RutaImagen = events.RutaImagen,
+                    HoraFin = events.HoraFin,
+                    HoraInicio = events.HoraInicio,
+                    NombreEvento = events.NombreEvento,
+                    Estado = Rolls.ObtenerEstadoEventoPorUsuario(WebSecurity.CurrentUserId) ?
+                                EventState.Habilitado :
+                                EventState.Pendiente_De_Aprobacion,
+                    Destacado = Rolls.ObtenerSiEventoEsDestacado(WebSecurity.CurrentUserId)
+                };
+                
+                EventsService.Create(evento, file);
                 return RedirectToAction("Index");
             }
 

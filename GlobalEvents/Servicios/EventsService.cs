@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
+using ViewModels;
 
 namespace Servicios
 {
@@ -29,7 +30,7 @@ namespace Servicios
         /// Creación de usuario
         /// </summary>
         /// <param name="events"></param>
-        public static void Create(Events events, HttpPostedFileBase file, TimeSpan HoraInicio, TimeSpan HoraFin)
+        public static void Create(Events events, HttpPostedFileBase file)
         {
             String uriimage = null;
             if (file != null)
@@ -38,7 +39,7 @@ namespace Servicios
                 string savedFileName = Path.Combine(path, Path.GetFileName(file.FileName));
                 file.SaveAs(savedFileName);
 
-                Servicios.Imagenes imagenes = new Imagenes();
+                Imagenes imagenes = new Imagenes();
                 ImageUploadResult result = imagenes.subirImagen(savedFileName);
                 if (result.Status == "OK")
                 {
@@ -52,7 +53,7 @@ namespace Servicios
                 context.Events.Add(new Events()
                 {
                     Descripcion = events.Descripcion,
-                    Estado = EventState.Habilitado,
+                    Estado = events.Estado,
                     Id = events.Id,
                     FechaFin = events.FechaFin,
                     FechaInicio = events.FechaInicio,
@@ -240,6 +241,16 @@ namespace Servicios
                 cantidad = context.InteresesEventos.Where(c => c.Anulado == false && c.Tipo == Intereses.Asistire && c.EventId == IdEvent).ToList().Count;
             }
             return cantidad;
+        }
+
+        public static void DestacarUsuario(int UserId, bool Destacar)
+        {
+            using (Modelo context = new Modelo())
+            {
+                Users user = context.Users.Where(u => u.Id == UserId).FirstOrDefault();
+                user.UserDestacado = Destacar;
+                context.SaveChanges();
+            }
         }
 
         public static int ObtenerInteresadosEvento(long IdEvent)
