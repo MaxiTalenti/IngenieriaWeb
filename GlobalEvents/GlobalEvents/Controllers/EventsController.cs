@@ -347,16 +347,25 @@ namespace GlobalEvents.Controllers
         public ActionResult EnviarInteres(long id)
         {
             InteresesEventos interes = new InteresesEventos();
-            interes.EventId = id;
-            interes.Fecha = DateTime.Now;
-            interes.Tipo = Intereses.Asistire;            
-            interes.UserId = WebSecurity.CurrentUserId;
             using (Modelo context = new Modelo())
             {
-                context.InteresesEventos.Add(interes);
-                context.SaveChanges();
+                interes = context.InteresesEventos.SingleOrDefault(c => c.EventId == id && c.UserId == WebSecurity.CurrentUserId && c.Anulado == false);
+                if (interes != null)
+                {
+                    context.InteresesEventos.Remove(interes);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    interes = new InteresesEventos();
+                    interes.EventId = id;
+                    interes.Fecha = DateTime.Now;
+                    interes.Tipo = Intereses.Asistire;
+                    interes.UserId = WebSecurity.CurrentUserId;
+                    context.InteresesEventos.Add(interes);
+                    context.SaveChanges();
+                }
             }
-
             return RedirectToAction("AsistenciaEvento", new { IdEvento = id });
         }
 

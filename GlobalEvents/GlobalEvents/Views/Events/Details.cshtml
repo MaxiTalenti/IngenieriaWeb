@@ -296,7 +296,8 @@
                         if (result.includes("loginForm")) {
                             window.location.replace("/Home/Login");
                         } else {
-                            $("#AsistenciasDiv").replaceWith(result);
+                            $("#AsistenciasDiv").html("");
+                            $("#AsistenciasDiv").append(result);
                         }
                     }
                 });

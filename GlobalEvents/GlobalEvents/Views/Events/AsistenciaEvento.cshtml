@@ -9,9 +9,9 @@
             {
                 <a class="waves-effect waves-light btn blue" onclick="EnviarAsistencia(@Model.IdEvento)"><i class="material-icons left">done</i>Asistiré</a>
             }
-            else
+            if (Model.InteresUsuario.IdInteres > 0)
             {
-                <h5> Asistirás a este evento! </h5>
+                <a class="waves-effect waves-light btn blue" onclick="EnviarAsistencia(@Model.IdEvento)"><i class="material-icons left">done</i>No Asistiré</a>
             }
         }
     </div>
@@ -21,6 +21,5 @@
             <h5 id="CantAsistencias"> @Model.Asistencias</h5>
         </div>
     </div>
-
 }
 
