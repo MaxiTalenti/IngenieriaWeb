@@ -93,4 +93,70 @@ namespace Servicios
         public string Status { get; set; }
         public string Uri { get; set; }
     }
+
+    public static class Rolls
+    {
+        /// <summary>
+        /// A partir del perfil de usuario va a obtener si el evento se va a destacar o no.
+        /// Solo se destacará aquellos eventos que el usuario sea destacado.
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        public static bool ObtenerSiEventoEsDestacado(int UserId)
+        {
+            RepositorioClases.Users usuario = UserService.Get(UserId).SingleOrDefault();
+            return usuario.UserDestacado.HasValue ? (bool)usuario.UserDestacado : false;
+        }
+
+        /// <summary>
+        /// Obtiene si el evento esta habilitado o necesita aprobación de administrador para verse.
+        /// Solo se le habilitará a las personas que tengan más de 5 eventos en estado habilitado.
+        /// De lo contrario, se pasará a revisión, tanto si tiene eliminados como reportados o bloqueados
+        /// o más pendientes de aprobación.
+        /// </summary>
+        /// <param name="UserId">Usuario creador del evento</param>
+        /// <returns>True = Evento habilitado, False = Evento en estado pendiente de habilitación.</returns>
+        public static bool ObtenerEstadoEventoPorUsuario(int UserId)
+        {
+            RepositorioClases.Users usuario = UserService.Get(UserId).SingleOrDefault();
+            List<RepositorioClases.Events> eventos = EventsService.Get(null)
+                .Where(z => z.IdUser == UserId)
+                .Where(z => z.Estado == RepositorioClases.EventState.Habilitado)
+                .ToList();
+            return eventos.Count > 5;
+        }
+
+        /// <summary>
+        /// Este método lo que hace es validar que se cumplan X reglas para destacarlo o no.
+        /// Estas 'reglas' son varias y solo lo destaca, pero si no cumplió algunos normas,
+        /// como tener comentarios bloqueados o eventos, más le costará que vuelva a ser destacado.
+        /// </summary>
+        /// <param name="UserId">Usuario a evaluar</param>
+        public static void VerificarUsuarioParaDestacar(int UserId)
+        {
+            RepositorioClases.Users usuario = UserService.Get(UserId).SingleOrDefault();
+            // Eventos creados por el usuario.
+            List<RepositorioClases.Events> eventos = EventsService.Get(null)
+                .Where(z => z.IdUser == UserId)
+                .ToList();
+            // Comentarios creados por el usuario.
+            List<RepositorioClases.Comments> comentarios = CommentsService.ObtenerComentarios()
+                .Where(z => z.iDUsuario == UserId)
+                .ToList();
+            // Reportes creados por el usuario.
+            //List<RepositorioClases.Reportes> reportes = ReportServices.ObtenerReportesPorUsuario(UserId).
+                //ToList();
+
+            long Rank = 0;
+            Rank += eventos.Where(z => z.Estado == RepositorioClases.EventState.Habilitado).Count();
+            Rank -= eventos.Where(z => z.Estado == RepositorioClases.EventState.Bloqueado).Count() * 5;
+            Rank -= eventos.Where(z => z.Estado == RepositorioClases.EventState.Eliminado).Count() * 3;
+            Rank += comentarios.Where(z => z.Estado == RepositorioClases.Estado.Activo).Count() / 20;
+            Rank -= comentarios.Where(z => z.Estado == RepositorioClases.Estado.Bloqueado).Count() * 5;
+            Rank -= comentarios.Where(z => z.Estado == RepositorioClases.Estado.Eliminado).Count() * 3;
+
+            if (Rank > 20)
+                EventsService.DestacarUsuario(UserId, true);
+        }
+    }
 }

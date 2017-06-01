@@ -1,4 +1,4 @@
-﻿@model RepositorioClases.Events
+﻿@model ViewModels.EventViewModel.EventCreateModel
 
 @{
     ViewBag.Title = "Eventos";
@@ -65,21 +65,6 @@
                 </div>
 
                 @Html.EnumDropDownListFor(model => model.IdCategoria, null, new { @class = "form-control" })
-
-                <div class="form-group">
-                    @Html.CheckBoxFor(m => m.Destacado, new { @type = "checkbox", @id = "Destacado", @name = "Destacado" })
-                    <label for="Destacado">Evento destacado</label>
-                </div>
-
-                <!--Script para los checkbox-->
-                <script>
-                    $(document).ready(function () {
-                        $('input[type=checkbox]').each(function () {
-                            if (this.nextSibling.nodeName != 'label') {
-                                $(this).after('<label for="' + this.id + '"></label>')
-                            }
-                        })
-                    })</script>
                 <!--Script para los datepicker-->
                 <script>
                     $('.datepicker').pickadate({
