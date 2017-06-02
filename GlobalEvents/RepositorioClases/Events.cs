@@ -71,6 +71,9 @@ namespace RepositorioClases
 
         public Nullable<TimeSpan> HoraFin { get; set; }
 
+        [Required]
+        public DateTime FechaCreacion { get; set; }
+
         [ForeignKey("IdEvent")]
         public virtual List<VotosUsersEvents> Votos { get; set; }
 

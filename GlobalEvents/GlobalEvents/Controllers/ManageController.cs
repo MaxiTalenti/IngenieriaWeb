@@ -44,20 +44,7 @@ namespace GlobalEvents.Controllers
 
             // Genera objeto con comentario y todos los reportes.
             CommentsDetailsReport reporte = new CommentsDetailsReport();
-            Comments comentario = new Comments {
-                CommentId = comment.CommentId,
-                Comentario = comment.Comentario,
-                Estado = comment.Estado,
-                EventId = comment.EventId,
-                Fecha = comment.Fecha,
-                ComentarioPadre = comment.ComentarioPadre,
-                FechaUltimaActualizacion = comment.FechaUltimaActualizacion,
-                iDUsuario = comment.iDUsuario,
-                Like = comment.Like,
-                UnLike = comment.UnLike
-            };
-            
-            reporte.Comentario = comentario;
+            reporte.Comentario = comment;
             List<CommentsReportes> Reportes = ReportServices.ObtenerComentariosReportados().Where(z => z.CommentId == id).Where(z => z.Resuelto == false).ToList();
             reporte.Reportes = Reportes;
             return View(reporte);
@@ -94,30 +81,13 @@ namespace GlobalEvents.Controllers
         public ActionResult EventReported(int id)
         {
             // Obtiene el evento.
-            Events comment = EventsService.Get(id).SingleOrDefault();
-            if (comment == null)
+            Events evento = EventsService.ObtenerEventos((long)id).SingleOrDefault();
+            if (evento == null)
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
             // Genera objeto con evento y todos los reportes.
             EventsDetailsReport reporte = new EventsDetailsReport();
-            Events evento = new Events
-            {
-                Id = comment.Id,
-                NombreEvento = comment.NombreEvento,
-                lng = comment.lng,
-                Descripcion = comment.Descripcion,
-                FechaInicio = comment.FechaInicio,
-                FechaFin = comment.FechaFin,
-                IdUser = comment.IdUser,
-                IdCategoria = comment.IdCategoria,
-                Destacado = comment.Destacado,
-                Direccion = comment.Direccion,
-                RutaImagen = comment.RutaImagen,
-                Estado = comment.Estado,
-                HoraInicio = comment.HoraInicio,
-                HoraFin = comment.HoraFin
-            };
 
             reporte.Eventos = evento;
             List<EventsReportes> Reportes = ReportServices.ObtenerEventosReportados().Where(z => z.EventId == id).Where(z => z.Resuelto == false).ToList();

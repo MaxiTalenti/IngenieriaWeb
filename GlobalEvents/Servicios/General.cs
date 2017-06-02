@@ -119,7 +119,7 @@ namespace Servicios
         public static bool ObtenerEstadoEventoPorUsuario(int UserId)
         {
             RepositorioClases.Users usuario = UserService.Get(UserId).SingleOrDefault();
-            List<RepositorioClases.Events> eventos = EventsService.Get(null)
+            List<RepositorioClases.Events> eventos = EventsService.ObtenerEventos(null)
                 .Where(z => z.IdUser == UserId)
                 .Where(z => z.Estado == RepositorioClases.EventState.Habilitado)
                 .ToList();
@@ -136,7 +136,7 @@ namespace Servicios
         {
             RepositorioClases.Users usuario = UserService.Get(UserId).SingleOrDefault();
             // Eventos creados por el usuario.
-            List<RepositorioClases.Events> eventos = EventsService.Get(null)
+            List<RepositorioClases.Events> eventos = EventsService.ObtenerEventos(null)
                 .Where(z => z.IdUser == UserId)
                 .ToList();
             // Comentarios creados por el usuario.
@@ -163,7 +163,7 @@ namespace Servicios
         {
             RepositorioClases.Users usuario = UserService.Get(UserId).SingleOrDefault();
             // Eventos creados por el usuario.
-            List<RepositorioClases.Events> eventos = EventsService.Get(null)
+            List<RepositorioClases.Events> eventos = EventsService.ObtenerEventos(null)
                 .Where(z => z.IdUser == UserId)
                 .ToList();
             // Comentarios creados por el usuario.

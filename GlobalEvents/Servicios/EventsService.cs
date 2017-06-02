@@ -14,14 +14,24 @@ namespace Servicios
     public static class EventsService
     {
         /// <summary>
-        /// Devuelve una lista de todos los eventos disponibles menos los eliminados.
+        /// Obtiene los eventos.
+        /// Si el parámetro eliminados == true, te trae todos, sino no.
         /// </summary>
-        /// <returns>Eventos con cualquier estado menos eliminados.</returns>
-        public static List<Events> ObtenerEventos()
+        /// <param name="id">Busca por id (opcional)</param>
+        /// <returns>Lista de evento/s</returns>
+        public static List<Events> ObtenerEventos(long? id, bool Eliminados = false)
         {
             using (Modelo context = new Modelo())
             {
-                return context.Events.Where(z => z.Estado != EventState.Eliminado).ToList();
+                List<Events> Eventos = context.Events.Where(u => id.HasValue ? id.Value == u.Id : true).ToList();
+                // Si es el get de detalle, trae los comentarios también.
+                if (id != null)
+                    Eventos.FirstOrDefault().Comments = CommentsService.ObtenerComentarios(id.GetValueOrDefault()).ToList();
+                // No traerse los eliminados.
+                if (Eliminados)
+                    return Eventos;
+                else
+                    return Eventos.Where(z => z.Estado != EventState.Eliminado).ToList();
             }
         }
 
@@ -73,27 +83,11 @@ namespace Servicios
         }
 
         /// <summary>
-        /// Obtiene usuarios menos lo que tienen estado eliminados.
-        /// </summary>
-        /// <param name="id">Busca por id (opcional)</param>
-        /// <returns>Lista de usuario/s</returns>
-        public static List<Events> Get(long? id)
-        {
-            using (Modelo context = new Modelo())
-            {
-                List<Events> Eventos = context.Events.Where(u => id.HasValue ? id.Value == u.Id : true).ToList();
-                if (id != null)
-                    Eventos.FirstOrDefault().Comments = CommentsService.ObtenerComentarios(id.GetValueOrDefault()).ToList();
-                return Eventos;
-            }
-        }
-
-        /// <summary>
         /// Obtiene los eventos a partir de un id de usuario.
         /// </summary>
         /// <param name="UserId"></param>
         /// <returns></returns>
-        public static List<Events> Get(int UserId)
+        public static List<Events> ObtenerEventos(int UserId)
         {
             using (Modelo context = new Modelo())
             {

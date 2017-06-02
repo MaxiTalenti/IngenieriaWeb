@@ -41,7 +41,7 @@ namespace GlobalEvents.Helpers
 
         public static string getEvent(this HtmlHelper html, string id)
         {
-            List<RepositorioClases.Events> Evento = Servicios.EventsService.Get(Int32.Parse(id));
+            List<RepositorioClases.Events> Evento = Servicios.EventsService.ObtenerEventos(long.Parse(id));
             String Name = "";
             if (Evento.Count > 0)
                 Name = Evento.First().NombreEvento;

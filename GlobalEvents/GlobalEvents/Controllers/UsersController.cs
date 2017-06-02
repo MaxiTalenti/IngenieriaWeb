@@ -54,7 +54,7 @@ namespace GlobalEvents.Controllers
                 Usuario = u.Usuario,
                 Estado = u.Estado,
                 Comentarios = CommentsService.ObtenerComentarios((int)id).Count,
-                Eventos = EventsService.Get((int)id).Count,
+                Eventos = EventsService.ObtenerEventos((long)id).Count,
                 EventosAsistidos = EventsService.ObtenerEventosAsistidos((int)id).Count,
                 ListaDeDeseos = EventsService.ObtenerEventosDeseados((int)id).Count,
                 Rank = Rolls.ObtenerRankPorUsuario((int)id) 
@@ -92,12 +92,6 @@ namespace GlobalEvents.Controllers
                 Roles.AddUserToRole(user.Email, "Usuario");
                 Email em = new Email();
                 em.enviarToken(user.Email, Token);
-                /*UserService.Create(new Users()
-                {
-                    Id = id,
-                    Email = user.Email,
-                    Usuario = user.Email // Inicialmente se le setea el mismo valor, luego se podrá cambiar.
-                });*/
                 return RedirectToAction("Index", "Home");
             }
 

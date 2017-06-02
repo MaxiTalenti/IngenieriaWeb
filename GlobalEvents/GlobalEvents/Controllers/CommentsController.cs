@@ -25,7 +25,7 @@ namespace GlobalEvents.Controllers
                 ComentariosEventosModeracionModel comentario = new ComentariosEventosModeracionModel();
                 comentario.CommentId = reporte.CommentId;
                 comentario.EventId = CommentsService.GetById(comentario.CommentId).EventId;
-                comentario.Evento = EventsService.Get(comentario.EventId).FirstOrDefault().NombreEvento;
+                comentario.Evento = EventsService.ObtenerEventos(comentario.EventId).FirstOrDefault().NombreEvento;
                 comentario.Fecha = reporte.Fecha;
                 comentario.IdUsuario = reporte.IdUsuario;
                 comentario.Observacion = reporte.Observacion;
@@ -48,8 +48,16 @@ namespace GlobalEvents.Controllers
         {
             if (ModelState.IsValid)
             {
-                CommentsService.Create(viewModel.Comment, viewModel.IdEvento, WebSecurity.CurrentUserId);
-                //return RedirectToAction("Index");
+                // Se pueden hacer 10 comentarios por día.
+                int CantidadComentariosEnDia = CommentsService.ObtenerComentarios(WebSecurity.CurrentUserId)
+                    .Where(z => z.Fecha.Year == DateTime.Now.Year)
+                    .Where(z => z.Fecha.Month == DateTime.Now.Month)
+                    .Where(z => z.Fecha.Day == DateTime.Now.Day)
+                    .Count();
+                if (CantidadComentariosEnDia < 10)
+                    CommentsService.Create(viewModel.Comment, viewModel.IdEvento, WebSecurity.CurrentUserId);
+                else
+                    ModelState.AddModelError("", "Has llegado al límite para crear de 10 comentarios por día.");
             }
 
             var comments = CommentsService.ObtenerComentarios(viewModel.IdEvento).Select(u => new ViewModels.Comments()

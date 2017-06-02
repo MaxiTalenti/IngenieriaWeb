@@ -23,61 +23,61 @@ namespace GlobalEvents.Controllers
         public ActionResult Index()
         {
             // Por el momento acá va a ser destacados, después vemos si mostramos otros.
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.Destacado == true).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.Destacado == true).ToList();
             return View(Lista);
         }
 
         public ActionResult Mios()
         {
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdUser == WebSecurity.CurrentUserId).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdUser == WebSecurity.CurrentUserId).ToList();
             return View(Lista);
         }
 
         public ActionResult Destacados()
         {
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.Destacado == true).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.Destacado == true).ToList();
             return View(Lista);
         }
 
         public ActionResult Musica()
         {
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Musica).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Musica).ToList();
             return View(Lista);
         }
 
         public ActionResult Fiestas()
         {
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Fiestas).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Fiestas).ToList();
             return View(Lista);
         }
 
         public ActionResult Artes()
         {
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Artes).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Artes).ToList();
             return View(Lista);
         }
 
         public ActionResult Gastronomia()
         {
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Gastronomia).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Gastronomia).ToList();
             return View(Lista);
         }
 
         public ActionResult Clases()
         {
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Clases).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Clases).ToList();
             return View(Lista);
         }
 
         public ActionResult Deportes()
         {
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Deportes).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Deportes).ToList();
             return View(Lista);
         }
 
         public ActionResult Otros()
         {
-            List<Events> Lista = EventsService.ObtenerEventos().Where(z => z.IdCategoria == Categorias.Otros).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Otros).ToList();
             return View(Lista);
         }
 
@@ -87,9 +87,18 @@ namespace GlobalEvents.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
-            Events events = EventsService.Get(id).FirstOrDefault();
+            Events events = null;
+            // Obtiene también si esta eliminado si es admin.
+            if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+                events = EventsService.ObtenerEventos(id, true).FirstOrDefault();
+            else
+                events = EventsService.ObtenerEventos(id, false).FirstOrDefault();
+
+            if (events == null)
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+
             EventViewModel.EventModel EventModel = new EventViewModel.EventModel();
             EventViewModel.EventVM model = new EventViewModel.EventVM();
             model.Descripcion = events.Descripcion;
@@ -124,12 +133,6 @@ namespace GlobalEvents.Controllers
                 EventModel.Puntuacion = 0;
             }
 
-
-         
-            if (EventModel == null)
-            {
-                return HttpNotFound();
-            }
             return View(EventModel);
         }
 
@@ -152,7 +155,7 @@ namespace GlobalEvents.Controllers
             intereseseventmodel.InteresUsuario = intvm;
             intereseseventmodel.Asistencias = EventsService.ObtenerAsistenciasEvento(IDEvento);
             intereseseventmodel.Interesados = EventsService.ObtenerInteresadosEvento(IDEvento);
-            Events evento = EventsService.Get(IDEvento).FirstOrDefault();
+            Events evento = EventsService.ObtenerEventos(IDEvento).FirstOrDefault();
             intereseseventmodel.FechaFin = evento.FechaFin;
             intereseseventmodel.IdEvento = IDEvento;
             
@@ -163,7 +166,7 @@ namespace GlobalEvents.Controllers
         [MyAuthorize(Roles ="Admin")]
         public ActionResult Listado()
         {
-            List<Events> Lista = EventsService.ObtenerEventos();
+            List<Events> Lista = EventsService.ObtenerEventos(null, true);
             return View(Lista);
         }
 
@@ -184,31 +187,44 @@ namespace GlobalEvents.Controllers
         {
             if (ModelState.IsValid)
             {
-                TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
-                TimeSpan Fin = TimeSpan.Parse(HoraFin);
-
-                Events evento = new Events()
+                // Se pueden hacer 3 eventos por día.
+                // Se pueden hacer 10 comentarios por día.
+                int CantidadEventosEnDia = EventsService.ObtenerEventos(WebSecurity.CurrentUserId, false)
+                    .Where(z => z.FechaCreacion.Year == DateTime.Now.Year)
+                    .Where(z => z.FechaCreacion.Month == DateTime.Now.Month)
+                    .Where(z => z.FechaCreacion.Day == DateTime.Now.Day)
+                    .Count();
+                if (CantidadEventosEnDia < 3)
                 {
-                    Descripcion = events.Descripcion,
-                    Direccion = events.Direccion,
-                    FechaFin = events.FechaFin,
-                    FechaInicio = events.FechaInicio,
-                    IdCategoria = events.IdCategoria,
-                    IdUser = WebSecurity.CurrentUserId,
-                    lat = events.lat,
-                    lng = events.lng,
-                    RutaImagen = events.RutaImagen,
-                    HoraFin = events.HoraFin,
-                    HoraInicio = events.HoraInicio,
-                    NombreEvento = events.NombreEvento,
-                    Estado = Rolls.ObtenerEstadoEventoPorUsuario(WebSecurity.CurrentUserId) ?
-                                EventState.Habilitado :
-                                EventState.Pendiente_De_Aprobacion,
-                    Destacado = Rolls.ObtenerSiEventoEsDestacado(WebSecurity.CurrentUserId)
-                };
-                
-                EventsService.Create(evento, file);
-                return RedirectToAction("Index");
+                    TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
+                    TimeSpan Fin = TimeSpan.Parse(HoraFin);
+
+                    Events evento = new Events()
+                    {
+                        Descripcion = events.Descripcion,
+                        Direccion = events.Direccion,
+                        FechaCreacion = DateTime.Now,
+                        FechaFin = events.FechaFin,
+                        FechaInicio = events.FechaInicio,
+                        IdCategoria = events.IdCategoria,
+                        IdUser = WebSecurity.CurrentUserId,
+                        lat = events.lat,
+                        lng = events.lng,
+                        RutaImagen = events.RutaImagen,
+                        HoraFin = events.HoraFin,
+                        HoraInicio = events.HoraInicio,
+                        NombreEvento = events.NombreEvento,
+                        Estado = Rolls.ObtenerEstadoEventoPorUsuario(WebSecurity.CurrentUserId) ?
+                                    EventState.Habilitado :
+                                    EventState.Pendiente_De_Aprobacion,
+                        Destacado = Rolls.ObtenerSiEventoEsDestacado(WebSecurity.CurrentUserId)
+                    };
+
+                    EventsService.Create(evento, file);
+                    return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
+                }
+                else
+                    ModelState.AddModelError("", "Has llegado al límite para crear de 3 eventos por día.");
             }
 
             return View(events);
@@ -222,7 +238,7 @@ namespace GlobalEvents.Controllers
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
-            Events events = EventsService.Get(id).FirstOrDefault();
+            Events events = EventsService.ObtenerEventos(id).FirstOrDefault();
             if (events == null)
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
@@ -261,10 +277,10 @@ namespace GlobalEvents.Controllers
                     // Solo va a poder cambiar el estado si es admin, por más que lo fuerze.
                     if (!Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
                     {
-                        events.Estado = EventsService.Get(events.Id).FirstOrDefault().Estado;
+                        events.Estado = EventsService.ObtenerEventos(events.Id).FirstOrDefault().Estado;
                     }
                     EventsService.Edit(events, file, Inicio, Fin);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
                 }
                 else
                 {
@@ -282,7 +298,7 @@ namespace GlobalEvents.Controllers
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
-            Events events = EventsService.Get(id).FirstOrDefault();
+            Events events = EventsService.ObtenerEventos(id).FirstOrDefault();
             if (events == null)
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
@@ -303,7 +319,7 @@ namespace GlobalEvents.Controllers
         [MyAuthorize]
         public ActionResult DeleteConfirmed(long id)
         {
-            Events events = EventsService.Get(id).FirstOrDefault();
+            Events events = EventsService.ObtenerEventos(id).FirstOrDefault();
             if (events == null)
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
@@ -362,13 +378,10 @@ namespace GlobalEvents.Controllers
                         interes.EventId = id;
                         interes.Fecha = DateTime.Now;
                         if (Tipo == 1)
-                        {
                             interes.Tipo = Intereses.Asistire;
-                        }
                         else
-                        {
                             interes.Tipo = Intereses.Me_Gusta;
-                        }
+
                         interes.UserId = WebSecurity.CurrentUserId;
                         context.InteresesEventos.Add(interes);
                         context.SaveChanges();
@@ -437,7 +450,7 @@ namespace GlobalEvents.Controllers
                 EventosModeracionModel comentario = new EventosModeracionModel();
                 comentario.ReporteId = reporte.ReporteId;
                 comentario.EventId = reporte.EventId;
-                comentario.Evento = EventsService.Get(comentario.EventId).FirstOrDefault().NombreEvento;
+                comentario.Evento = EventsService.ObtenerEventos(comentario.EventId).FirstOrDefault().NombreEvento;
                 comentario.Fecha = reporte.Fecha;
                 comentario.IdUsuario = reporte.IdUsuario;
                 comentario.Observacion = reporte.Observacion;
@@ -451,7 +464,7 @@ namespace GlobalEvents.Controllers
         [MyAuthorize]
         public ActionResult ReportarEvento(int id)
         {
-            if (EventsService.Get(id).Count == 0)
+            if (EventsService.ObtenerEventos((long)id).Count == 0)
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
