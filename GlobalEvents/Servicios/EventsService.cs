@@ -262,9 +262,12 @@ namespace Servicios
                                     .Where(z => z.UserId == UserId)
                                     .Where(z => z.Tipo == Intereses.Asistire))
                 {
-                    Events evento = context.Events.Where(z => z.Id == a.EventId).SingleOrDefault();
-                    if (evento.FechaFin < DateTime.Now)
-                        eventos.Add(evento);
+                    using (Modelo context2 = new Modelo())
+                    {
+                        Events evento = context2.Events.Where(z => z.Id == a.EventId).SingleOrDefault();
+                        if (evento.FechaFin < DateTime.Now)
+                            eventos.Add(evento);
+                    }
                 }
             }
             return eventos;
