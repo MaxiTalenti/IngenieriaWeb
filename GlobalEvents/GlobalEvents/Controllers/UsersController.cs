@@ -54,7 +54,7 @@ namespace GlobalEvents.Controllers
                 Usuario = u.Usuario,
                 Estado = u.Estado,
                 Comentarios = CommentsService.ObtenerComentarios((int)id).Count,
-                Eventos = EventsService.ObtenerEventos((long)id).Count,
+                Eventos = EventsService.ObtenerEventos(null).Where(z => z.IdUser == id).ToList().Count,
                 EventosAsistidos = EventsService.ObtenerEventosAsistidos((int)id).Count,
                 ListaDeDeseos = EventsService.ObtenerEventosDeseados((int)id).Count,
                 Rank = Rolls.ObtenerRankPorUsuario((int)id) 
