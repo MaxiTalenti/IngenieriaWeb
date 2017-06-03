@@ -48,10 +48,13 @@ namespace GlobalEvents.Controllers
             using (Modelo context = new Modelo())
             {
                 Users users = context.Users.Where(u => u.Email == model.Email).FirstOrDefault();
-                if (users.Estado == UserState.Bloqueado || users.Estado == UserState.Eliminado || users.Estado == UserState.Inactivo)
+                if (users != null)
                 {
-                    ModelState.AddModelError("", "La cuenta se encuentra " + users.Estado.ToString());
-                    return View();
+                    if (users.Estado == UserState.Bloqueado || users.Estado == UserState.Eliminado || users.Estado == UserState.Inactivo)
+                    {
+                        ModelState.AddModelError("", "La cuenta se encuentra " + users.Estado.ToString());
+                        return View();
+                    }
                 }
             }
 
