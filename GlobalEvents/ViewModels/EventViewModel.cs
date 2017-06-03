@@ -122,6 +122,7 @@ namespace ViewModels
         {
             public EventVM ViewModel { get; set; }
             public int Puntuacion { get; set; }
+            public Decimal Promedio { get; set; }
         }
 
     }

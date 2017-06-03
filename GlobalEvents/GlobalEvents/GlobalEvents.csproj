@@ -180,6 +180,7 @@
     <Content Include="Content\Imagenes\stars.png" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
+    <Content Include="Content\star.png" />
     <Content Include="img\lightbox\default-skin.png" />
     <Content Include="img\lightbox\default-skin.svg" />
     <Content Include="img\lightbox\preloader.gif" />

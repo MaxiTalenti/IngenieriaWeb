@@ -25,7 +25,7 @@ namespace Servicios
             {
                 List<Events> Eventos = context.Events.Where(u => id.HasValue ? id.Value == u.Id : true).ToList();
                 // Si es el get de detalle, trae los comentarios también.
-                if (id != null)
+                if (Eventos.Count > 0)
                     Eventos.FirstOrDefault().Comments = CommentsService.ObtenerComentarios(id.GetValueOrDefault()).ToList();
                 // No traerse los eliminados.
                 if (Eliminados)
@@ -314,5 +314,38 @@ namespace Servicios
             }
             return cantidad;
         }
+
+
+        public static decimal ObtenerPuntuacionPromedio(long IdEvent)
+        {
+            using (Modelo context = new Modelo())
+            {
+                PromedioPuntuacion resultado = context.PuntuacionesEventos.Where(x => x.EventId == IdEvent).GroupBy(c => c.EventId)
+                    .Select(p => new PromedioPuntuacion
+                    {
+                        Total = p.Sum(c => c.Puntuacion),
+                        IdEvento = IdEvent,
+                        Cantidad = p.Count()
+                    }).FirstOrDefault();
+
+                if (resultado != null)
+                {
+                    return Math.Round(resultado.Total / resultado.Cantidad, 1, MidpointRounding.AwayFromZero);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+        private class PromedioPuntuacion
+        {
+            public long IdEvento { get; set; }
+            public decimal Total { get; set; }
+            public int Cantidad { get; set; }
+        }
+
     }
+
+
 }

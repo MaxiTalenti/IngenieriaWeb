@@ -117,7 +117,7 @@ namespace GlobalEvents.Controllers
             model.HoraFin = events.HoraFin;
             model.HoraInicio = events.HoraInicio;
             EventModel.ViewModel = model;
-
+            EventModel.Promedio = ObtenerPromedioPuntuacion((long)id);
             var punt = new PuntuacionesEventos();
             using (Modelo context = new Modelo())
             {
@@ -507,6 +507,11 @@ namespace GlobalEvents.Controllers
             }
 
             //return RedirectToAction("Details", new { id = Id });
+        }
+
+        public Decimal ObtenerPromedioPuntuacion(long id)
+        {
+            return EventsService.ObtenerPuntuacionPromedio(id);
         }
     }
 }

@@ -71,7 +71,7 @@
 
 
         <div class="row">
-            <div class="col s6 m6 left-align">
+            <div class="col s3 m3 left-align">
                 @if (Model.ViewModel.FechaFin < DateTime.Now)
                 {
                     if (Model.Puntuacion > 0)
@@ -91,6 +91,27 @@
                     }
                 }
             </div>
+
+            <div class="col s4 m4">
+                <div class="card-panel teal">
+                    @*<span class="white-text" style="">
+                        Puntuación según usuarios: @Model.Promedio ★
+                    </span>*@
+
+                    <span>
+                        @for (int i = 1; i <= Math.Round(Model.Promedio, 0, MidpointRounding.AwayFromZero); i++)
+                        {
+                            <img class="manImg" src="~/Content/star.png" width="40px" height="40px">
+                        }
+                        <h5>Puntuación: @Model.Promedio</h5>
+                    </span>
+
+
+                </div>
+            </div>
+
+
+
         </div>
 
         <div id="AsistenciasDiv">
