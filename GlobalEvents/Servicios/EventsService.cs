@@ -75,7 +75,9 @@ namespace Servicios
                     Direccion = events.Direccion,
                     RutaImagen = uriimage,
                     HoraInicio = events.HoraInicio,
-                    HoraFin = events.HoraFin
+                    HoraFin = events.HoraFin,
+                    FechaCreacion = DateTime.Now
+                    
                 });
                 context.SaveChanges();
             }
@@ -99,7 +101,8 @@ namespace Servicios
         {
             using (Modelo context = new Modelo())
             {
-                return context.Events.Where(u => id.HasValue ? id.Value == u.Id : true && u.Estado == EventState.Habilitado && u.lat != null).ToList();
+                var eventos = context.Events.Where(u => id.HasValue ? id.Value == u.Id : true && u.Estado == EventState.Habilitado && u.lat != null).ToList();
+                return eventos;
             }
         }
 
@@ -138,6 +141,7 @@ namespace Servicios
                 if (even != null)
                 {
                     even.Descripcion = events.Descripcion;
+                    even.Direccion = events.Direccion;
                     even.Estado = events.Estado;
                     even.Id = events.Id;
                     even.FechaFin = events.FechaFin;

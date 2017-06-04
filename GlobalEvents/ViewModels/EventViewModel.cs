@@ -110,6 +110,9 @@ namespace ViewModels
             [StringLength(200)]
             public string Direccion { get; set; }
 
+            public string Pais { get; set; }
+            public string Ciudad { get; set; }
+
             public String RutaImagen { get; set; }
 
             [Required]

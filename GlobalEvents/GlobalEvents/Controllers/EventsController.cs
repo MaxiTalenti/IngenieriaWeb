@@ -174,7 +174,7 @@ namespace GlobalEvents.Controllers
         [MyAuthorize]
         public ActionResult Create()
         {
-            Events model = new Events { IdCategoria = Categorias.Otros, FechaInicio = DateTime.Now, FechaFin = DateTime.Now};
+            EventViewModel.EventCreateModel model = new EventViewModel.EventCreateModel { IdCategoria = Categorias.Otros, FechaInicio = DateTime.Now, FechaFin = DateTime.Now};
             return View(model);
         }
 
@@ -433,11 +433,31 @@ namespace GlobalEvents.Controllers
             return View();
         }
 
-        public JsonResult GetEvents(int? id)
+
+        public JsonResult GetEventsForMap(int? id, string lat, string lng)
         {
-            return Json(
-                Servicios.EventsService.GetForMap(id),
+            using (Modelo context = new Modelo())
+            {   
+                double maxlng = Convert.ToDouble(lng.Replace(".",",")) + 0.05;
+                double minlng = Convert.ToDouble(lng.Replace(".", ",")) - 0.05;
+                double maxlat = Convert.ToDouble(lat.Replace(".", ",")) + 0.05;
+                double minlat = Convert.ToDouble(lat.Replace(".", ",")) - 0.05;
+                context.Configuration.LazyLoadingEnabled = false;
+                List<Events> eventos = context.Events.Where(u => u.Estado == EventState.Habilitado && 
+                u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
+                if (eventos.Count > 0)
+                {
+                    eventos = eventos.Where(c => Convert.ToDouble(c.lat.Replace(".", ",")) <= maxlat && Convert.ToDouble(c.lat.Replace(".", ",")) >= minlat).ToList();
+                    eventos = eventos.Where(c => Convert.ToDouble(c.lng.Replace(".", ",")) <= maxlng && Convert.ToDouble(c.lng.Replace(".", ",")) >= minlng).ToList();
+                }
+                else
+                {
+                    eventos = new List<Events>();
+                }
+                return Json(
+                eventos,
                 JsonRequestBehavior.AllowGet);
+            }
         }
 
         [MyAuthorize(Roles = "Admin")]
