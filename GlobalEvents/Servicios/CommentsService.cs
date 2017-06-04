@@ -27,12 +27,22 @@ namespace Servicios
             }
         }
 
-        public static List<Comments> ObtenerComentarios(int UserId)
+        public static List<Comments> ObtenerComentarios(int EventId)
         {
             using (Modelo context = new Modelo())
             {
                 return context.Comments
-                    .Where(z => z.iDUsuario == UserId)
+                    .Where(z => z.EventId == EventId)
+                    .ToList();
+            }
+        }
+
+        public static List<Comments> ObtenerComentariosUser(int User)
+        {
+            using (Modelo context = new Modelo())
+            {
+                return context.Comments
+                    .Where(z => z.iDUsuario == User)
                     .ToList();
             }
         }

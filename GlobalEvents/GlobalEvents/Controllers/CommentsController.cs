@@ -174,12 +174,7 @@ namespace GlobalEvents.Controllers
                 context.SaveChanges();
             }
 
-
-            if (ModelState.IsValid)
-            {
-                CommentsService.Create(viewModel.Comment, viewModel.IdEvento, WebSecurity.CurrentUserId);
-                //return RedirectToAction("Index");
-            }
+            
             return RedirectToAction("Details", "Events", new { id = viewModel.IdEvento });
         }
     }

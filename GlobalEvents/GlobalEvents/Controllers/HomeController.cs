@@ -125,7 +125,6 @@ namespace GlobalEvents.Controllers
                 {
                     //Get student name of string type
                     var resultado = modelo.Database.SqlQuery<FullSearchModel>("sp_BusquedaFullText @Busqueda", new SqlParameter("Busqueda", Busqueda));
-
                     //Or can call SP by following way
                     //var courseList = ctx.Courses.SqlQuery("exec GetCoursesByStudentId @StudentId ", idParam).ToList<Course>();
                     
