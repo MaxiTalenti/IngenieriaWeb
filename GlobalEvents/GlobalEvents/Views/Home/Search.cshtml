@@ -128,12 +128,15 @@
     {
         <div class="card">
             <div class="card-content">
-                <div class="card-title"><i class="fa fa-calendar-o fa-fw"></i>Categorías</div>
+                <div class="card-title"><i class="fa fa-calendar-o fa-fw"></i>Comentarios</div>
                 @foreach (var item in Model.Lista.Where(z => z.EncontradoEn == "Comentario"))
                 {
                     <div class="card hoverable">
                         <div class="card-content">
                             <div class="row">
+                                <div class="col s10">
+                                    <u>Evento:</u> @item.NombreEvento     <u>Usuario:</u> @item.Usuario
+                                </div>
                                 <div class="col s10">
                                     @item.Comentario
                                 </div>
