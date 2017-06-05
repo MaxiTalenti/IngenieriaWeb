@@ -264,9 +264,11 @@ namespace GlobalEvents.Controllers
         {
             if (ModelState.IsValid)
             {
+                events.FechaInicio = events.FechaInicio + TimeSpan.Parse(HoraInicio);
+                events.FechaFin = events.FechaFin + TimeSpan.Parse(HoraFin);
                 if (events.FechaInicio < DateTime.Now || events.FechaFin <= events.FechaInicio)
                 {
-                    ModelState.AddModelError("", "Error en las fechas seleccionadas");
+                    ModelState.AddModelError("", "Error en las fechas seleccionadas, el evento debe crearse al menos el día anterior.");
                 }
                 else
                 {
