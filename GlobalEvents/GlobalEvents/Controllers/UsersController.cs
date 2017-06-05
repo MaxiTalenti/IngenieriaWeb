@@ -22,7 +22,7 @@ namespace GlobalEvents.Controllers
         private Modelo db = new Modelo();
 
         // GET: Users
-
+        [MyAuthorize(Roles = "Admin")]
         public ViewResult Listado()
         {
             return View(UserService.Get(null).Select(u => new ListUserViewModel()

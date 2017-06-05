@@ -36,6 +36,7 @@ namespace GlobalEvents.Controllers
             return View(@"ComentariosReportados", Lista);
         }
 
+        [MyAuthorize(Roles = "Admin")]
         public ActionResult Listado()
         {
             List<RepositorioClases.Comments> Lista = CommentsService.ObtenerComentarios();

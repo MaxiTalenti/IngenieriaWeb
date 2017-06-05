@@ -72,7 +72,7 @@
         }
         <div>
             @Html.ActionLink("Cambiar contraseña", "ChangePassword", "Users", new { id = Model.Id }, null) |
-            @Html.ActionLink("Volver a usuarios", "Listado")
+            @Html.ActionLink("Volver a usuario", "Details", "Users", new { id = Model.Id }, null)
         </div>
         </div>
 </div>
