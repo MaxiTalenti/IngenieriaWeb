@@ -54,7 +54,6 @@ namespace RepositorioClases
         [StringLength(200)]
         public string Direccion { get; set; }
 
-
         //[Required]
         //[StringLength(200)]
         public String RutaImagen { get; set; }
@@ -83,15 +82,10 @@ namespace RepositorioClases
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-
         public int IdUser { get; set; }
         public long IdEvent { get; set; }
         public bool Voto { get; set; }
-
-    
         public virtual Events Eventos { get; set; }
-
-        
         public virtual Users Usuarios { get; set; }
     }
 
@@ -99,19 +93,13 @@ namespace RepositorioClases
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReporteId { get; set; }
-
         public long EventId { get; set; }
-
         public int IdUsuario { get; set; }
-
         [Required]
         [StringLength(300)]
         public string Observacion { get; set; }
-
         public DateTime Fecha { get; set; }
-
         public bool? Resuelto { get; set; }
-
         public virtual Events Events { get; set; }
         public virtual Users User { get; set; }
     }

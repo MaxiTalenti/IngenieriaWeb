@@ -69,10 +69,13 @@ $(document).ready(function () {
     $('select').material_select();
 });</script>
 
-                <div class="form-group">
-                    @Html.CheckBoxFor(m => m.Destacado, new { @type = "checkbox", @id = "Destacado", @name = "Destacado" })
-                    <label for="Destacado">Evento destacado</label>
-                </div>
+                @if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+                {
+                    <div class="form-group">
+                        @Html.CheckBoxFor(m => m.Destacado, new { @type = "checkbox", @id = "Destacado", @name = "Destacado" })
+                        <label for="Destacado">Evento destacado</label>
+                    </div>
+                }
 
                 <!--Script para los checkbox-->
                 <script>

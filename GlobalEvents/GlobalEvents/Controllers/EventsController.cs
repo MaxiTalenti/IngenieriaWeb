@@ -256,8 +256,6 @@ namespace GlobalEvents.Controllers
         }
 
         // POST: Events/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [MyAuthorize]
@@ -274,10 +272,11 @@ namespace GlobalEvents.Controllers
                 // Por las dudas que se haga un post directamente.
                 if (events.IdUser == WebSecurity.CurrentUserId || Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
                 {
-                    // Solo va a poder cambiar el estado si es admin, por más que lo fuerze.
+                    // Solo va a poder cambiar el estado o si es destacado si es admin, por más que lo fuerze.
                     if (!Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
                     {
                         events.Estado = EventsService.ObtenerEventos(events.Id).FirstOrDefault().Estado;
+                        events.Destacado = EventsService.ObtenerEventos(events.Id).FirstOrDefault().Destacado;
                     }
                     EventsService.Edit(events, file, Inicio, Fin);
                     return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
