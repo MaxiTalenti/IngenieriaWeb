@@ -39,7 +39,74 @@
                 </tr>
             </thead>
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.Where(z => z.Estado == RepositorioClases.EventState.Pendiente_De_Aprobacion))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.Destacado, new { disabled = "disabled" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreEvento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaInicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaFin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCategoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Habilitar", "HabilitarEvento", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-content">
+        <table class="table striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Destacado
+                    </th>
+                    <th>
+                        Evento
+                    </th>
+                    <th>
+                        Inicio
+                    </th>
+                    <th>
+                        Fin
+                    </th>
+                    <th>
+                        Categoría
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model.Where(z => z.Estado != RepositorioClases.EventState.Pendiente_De_Aprobacion))
             {
                 <tr>
                     <td>

@@ -532,5 +532,24 @@ namespace GlobalEvents.Controllers
         {
             return EventsService.ObtenerPuntuacionPromedio(id);
         }
-    }
+
+        [HttpGet]
+        [MyAuthorize(Roles = "Admin")]
+        public ActionResult Habilitar(long? id)
+        {
+            if (id == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+
+            Events evento = EventsService.ObtenerEventos(id).SingleOrDefault();
+            if (evento == null)
+            {
+                return Errores.MostrarError(DatosErrores.ErrorParametros);
+            }
+
+            EventsService.CambiarEstadoEvento((long)id, EventState.Habilitado);
+
+            return View("Listado");
+        }
 }
