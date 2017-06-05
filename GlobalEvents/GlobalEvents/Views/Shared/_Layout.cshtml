@@ -37,12 +37,21 @@
 
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li class="@Html.IsSelected(controllers: "Home", actions: "Index", cssClass: "active")">@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, null)</li>
-                    <li class="@Html.IsSelected(controllers: "Events", cssClass: "active")">@Html.ActionLink("Eventos", "Index", "Events", new { area = "" }, null)</li>
+                    <li class="@Html.IsSelected(controllers: "Events", actions: "Index", cssClass: "active")
+                                @Html.IsSelected(controllers: "Events", actions: "Musica", cssClass: "active")
+                                @Html.IsSelected(controllers: "Events", actions: "Fiestas", cssClass: "active")
+                                @Html.IsSelected(controllers: "Events", actions: "Artes", cssClass: "active")
+                                @Html.IsSelected(controllers: "Events", actions: "Gastronomia", cssClass: "active")
+                                @Html.IsSelected(controllers: "Events", actions: "Clases", cssClass: "active")
+                                @Html.IsSelected(controllers: "Events", actions: "Deportes", cssClass: "active")
+                                @Html.IsSelected(controllers: "Events", actions: "Otros", cssClass: "active")
+                        ">@Html.ActionLink("Eventos", "Index", "Events", new { area = "" }, null)</li>
                     @if (WebSecurity.IsAuthenticated)
                     {
                         <li class="@Html.IsSelected(controllers: "Events", actions: "Mios", cssClass: "active")">@Html.ActionLink("Mis eventos", "Mios", "Events", new { area = "" }, null)</li>
                     }
-                    <li class="@Html.IsSelected(controllers: "Events", cssClass: "active")">@Html.ActionLink("Mapa", "MapView", "Events", new { area = "" }, null)</li>
+                    <li class="@Html.IsSelected(controllers: "Events", actions: "Closed", cssClass: "active")">@Html.ActionLink("Finalizados", "Closed", "Events", new { area = "" }, null)</li>
+                    <li class="@Html.IsSelected(controllers: "Events", actions: "MapView", cssClass: "active")">@Html.ActionLink("Mapa", "MapView", "Events", new { area = "" }, null)</li>
                 </ul>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
