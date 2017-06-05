@@ -101,7 +101,7 @@ namespace GlobalEvents.Controllers
             if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
                 events = EventsService.ObtenerEventos(id, true, true).FirstOrDefault();
             else
-                events = EventsService.ObtenerEventos(id, false, true).Where(c => c.IdUser == WebSecurity.CurrentUserId).FirstOrDefault();
+                events = EventsService.ObtenerEventos(id, false, true).FirstOrDefault();
                 
             if (events == null)
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
