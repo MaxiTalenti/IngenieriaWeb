@@ -23,61 +23,61 @@ namespace GlobalEvents.Controllers
         public ActionResult Index()
         {
             // Por el momento acá va a ser destacados, después vemos si mostramos otros.
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.Destacado == true).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.Destacado == true).ToList();
             return View(Lista);
         }
 
         public ActionResult Mios()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdUser == WebSecurity.CurrentUserId).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdUser == WebSecurity.CurrentUserId).ToList();
             return View(Lista);
         }
 
         public ActionResult Destacados()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.Destacado == true).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.Destacado == true).ToList();
             return View(Lista);
         }
 
         public ActionResult Musica()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Musica).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Musica).ToList();
             return View(Lista);
         }
 
         public ActionResult Fiestas()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Fiestas).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Fiestas).ToList();
             return View(Lista);
         }
 
         public ActionResult Artes()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Artes).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Artes).ToList();
             return View(Lista);
         }
 
         public ActionResult Gastronomia()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Gastronomia).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Gastronomia).ToList();
             return View(Lista);
         }
 
         public ActionResult Clases()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Clases).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Clases).ToList();
             return View(Lista);
         }
 
         public ActionResult Deportes()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Deportes).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Deportes).ToList();
             return View(Lista);
         }
 
         public ActionResult Otros()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false).Where(z => z.IdCategoria == Categorias.Otros).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Otros).ToList();
             return View(Lista);
         }
 
@@ -121,7 +121,7 @@ namespace GlobalEvents.Controllers
             var punt = new PuntuacionesEventos();
             using (Modelo context = new Modelo())
             {
-                punt = context.PuntuacionesEventos.SingleOrDefault(C => C.IdUsuario == WebSecurity.CurrentUserId && C.EventId == model.Id);   
+                punt = context.PuntuacionesEventos.SingleOrDefault(C => C.IdUsuario == WebSecurity.CurrentUserId && C.EventId == model.Id);
             }
 
             if (punt != null)
@@ -158,15 +158,15 @@ namespace GlobalEvents.Controllers
             Events evento = EventsService.ObtenerEventos(IDEvento).FirstOrDefault();
             intereseseventmodel.FechaFin = evento.FechaFin;
             intereseseventmodel.IdEvento = IDEvento;
-            
+
             return PartialView(@"~/Views/Events/AsistenciaEvento.cshtml", intereseseventmodel);
         }
 
         [HttpGet]
-        [MyAuthorize(Roles ="Admin")]
+        [MyAuthorize(Roles = "Admin")]
         public ActionResult Listado()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, true);
+            List<Events> Lista = EventsService.ObtenerEventos(null, true, true);
             return View(Lista);
         }
 
@@ -174,7 +174,7 @@ namespace GlobalEvents.Controllers
         [MyAuthorize]
         public ActionResult Create()
         {
-            EventViewModel.EventCreateModel model = new EventViewModel.EventCreateModel { IdCategoria = Categorias.Otros, FechaInicio = DateTime.Now, FechaFin = DateTime.Now};
+            EventViewModel.EventCreateModel model = new EventViewModel.EventCreateModel { IdCategoria = Categorias.Otros, FechaInicio = DateTime.Now, FechaFin = DateTime.Now };
             return View(model);
         }
 
@@ -252,7 +252,7 @@ namespace GlobalEvents.Controllers
             {
                 return Errores.MostrarError(DatosErrores.Permisos);
             }
-            
+
         }
 
         // POST: Events/Edit/5
@@ -390,7 +390,7 @@ namespace GlobalEvents.Controllers
                         context.InteresesEventos.Remove(interes);
                         context.SaveChanges();
                     }
-                    
+
                 }
                 else
                 {
@@ -409,9 +409,9 @@ namespace GlobalEvents.Controllers
                     context.InteresesEventos.Add(interes);
                     context.SaveChanges();
                 }
-                
+
             }
-            
+
 
             return RedirectToAction("AsistenciaEvento", new { IdEvento = id });
         }
@@ -436,13 +436,13 @@ namespace GlobalEvents.Controllers
         public JsonResult GetEventsForMap(int? id, string lat, string lng)
         {
             using (Modelo context = new Modelo())
-            {   
-                double maxlng = Convert.ToDouble(lng.Replace(".",",")) + 0.05;
+            {
+                double maxlng = Convert.ToDouble(lng.Replace(".", ",")) + 0.05;
                 double minlng = Convert.ToDouble(lng.Replace(".", ",")) - 0.05;
                 double maxlat = Convert.ToDouble(lat.Replace(".", ",")) + 0.05;
                 double minlat = Convert.ToDouble(lat.Replace(".", ",")) - 0.05;
                 context.Configuration.LazyLoadingEnabled = false;
-                List<Events> eventos = context.Events.Where(u => u.Estado == EventState.Habilitado && 
+                List<Events> eventos = context.Events.Where(u => u.Estado == EventState.Habilitado &&
                 u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
                 if (eventos.Count > 0)
                 {
@@ -509,7 +509,7 @@ namespace GlobalEvents.Controllers
             using (Modelo context = new Modelo())
             {
                 punt = context.PuntuacionesEventos.SingleOrDefault(C => C.IdUsuario == WebSecurity.CurrentUserId && C.EventId == Id);
-                if(punt != null)
+                if (punt != null)
                 {
                     punt.Puntuacion = Puntuacion;
                     context.SaveChanges();
@@ -542,7 +542,7 @@ namespace GlobalEvents.Controllers
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
             }
 
-            Events evento = EventsService.ObtenerEventos(id).SingleOrDefault();
+            Events evento = EventsService.ObtenerEventos(id, false, true).SingleOrDefault();
             if (evento == null)
             {
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
@@ -550,6 +550,7 @@ namespace GlobalEvents.Controllers
 
             EventsService.CambiarEstadoEvento((long)id, EventState.Habilitado);
 
-            return View("Listado");
+            return RedirectToAction("Listado");
         }
+    }
 }

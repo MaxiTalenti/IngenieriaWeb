@@ -19,7 +19,7 @@ namespace Servicios
         /// </summary>
         /// <param name="id">Busca por id (opcional)</param>
         /// <returns>Lista de evento/s</returns>
-        public static List<Events> ObtenerEventos(long? id, bool Eliminados = false)
+        public static List<Events> ObtenerEventos(long? id, bool Eliminados = false, bool PendienteAutorizacion = false)
         {
             using (Modelo context = new Modelo())
             {
@@ -28,10 +28,13 @@ namespace Servicios
                 if (Eventos.Count > 0)
                     Eventos.FirstOrDefault().Comments = CommentsService.ObtenerComentarios(id.GetValueOrDefault()).ToList();
                 // No traerse los eliminados.
-                if (Eliminados)
-                    return Eventos;
-                else
-                    return Eventos.Where(z => z.Estado != EventState.Eliminado).ToList();
+                if (!Eliminados)
+                    Eventos = Eventos.Where(z => z.Estado != EventState.Eliminado).ToList();
+                if (!PendienteAutorizacion)
+                {
+                    Eventos = Eventos.Where(c => c.Estado != EventState.Pendiente_De_Aprobacion).ToList();
+                }
+                return Eventos;
             }
         }
 

@@ -4,6 +4,7 @@ namespace RepositorioClases
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Modelo : DbContext
     {

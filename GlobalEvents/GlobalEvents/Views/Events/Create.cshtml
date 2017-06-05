@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="input-field col s6">
                         @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "active"})
-                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "datepicker" }})
+                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "datepicker", @id = "FechaInicio"}})
                         @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "validate" })
                     </div>
                     <div class="input-field col s6">
@@ -55,7 +55,7 @@
                 <div class="row">
                     <div class="input-field col s6">
                         @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "active" })
-                        @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "datepicker" } })
+                        @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "datepicker", @id = "FechaFin" } })
                         @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
                     </div>
                     <div class="input-field col s6">
