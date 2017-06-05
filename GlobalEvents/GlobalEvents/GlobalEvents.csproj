@@ -309,6 +309,7 @@
     <Content Include="Views\Manage\UserReported.cshtml" />
     <Content Include="Views\Events\AsistenciaEvento.cshtml" />
     <Content Include="Views\Shared\ErroresVarios.cshtml" />
+    <Content Include="Views\Events\Closed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

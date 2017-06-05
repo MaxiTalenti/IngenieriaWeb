@@ -81,6 +81,13 @@ namespace GlobalEvents.Controllers
             return View(Lista);
         }
 
+        public ActionResult Closed()
+        {
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.FechaFin < DateTime.Now).ToList();
+            return View(Lista);
+        }
+
         // GET: Events/Details/5
         [HttpGet]
         public ActionResult Details(long? id)
