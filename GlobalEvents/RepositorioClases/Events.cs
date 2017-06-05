@@ -10,8 +10,8 @@ namespace RepositorioClases
         [Required]
         public long Id { get; set; }
 
-        [Required]
-        [StringLength(200)]
+        [Required(ErrorMessage = "Se requiere un nombre de evento")]
+        [StringLength(200, ErrorMessage = "El nombre puede tener un máximo de 200 carácteres")]
         [Display(Name = "Evento")]
         public string NombreEvento { get; set; }
 
@@ -23,8 +23,8 @@ namespace RepositorioClases
         [StringLength(50)]
         public string lng { get; set; }
 
-        [Required]
-        [StringLength(500)]
+        [Required(ErrorMessage = "Se requiere una descripción del evento")]
+        [StringLength(500, ErrorMessage = "La descripción puede tener un máximo de 500 carácteres")]
         public string Descripcion { get; set; }
 
         [Required]
@@ -51,8 +51,8 @@ namespace RepositorioClases
         [Display(Name = "Evento Destacado")]
         public bool Destacado { get; set; }
 
-        [Required]
-        [StringLength(200)]
+        [Required(ErrorMessage = "Se requiere una dirección informal del evento")]
+        [StringLength(200, ErrorMessage = "La dirección puede tener un máximo de 200 carácteres")]
         public string Direccion { get; set; }
 
         //[Required]

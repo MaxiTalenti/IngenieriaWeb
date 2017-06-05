@@ -40,11 +40,11 @@
                             <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
                             @if (item.Descripcion.Contains(Environment.NewLine))
                             {
-                                <pre><span class="card-subtitle grey-text text-darken-2">@Html.Raw(Html.Encode(item.Descripcion))</span></pre>
+                                <pre><span class="card-subtitle white-text">@Html.Raw(Html.Encode(item.Descripcion))</span></pre>
                             }
                             else
                             {
-                                <p class="card-subtitle grey-text text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                <p class="card-subtitle white-text">@Html.DisplayFor(modelItem => item.Descripcion)</p>
                             }
                             <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => item.IdUser).ToString())</small></p>
                             <hr />
