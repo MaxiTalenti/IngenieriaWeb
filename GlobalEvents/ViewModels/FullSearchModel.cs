@@ -18,6 +18,7 @@ namespace ViewModels
         public int IdUser { get; set; }
         public int? IdCategoria { get; set; }
         public string EncontradoEn { get; set; }
+        public string Comentario { get; set; }
     }
 
     public class FullModel

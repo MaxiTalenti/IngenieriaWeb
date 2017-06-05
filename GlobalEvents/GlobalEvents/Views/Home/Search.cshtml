@@ -122,3 +122,32 @@
     }
 }
 
+@if (Model != null && Model.Lista != null && Model.Lista.Where(z => z.EncontradoEn == "Comentario").Count() > 0)
+{
+    if (Model.Lista.Count > 0)
+    {
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title"><i class="fa fa-calendar-o fa-fw"></i>Categorías</div>
+                @foreach (var item in Model.Lista.Where(z => z.EncontradoEn == "Comentario"))
+                {
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s10">
+                                    @item.Comentario
+                                </div>
+                                @*<div class="col s2 right-align">
+                                    <a href="~/Events/@item.Categoria" class="btn btn-default">
+                                        <i class="fa fa-search fa-fw black-text"></i>
+                                    </a>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+

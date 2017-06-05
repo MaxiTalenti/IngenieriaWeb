@@ -101,13 +101,16 @@ namespace GlobalEvents.Controllers
             if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
                 events = EventsService.ObtenerEventos(id, true, true).FirstOrDefault();
             else
-                events = EventsService.ObtenerEventos(id, false).FirstOrDefault();
+            {
+                events = EventsService.ObtenerEventos(id, false, true).Where(c => c.IdUser == WebSecurity.CurrentUserId).FirstOrDefault();
+            }
+                
 
             if (events == null)
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
 
             if (events.Estado == EventState.Pendiente_De_Aprobacion &&
-                (events.IdUser != WebSecurity.CurrentUserId || !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
+                (events.IdUser != WebSecurity.CurrentUserId && !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
                 return Errores.MostrarError(DatosErrores.Permisos);
 
             EventViewModel.EventModel EventModel = new EventViewModel.EventModel();
