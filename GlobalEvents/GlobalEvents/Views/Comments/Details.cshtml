@@ -41,7 +41,16 @@
                     </div>
                 }
 
-                @if (Model.FechaUltimaActualizacion != null)
+                <label class="col-sm-2 col-form-label">
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        @Html.DisplayFor(model => model.Fecha)
+                    </p>
+                </div>
+
+                @if (Model.FechaUltimaActualizacion != Model.Fecha)
                 {
                     <label class="col-sm-2 col-form-label">
                         @Html.DisplayNameFor(model => model.FechaUltimaActualizacion)
@@ -54,29 +63,11 @@
                 }
 
                 <label class="col-sm-2 col-form-label">
-                    @Html.DisplayNameFor(model => model.Fecha)
-                </label>
-                <div class="col-sm-10">
-                    <p class="form-control-static">
-                        @Html.DisplayFor(model => model.Fecha)
-                    </p>
-                </div>
-
-                <label class="col-sm-2 col-form-label">
                     @Html.DisplayNameFor(model => model.EventId)
                 </label>
                 <div class="col-sm-10">
                     <p class="form-control-static">
                         @Html.DisplayFor(model => model.EventId)
-                    </p>
-                </div>
-
-                <label class="col-sm-2 col-form-label">
-                    @Html.DisplayNameFor(model => model.Fecha)
-                </label>
-                <div class="col-sm-10">
-                    <p class="form-control-static">
-                        @Html.DisplayFor(model => model.Fecha)
                     </p>
                 </div>
 
