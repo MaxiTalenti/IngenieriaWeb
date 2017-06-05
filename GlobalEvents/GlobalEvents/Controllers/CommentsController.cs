@@ -50,7 +50,7 @@ namespace GlobalEvents.Controllers
             if (ModelState.IsValid)
             {
                 // Se pueden hacer 10 comentarios por día.
-                int CantidadComentariosEnDia = CommentsService.ObtenerComentarios(WebSecurity.CurrentUserId)
+                int CantidadComentariosEnDia = CommentsService.ObtenerComentariosUser(WebSecurity.CurrentUserId)
                     .Where(z => z.Fecha.Year == DateTime.Now.Year)
                     .Where(z => z.Fecha.Month == DateTime.Now.Month)
                     .Where(z => z.Fecha.Day == DateTime.Now.Day)

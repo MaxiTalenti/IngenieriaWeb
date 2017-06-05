@@ -189,7 +189,7 @@ namespace GlobalEvents.Controllers
             {
                 // Se pueden hacer 3 eventos por día.
                 // Se pueden hacer 10 comentarios por día.
-                int CantidadEventosEnDia = EventsService.ObtenerEventos(WebSecurity.CurrentUserId, false)
+                int CantidadEventosEnDia = EventsService.ObtenerEventos(WebSecurity.CurrentUserId)
                     .Where(z => z.FechaCreacion.Year == DateTime.Now.Year)
                     .Where(z => z.FechaCreacion.Month == DateTime.Now.Month)
                     .Where(z => z.FechaCreacion.Day == DateTime.Now.Day)
