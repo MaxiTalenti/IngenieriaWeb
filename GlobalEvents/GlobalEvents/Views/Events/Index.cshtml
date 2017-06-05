@@ -28,7 +28,14 @@
                             <div class="card-content white-text">
                                 <h8 class="white-text"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => item.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => item.IdCategoria)</h8>
                                 <span class="card-title text-darken-4">@Html.Raw("<pre>" + Html.Encode(item.Descripcion) + "</pre>")</span>
-                                <p class="card-subtitle text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                @if (item.Descripcion.Contains(Environment.NewLine))
+                                {
+                                    <pre><span class="card-subtitle grey-text text-darken-2">@Html.Raw(Html.Encode(item.Descripcion))</span></pre>
+                                }
+                                else
+                                {
+                                    <p class="card-subtitle grey-text text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                }
                                 <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => item.IdUser).ToString())</small></p>
                                 <hr />
 
@@ -60,7 +67,14 @@
                             <div class="card-content black-text container">
                                 <h8 class="black-text"><i class="@Html.getIcon(@Html.DisplayFor(modelItem => item.IdCategoria).ToString())"></i> @Html.DisplayFor(modelItem => item.IdCategoria)</h8>
                                 <span class="card-title grey-text text-darken-4">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
-                                <p class="card-subtitle grey-text text-darken-2">@Html.Raw("<pre>" + Html.Encode(item.Descripcion) + "</pre>")</p>
+                                @if (item.Descripcion.Contains(Environment.NewLine))
+                                {
+                                    <pre><span class="card-subtitle grey-text text-darken-2">@Html.Raw(Html.Encode(item.Descripcion))</span></pre>
+                                }
+                                else
+                                {
+                                    <p class="card-subtitle grey-text text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                }
                                 <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => item.IdUser).ToString())</small></p>
                                 <hr />
 

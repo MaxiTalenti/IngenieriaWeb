@@ -92,7 +92,7 @@ namespace GlobalEvents.Controllers
             Events events = null;
             // Obtiene también si esta eliminado si es admin.
             if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
-                events = EventsService.ObtenerEventos(id, true).FirstOrDefault();
+                events = EventsService.ObtenerEventos(id, true, true).FirstOrDefault();
             else
                 events = EventsService.ObtenerEventos(id, false).FirstOrDefault();
 
@@ -198,36 +198,30 @@ namespace GlobalEvents.Controllers
                 {
                     TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
                     TimeSpan Fin = TimeSpan.Parse(HoraFin);
-                    if (events.FechaInicio < DateTime.Now || events.FechaFin < events.FechaInicio)
+
+                    Events evento = new Events()
                     {
-                        ModelState.AddModelError("", "Error en las fechas seleccionadas");
-                    }
-                    else
-                    {
-                        Events evento = new Events()
-                        {
-                            Descripcion = events.Descripcion,
-                            Direccion = events.Direccion,
-                            FechaCreacion = DateTime.Now,
-                            FechaFin = events.FechaFin,
-                            FechaInicio = events.FechaInicio,
-                            IdCategoria = events.IdCategoria,
-                            IdUser = WebSecurity.CurrentUserId,
-                            lat = events.lat,
-                            lng = events.lng,
-                            RutaImagen = events.RutaImagen,
-                            HoraFin = events.HoraFin,
-                            HoraInicio = events.HoraInicio,
-                            NombreEvento = events.NombreEvento,
-                            Estado = Rolls.ObtenerEstadoEventoPorUsuario(WebSecurity.CurrentUserId) ?
+                        Descripcion = events.Descripcion,
+                        Direccion = events.Direccion,
+                        FechaCreacion = DateTime.Now,
+                        FechaFin = events.FechaFin,
+                        FechaInicio = events.FechaInicio,
+                        IdCategoria = events.IdCategoria,
+                        IdUser = WebSecurity.CurrentUserId,
+                        lat = events.lat,
+                        lng = events.lng,
+                        RutaImagen = events.RutaImagen,
+                        HoraFin = events.HoraFin,
+                        HoraInicio = events.HoraInicio,
+                        NombreEvento = events.NombreEvento,
+                        Estado = Rolls.ObtenerEstadoEventoPorUsuario(WebSecurity.CurrentUserId) ?
                                     EventState.Habilitado :
                                     EventState.Pendiente_De_Aprobacion,
                             Destacado = Rolls.ObtenerSiEventoEsDestacado(WebSecurity.CurrentUserId)
                         };
 
-                        EventsService.Create(evento, file);
-                        return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
-                    }
+                    EventsService.Create(evento, file);
+                    return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
                 }
                 else
                     ModelState.AddModelError("", "Has llegado al límite para crear de 3 eventos por día.");

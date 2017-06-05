@@ -32,7 +32,14 @@
         </div>
 
         <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => Model.ViewModel.NombreEvento)</span>
-        <p class="card-subtitle text-darken-2">@Html.Raw("<pre>" + Html.Encode(Model.ViewModel.Descripcion) + "</pre>")</p>
+        @if (item.Descripcion.Contains(Environment.NewLine))
+        {
+            <pre><span class="card-subtitle grey-text text-darken-2">@Html.Raw(Html.Encode(Model.ViewModel.Descripcion))</span></pre>
+        }
+        else
+        {
+            <p class="card-subtitle grey-text text-darken-2">@Html.DisplayFor(modelItem => Model.ViewModel.Descripcion)</p>
+        }
         <hr />
 
         <!-- IdUser -->
