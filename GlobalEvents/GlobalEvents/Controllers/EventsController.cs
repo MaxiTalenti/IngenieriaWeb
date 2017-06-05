@@ -92,7 +92,7 @@ namespace GlobalEvents.Controllers
             Events events = null;
             // Obtiene también si esta eliminado si es admin.
             if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
-                events = EventsService.ObtenerEventos(id, true).FirstOrDefault();
+                events = EventsService.ObtenerEventos(id, true, true).FirstOrDefault();
             else
                 events = EventsService.ObtenerEventos(id, false).FirstOrDefault();
 
@@ -201,7 +201,7 @@ namespace GlobalEvents.Controllers
 
                     Events evento = new Events()
                     {
-                        Descripcion = events.Descripcion,
+                        Descripcion = events.Descripcion, //.Replace("\r\n", "<br/>"),
                         Direccion = events.Direccion,
                         FechaCreacion = DateTime.Now,
                         FechaFin = events.FechaFin,
@@ -221,7 +221,10 @@ namespace GlobalEvents.Controllers
                     };
 
                     EventsService.Create(evento, file);
-                    return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
+                    if (evento.Estado != EventState.Pendiente_De_Aprobacion)
+                        return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
+                    else
+                        return Errores.MostrarError(DatosErrores.Otro);
                 }
                 else
                     ModelState.AddModelError("", "Has llegado al límite para crear de 3 eventos por día.");

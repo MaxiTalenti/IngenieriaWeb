@@ -32,7 +32,7 @@
         </div>
 
         <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => Model.ViewModel.NombreEvento)</span>
-        <p class="card-subtitle text-darken-2">@Html.DisplayFor(modelItem => Model.ViewModel.Descripcion)</p>
+        <p class="card-subtitle text-darken-2">@Html.Raw("<pre>" + Html.Encode(Model.ViewModel.Descripcion) + "</pre>")</p>
         <hr />
 
         <!-- IdUser -->

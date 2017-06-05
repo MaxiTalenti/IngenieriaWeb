@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommentsModel.cs" />
+    <Compile Include="Errores.cs" />
     <Compile Include="EventViewModel.cs" />
     <Compile Include="FullSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

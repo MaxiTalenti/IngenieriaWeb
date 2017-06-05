@@ -7,7 +7,7 @@ namespace GlobalEvents.Controllers
 {
     public static class Errores
     {
-        public static ViewResult MostrarError(DatosErrores Error, string DescripcionError = "")
+        public static ViewResult MostrarError(DatosErrores Error, ViewModels.Errores error = null)
         {
             // Ver si acá seguimos mostrando una vista general o la vamos cambiando.
             ViewResult Resultado = null;
@@ -25,6 +25,12 @@ namespace GlobalEvents.Controllers
                         ViewName = "~/Views/Shared/PermisosNecesarios.cshtml"
                     };
                     break;
+                case DatosErrores.Otro:
+                    Resultado = new ViewResult
+                    {
+                        ViewName = "~/Views/Shared/Error.cshtml",
+                    };
+                    break;
             }
             return Resultado;
         }
@@ -33,6 +39,7 @@ namespace GlobalEvents.Controllers
     public enum DatosErrores
     {
         ErrorParametros = 1,
-        Permisos = 2
+        Permisos = 2,
+        Otro = 3
     }
 }

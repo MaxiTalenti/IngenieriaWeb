@@ -31,6 +31,7 @@ namespace ViewModels
 
             [Required]
             [StringLength(500)]
+            [DataType(DataType.MultilineText)]
             public string Descripcion { get; set; }
 
             [Required]

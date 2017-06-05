@@ -36,7 +36,7 @@
                             }
                             <div class="card-content white-text">
                                 <span class="card-title text-darken-4">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
-                                <p class="card-subtitle text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                <p class="card-subtitle text-darken-2">@Html.Raw("<pre>" + Html.Encode(item.Descripcion) + "</pre>")</p>
                                 <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => item.IdUser).ToString())</small></p>
                                 <hr />
 
@@ -68,7 +68,7 @@
 
                             <div class="card-content black-text">
                                 <span class="card-title grey-text text-darken-4">@Html.DisplayFor(modelItem => item.NombreEvento)</span>
-                                <p class="card-subtitle grey-text text-darken-2">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                <p class="card-subtitle grey-text text-darken-2">@Html.Raw("<pre>" + Html.Encode(item.Descripcion) + "</pre>")</p>
                                 <p class="card-text"><small class="text-muted">Creado por @Html.getNameUser(id: @Html.DisplayFor(modelItem => item.IdUser).ToString())</small></p>
                                 <hr />
 

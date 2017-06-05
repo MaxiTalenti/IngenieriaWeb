@@ -148,8 +148,5 @@ namespace GlobalEvents.Controllers
             FullModel Result = SearchResults(viewModel.searchString);
             return View("Search", Result);
         }
-
-
-
     }
 }

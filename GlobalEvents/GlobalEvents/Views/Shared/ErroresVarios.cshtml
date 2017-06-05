@@ -1,0 +1,28 @@
+﻿@model ViewModels.Errores
+@{
+    ViewBag.Title = "Error";
+}
+
+<br />
+<br />
+
+@if (Model != null)
+{
+    <div class="card">
+        <div class="card-title red-text center">Model.Titulo</div>
+        <div class="card-content center-align">
+            Model.Descripcion
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-title red-text center">Evento pendiente</div>
+        <div class="card-content center-align">
+            El evento que usted ha creado necesita ser aprobado por un administrador para visualizarse.
+            Esto evita que se genere SPAM, solo ocurrirá con tus primeros 5 eventos.
+        </div>
+        <a class="card-action" href="~/Events/Index">Ver eventos</a>
+    </div>
+}
