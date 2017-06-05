@@ -457,10 +457,10 @@ namespace GlobalEvents.Controllers
         {
             using (Modelo context = new Modelo())
             {
-                double maxlng = Convert.ToDouble(lng.Replace(".", ",")) + 0.05;
-                double minlng = Convert.ToDouble(lng.Replace(".", ",")) - 0.05;
-                double maxlat = Convert.ToDouble(lat.Replace(".", ",")) + 0.05;
-                double minlat = Convert.ToDouble(lat.Replace(".", ",")) - 0.05;
+                double maxlng = Convert.ToDouble(lng.Replace(".", ",")) + 0.4;
+                double minlng = Convert.ToDouble(lng.Replace(".", ",")) - 0.4;
+                double maxlat = Convert.ToDouble(lat.Replace(".", ",")) + 0.4;
+                double minlat = Convert.ToDouble(lat.Replace(".", ",")) - 0.4;
                 context.Configuration.LazyLoadingEnabled = false;
                 List<Events> eventos = context.Events.Where(u => u.Estado == EventState.Habilitado &&
                 u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
