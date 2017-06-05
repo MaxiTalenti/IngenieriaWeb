@@ -99,6 +99,10 @@ namespace GlobalEvents.Controllers
             if (events == null)
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
 
+            if (events.Estado == EventState.Pendiente_De_Aprobacion &&
+                (events.IdUser != WebSecurity.CurrentUserId || !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
+                return Errores.MostrarError(DatosErrores.Permisos);
+
             EventViewModel.EventModel EventModel = new EventViewModel.EventModel();
             EventViewModel.EventVM model = new EventViewModel.EventVM();
             model.Descripcion = events.Descripcion;
@@ -155,7 +159,7 @@ namespace GlobalEvents.Controllers
             intereseseventmodel.InteresUsuario = intvm;
             intereseseventmodel.Asistencias = EventsService.ObtenerAsistenciasEvento(IDEvento);
             intereseseventmodel.Interesados = EventsService.ObtenerInteresadosEvento(IDEvento);
-            Events evento = EventsService.ObtenerEventos(IDEvento).FirstOrDefault();
+            Events evento = EventsService.ObtenerEventos(IDEvento, false, true).FirstOrDefault();
             intereseseventmodel.FechaFin = evento.FechaFin;
             intereseseventmodel.IdEvento = IDEvento;
 
