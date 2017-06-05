@@ -101,17 +101,21 @@ namespace GlobalEvents.Controllers
             if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
                 events = EventsService.ObtenerEventos(id, true, true).FirstOrDefault();
             else
-            {
                 events = EventsService.ObtenerEventos(id, false, true).Where(c => c.IdUser == WebSecurity.CurrentUserId).FirstOrDefault();
-            }
                 
-
             if (events == null)
                 return Errores.MostrarError(DatosErrores.ErrorParametros);
 
-            if (events.Estado == EventState.Pendiente_De_Aprobacion &&
-                (events.IdUser != WebSecurity.CurrentUserId && !Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin")))
-                return Errores.MostrarError(DatosErrores.Permisos);
+            if (events.Estado == EventState.Pendiente_De_Aprobacion)
+            {
+                if (events.IdUser != WebSecurity.CurrentUserId)
+                {
+                    if (!Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+                    {
+                        return Errores.MostrarError(DatosErrores.Permisos);
+                    }
+                }
+            }
 
             EventViewModel.EventModel EventModel = new EventViewModel.EventModel();
             EventViewModel.EventVM model = new EventViewModel.EventVM();
@@ -201,44 +205,53 @@ namespace GlobalEvents.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Se pueden hacer 3 eventos por día.
-                // Se pueden hacer 10 comentarios por día.
-                int CantidadEventosEnDia = EventsService.ObtenerEventos(WebSecurity.CurrentUserId)
-                    .Where(z => z.FechaCreacion.Year == DateTime.Now.Year)
-                    .Where(z => z.FechaCreacion.Month == DateTime.Now.Month)
-                    .Where(z => z.FechaCreacion.Day == DateTime.Now.Day)
-                    .Count();
-                if (CantidadEventosEnDia < 3)
+                events.FechaInicio = events.FechaInicio + TimeSpan.Parse(HoraInicio);
+                events.FechaFin = events.FechaFin + TimeSpan.Parse(HoraFin);
+                if (events.FechaInicio < DateTime.Now || events.FechaFin <= events.FechaInicio)
                 {
-                    TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
-                    TimeSpan Fin = TimeSpan.Parse(HoraFin);
-
-                    Events evento = new Events()
+                    ModelState.AddModelError("", "Error en las fechas seleccionadas, el evento debe crearse al menos el día anterior.");
+                }
+                else
+                {
+                    // Se pueden hacer 3 eventos por día.
+                    // Se pueden hacer 10 comentarios por día.
+                    int CantidadEventosEnDia = EventsService.ObtenerEventos(WebSecurity.CurrentUserId)
+                        .Where(z => z.FechaCreacion.Year == DateTime.Now.Year)
+                        .Where(z => z.FechaCreacion.Month == DateTime.Now.Month)
+                        .Where(z => z.FechaCreacion.Day == DateTime.Now.Day)
+                        .Count();
+                    if (CantidadEventosEnDia < 3)
                     {
-                        Descripcion = events.Descripcion,
-                        Direccion = events.Direccion,
-                        FechaCreacion = DateTime.Now,
-                        FechaFin = events.FechaFin,
-                        FechaInicio = events.FechaInicio,
-                        IdCategoria = events.IdCategoria,
-                        IdUser = WebSecurity.CurrentUserId,
-                        lat = events.lat,
-                        lng = events.lng,
-                        RutaImagen = events.RutaImagen,
-                        HoraFin = events.HoraFin,
-                        HoraInicio = events.HoraInicio,
-                        NombreEvento = events.NombreEvento,
-                        Estado = Rolls.ObtenerEstadoEventoPorUsuario(WebSecurity.CurrentUserId) ?
-                                    EventState.Habilitado :
-                                    EventState.Pendiente_De_Aprobacion,
+                        TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
+                        TimeSpan Fin = TimeSpan.Parse(HoraFin);
+
+                        Events evento = new Events()
+                        {
+                            Descripcion = events.Descripcion,
+                            Direccion = events.Direccion,
+                            FechaCreacion = DateTime.Now,
+                            FechaFin = events.FechaFin,
+                            FechaInicio = events.FechaInicio,
+                            IdCategoria = events.IdCategoria,
+                            IdUser = WebSecurity.CurrentUserId,
+                            lat = events.lat,
+                            lng = events.lng,
+                            RutaImagen = events.RutaImagen,
+                            HoraFin = events.HoraFin,
+                            HoraInicio = events.HoraInicio,
+                            NombreEvento = events.NombreEvento,
+                            Estado = Rolls.ObtenerEstadoEventoPorUsuario(WebSecurity.CurrentUserId) ?
+                                        EventState.Habilitado :
+                                        EventState.Pendiente_De_Aprobacion,
                             Destacado = Rolls.ObtenerSiEventoEsDestacado(WebSecurity.CurrentUserId)
                         };
 
-                    EventsService.Create(evento, file);
-                    return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
+                        EventsService.Create(evento, file);
+                        return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
+                    }
+                    else
+                        ModelState.AddModelError("", "Has llegado al límite para crear de 3 eventos por día.");
                 }
-                else
-                    ModelState.AddModelError("", "Has llegado al límite para crear de 3 eventos por día.");
             }
 
             return View(events);
