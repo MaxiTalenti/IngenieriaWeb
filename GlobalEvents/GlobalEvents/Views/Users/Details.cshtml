@@ -19,9 +19,9 @@
                     <div class="card-title left-align">@Model.Name @Model.Apellido</div>
                 }
                 <div class="form-group">
-                    @if (Model.Id == WebSecurity.CurrentUserId)
-                    {
-                        <div class="row">
+                    <div class="row">
+                        @if (Model.Id == WebSecurity.CurrentUserId || Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
+                        {
                             <div class="col s6 m6 l6">
                                 <label>@Html.DisplayNameFor(model => model.Usuario)</label>
                                 <div>@Html.DisplayFor(model => model.Usuario)</div>
@@ -29,123 +29,69 @@
                                 <div>@Html.DisplayFor(model => model.Email)</div>
                             </div>
 
-                            <div class="col s6 m6 l6">
-                                        <table class="striped centered">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        <i class="fa fa-bullseye" aria-hidden="true"></i>
-                                                    </th>
-                                                    <th>
-                                                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                    </th>
-                                                    <th>
-                                                        <i class="fa fa-comment" aria-hidden="true"></i>
-                                                    </th>
-                                                    <th>
-                                                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                                                    </th>
-                                                    <th>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tr>
-                                                <td>
-                                                    @Model.Rank
-                                                </td>
-                                                <td>
-                                                    @Model.Eventos
-                                                </td>
-                                                <td>
-                                                    @Model.Comentarios
-                                                </td>
-                                                <td>
-                                                    @Model.EventosAsistidos
-                                                </td>
-                                                <td>
-                                                    @Model.ListaDeDeseos
-                                                </td>
-                                            </tr>
-                                        </table>
-                                </div>
-                        </div>
-
-                        <div class="fixed-action-btn">
-                            <a class="btn-floating btn-large green" href="~/Users/Edit/@Model.Id">
-                                <i class="large material-icons">mode_edit</i>
-                            </a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="row">
-                            @if (!Model.Usuario.Contains("@"))
+                            <div class="fixed-action-btn">
+                                <a class="btn-floating btn-large green" href="~/Users/Edit/@Model.Id">
+                                    <i class="large material-icons">mode_edit</i>
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            if (!Model.Usuario.Contains("@"))
                             {
                                 <div class="col s6 m6 l6">
                                     <label>@Html.DisplayNameFor(model => model.Usuario)</label>
                                     <div> @Html.DisplayFor(model => model.Usuario)</div>
-                                    <label>@Html.DisplayNameFor(model => model.Email)</label>
-                                    <div>@Html.DisplayFor(model => model.Email)</div>
                                 </div>
                             }
-                            @if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Admin"))
-                            {
-                                <div class="col s6 m6 l6">
-                                            <table class="striped centered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <i class="fa fa-bullseye" aria-hidden="true"></i>
-                                                        </th>
-                                                        <th>
-                                                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                        </th>
-                                                        <th>
-                                                            <i class="fa fa-comment" aria-hidden="true"></i>
-                                                        </th>
-                                                        <th>
-                                                            <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                                                        </th>
-                                                        <th>
-                                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tr>
-                                                    <td>
-                                                        @Model.Rank
-                                                    </td>
-                                                    <td>
-                                                        @Model.Eventos
-                                                    </td>
-                                                    <td>
-                                                        @Model.Comentarios
-                                                    </td>
-                                                    <td>
-                                                        @Model.EventosAsistidos
-                                                    </td>
-                                                    <td>
-                                                        @Model.ListaDeDeseos
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                </div>
+                        }
 
-
-                                <div class="fixed-action-btn">
-                                    <a class="btn-floating btn-large green" href="~/Users/Edit/@Model.Id">
-                                        <i class="large material-icons">mode_edit</i>
-                                    </a>
-                                </div>
-                            }
+                        <div class="col s6 m6 l6">
+                            <table class="striped centered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <i class="fa fa-bullseye" aria-hidden="true" title="Puntaje"></i>
+                                        </th>
+                                        <th>
+                                            <i class="fa fa-calendar" aria-hidden="true" title="Eventos creados"></i>
+                                        </th>
+                                        <th>
+                                            <i class="fa fa-comment" aria-hidden="true" title="Comentarios realizados"></i>
+                                        </th>
+                                        <th>
+                                            <i class="fa fa-calendar-o" aria-hidden="true" title="Eventos asistidos"></i>
+                                        </th>
+                                        <th>
+                                            <i class="fa fa-star" aria-hidden="true" title="Eventos deseados"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        @Model.Rank
+                                    </td>
+                                    <td>
+                                        @Model.Eventos
+                                    </td>
+                                    <td>
+                                        @Model.Comentarios
+                                    </td>
+                                    <td>
+                                        @Model.EventosAsistidos
+                                    </td>
+                                    <td>
+                                        @Model.ListaDeDeseos
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
-                    <a class="right-align black-text" href="~/Users/ReportarUsuario/@Model.Id">
-                        <i class="fa fa-flag-o"></i>
-                        Reportar
-                    </a>
-                    }
+                    </div>
                 </div>
+                <a class="right-align black-text" href="~/Users/ReportarUsuario/@Model.Id">
+                    <i class="fa fa-flag-o"></i>
+                    Reportar
+                </a>
             </div>
         </div>
     </div>
