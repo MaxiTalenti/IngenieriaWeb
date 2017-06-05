@@ -274,6 +274,9 @@
                             window.location.replace("/Home/Login");
                         } else {
                             $("#comment" + id).append(result);
+                            $('html, body').animate({
+                                scrollTop: $("#comment" + id).offset().top
+                            }, 2000);
                         }
                     }
                 });
