@@ -285,7 +285,7 @@ namespace GlobalEvents.Controllers
                             events.Destacado = EventsService.ObtenerEventos(events.Id).FirstOrDefault().Destacado;
                         }
                         EventsService.Edit(events, file, Inicio, Fin);
-                        return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
+                        return RedirectToAction("Details", "Events", new { id = events.Id});
                     }
                     else
                     {
