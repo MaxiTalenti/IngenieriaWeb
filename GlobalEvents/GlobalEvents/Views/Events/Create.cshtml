@@ -42,8 +42,8 @@
 
                 <div class="row">
                     <div class="input-field col s6">
-                        @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "active" })
-                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "datepicker" } })
+                        @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "active"})
+                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "datepicker" }})
                         @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "validate" })
                     </div>
                     <div class="input-field col s6">
@@ -160,3 +160,14 @@
         <div class="left-align">
             @Html.ActionLink("Volver", "Index")
         </div>
+
+<script>
+                    function compare() {
+                        var startDt = document.getElementById("startDate").value;
+                        var endDt = document.getElementById("endDate").value;
+
+                        if ((new Date(startDt).getTime() < new Date(endDt).getTime())) {
+                            // Your code here
+                        }
+                    }
+</script>

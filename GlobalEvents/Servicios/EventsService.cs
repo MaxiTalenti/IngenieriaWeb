@@ -266,12 +266,9 @@ namespace Servicios
                                     .Where(z => z.UserId == UserId)
                                     .Where(z => z.Tipo == Intereses.Asistire))
                 {
-                    using (Modelo context2 = new Modelo())
-                    {
-                        Events evento = context2.Events.Where(z => z.Id == a.EventId).SingleOrDefault();
-                        if (evento.FechaFin < DateTime.Now)
-                            eventos.Add(evento);
-                    }
+                    Events evento = ObtenerEventos(a.EventId, false).FirstOrDefault();
+                    if (evento.FechaFin < DateTime.Now)
+                        eventos.Add(evento);
                 }
             }
             return eventos;
@@ -291,7 +288,7 @@ namespace Servicios
                                     .Where(z => z.UserId == UserId)
                                     .Where(z => z.Tipo == Intereses.Me_Gusta))
                 {
-                    Events evento = context.Events.Where(z => z.Id == a.EventId).SingleOrDefault();
+                    Events evento = ObtenerEventos(a.EventId, false).FirstOrDefault();
                     if (evento.FechaFin > DateTime.Now)
                         eventos.Add(evento);
                 }
