@@ -264,7 +264,7 @@ namespace GlobalEvents.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (events.FechaInicio < DateTime.Now || events.FechaFin < events.FechaInicio)
+                if (events.FechaInicio < DateTime.Now || events.FechaFin <= events.FechaInicio)
                 {
                     ModelState.AddModelError("", "Error en las fechas seleccionadas");
                 }
