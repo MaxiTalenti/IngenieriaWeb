@@ -23,61 +23,90 @@ namespace GlobalEvents.Controllers
         public ActionResult Index()
         {
             // Por el momento acá va a ser destacados, después vemos si mostramos otros.
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.Destacado == true).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.Destacado == true)
+                .Where(z => z.FechaFin > DateTime.Now)
+                .ToList();
             return View(Lista);
         }
 
         public ActionResult Mios()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdUser == WebSecurity.CurrentUserId).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.IdUser == WebSecurity.CurrentUserId)
+                .ToList();
             return View(Lista);
         }
 
         public ActionResult Destacados()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.Destacado == true).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.Destacado == true)
+                .Where(z => z.FechaFin > DateTime.Now)
+                .ToList();
             return View(Lista);
         }
 
         public ActionResult Musica()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Musica).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.IdCategoria == Categorias.Musica)
+                .Where(z => z.FechaFin > DateTime.Now)
+                .ToList();
             return View(Lista);
         }
 
         public ActionResult Fiestas()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Fiestas).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.IdCategoria == Categorias.Fiestas)
+                .Where(z => z.FechaFin > DateTime.Now)
+                .ToList();
             return View(Lista);
         }
 
         public ActionResult Artes()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Artes).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.IdCategoria == Categorias.Artes)
+                .Where(z => z.FechaFin > DateTime.Now)
+                .ToList();
             return View(Lista);
         }
 
         public ActionResult Gastronomia()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Gastronomia).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.IdCategoria == Categorias.Gastronomia)
+                .Where(z => z.FechaFin > DateTime.Now)
+                .ToList();
             return View(Lista);
         }
 
         public ActionResult Clases()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Clases).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.IdCategoria == Categorias.Clases)
+                .Where(z => z.FechaFin > DateTime.Now)
+                .ToList();
             return View(Lista);
         }
 
         public ActionResult Deportes()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Deportes).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.IdCategoria == Categorias.Deportes)
+                .Where(z => z.FechaFin > DateTime.Now)
+                .ToList();
             return View(Lista);
         }
 
         public ActionResult Otros()
         {
-            List<Events> Lista = EventsService.ObtenerEventos(null, false, false).Where(z => z.IdCategoria == Categorias.Otros).ToList();
+            List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
+                .Where(z => z.IdCategoria == Categorias.Otros)
+                .Where(z => z.FechaFin > DateTime.Now)
+                .ToList();
             return View(Lista);
         }
 
