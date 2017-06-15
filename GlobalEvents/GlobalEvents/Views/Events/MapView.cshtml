@@ -44,11 +44,31 @@
                 map.setCenter(pos);
                 showPosition(pos);
             }, function () {
-                handleLocationError(true, infoWindow, map.getCenter());
+                //handleLocationError(true, infoWindow, map.getCenter());
+                pos = {
+                    lat: -30.944952,
+                    lng: -61.560658
+                };
+
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    title: 'Posición Predeterminada'
+                });
             });
         } else {
             // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
+            //handleLocationError(false, infoWindow, map.getCenter());
+            pos = {
+                lat: -30.944952,
+                lng: -61.560658
+            };
+
+            var marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                title: 'Posición Predeterminada'
+            });
         }
 
 
