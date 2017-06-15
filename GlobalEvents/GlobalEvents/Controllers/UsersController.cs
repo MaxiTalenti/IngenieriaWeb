@@ -57,7 +57,12 @@ namespace GlobalEvents.Controllers
                 Eventos = EventsService.ObtenerEventos(null).Where(z => z.IdUser == id).ToList().Count,
                 EventosAsistidos = EventsService.ObtenerEventosAsistidos((int)id).Count,
                 ListaDeDeseos = EventsService.ObtenerEventosDeseados((int)id).Count,
-                Rank = Rolls.ObtenerRankPorUsuario((int)id) 
+                Rank = Rolls.ObtenerRankPorUsuario((int)id),
+                UltimosEventos = EventsService.ObtenerEventos((int)id)
+                                .OrderByDescending(z => z.FechaCreacion)
+                                .Where(z => z.Estado == EventState.Habilitado)
+                                .Take(3).ToList(),
+                UltimosComentarios = CommentsService.ObtenerComentariosUser((int)id).OrderByDescending(z => z.Fecha).Take(5).ToList()
             }).FirstOrDefault();
 
             return View(user);

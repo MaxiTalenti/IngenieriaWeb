@@ -292,8 +292,11 @@ namespace Servicios
                                     .Where(z => z.Tipo == Intereses.Me_Gusta))
                 {
                     Events evento = ObtenerEventos(a.EventId, false).FirstOrDefault();
-                    if (evento.FechaFin > DateTime.Now)
-                        eventos.Add(evento);
+                    if (evento != null)
+                    {
+                        if (evento.FechaFin > DateTime.Now)
+                            eventos.Add(evento);
+                    }
                 }
             }
             return eventos;

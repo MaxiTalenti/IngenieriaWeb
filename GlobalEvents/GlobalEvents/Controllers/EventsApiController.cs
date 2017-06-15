@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using RepositorioClases;
+using Servicios;
 
 namespace GlobalEvents.Controllers
 {
@@ -17,9 +19,11 @@ namespace GlobalEvents.Controllers
         }
 
         // GET: api/EventsApi/5
-        public string Get(int id)
+        public void Get(int id)
         {
-            return "value";
+            Events evento = EventsService.ObtenerEventos((long)id).SingleOrDefault();
+            if (evento != null)
+                Request.CreateResponse(HttpStatusCode.Accepted, evento);
         }
 
         // POST: api/EventsApi

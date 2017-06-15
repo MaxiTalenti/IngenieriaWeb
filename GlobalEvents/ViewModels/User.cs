@@ -106,6 +106,10 @@ namespace ViewModels
         [Required]
         [Display(Name = "Lista de eventos interesados")]
         public int ListaDeDeseos { get; set; }
+
+        public List<Events> UltimosEventos { get; set; }
+
+        public List<RepositorioClases.Comments> UltimosComentarios { get; set; }
     }
 
     public class LoginModel
