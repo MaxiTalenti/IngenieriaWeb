@@ -79,7 +79,7 @@
             $.ajax({
                 url: "/Events/GetEventsForMap",
                 dataType: 'json',
-                async: true,
+                async: false,
                 data: { 'lat': position.lat, 'lng': position.lng },
                 success: function (info) {
                     info.forEach(function (x) {
@@ -92,7 +92,9 @@
                             title: x.NombreEvento
                         });
                     });
+
                 }
+
             });
         }
     }
