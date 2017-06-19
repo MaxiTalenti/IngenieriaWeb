@@ -507,8 +507,8 @@ namespace GlobalEvents.Controllers
                 double maxlat = Convert.ToDouble(lat.Replace(".", ",")) + 0.4;
                 double minlat = Convert.ToDouble(lat.Replace(".", ",")) - 0.4;
                 context.Configuration.LazyLoadingEnabled = false;
-                List<Events> eventos = context.Events.Where(u => u.Estado == EventState.Habilitado &&
-                u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
+                List<Events> eventos = context.Events.Where(u => u.Estado == EventState.Habilitado).ToList();// &&
+                //u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
                 if (eventos.Count > 0)
                 {
                     eventos = eventos.Where(c => Convert.ToDouble(c.lat.Replace(".", ",")) <= maxlat && Convert.ToDouble(c.lat.Replace(".", ",")) >= minlat).ToList();
