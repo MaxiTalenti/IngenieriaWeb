@@ -508,16 +508,16 @@ namespace GlobalEvents.Controllers
                 double minlat = Convert.ToDouble(lat.Replace(".", ",")) - 0.4;
                 //context.Configuration.LazyLoadingEnabled = false;
                 List<Events> eventos = context.Events.Where(u => u.Estado == EventState.Habilitado).ToList();// &&
-                //u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
-                if (eventos.Count > 0)
-                {
-                    eventos = eventos.Where(c => Convert.ToDouble(c.lat.Replace(".", ",")) <= maxlat && Convert.ToDouble(c.lat.Replace(".", ",")) >= minlat).ToList();
-                    eventos = eventos.Where(c => Convert.ToDouble(c.lng.Replace(".", ",")) <= maxlng && Convert.ToDouble(c.lng.Replace(".", ",")) >= minlng).ToList();
-                }
-                else
-                {
-                    eventos = new List<Events>();
-                }
+                ////u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
+                //if (eventos.Count > 0)
+                //{
+                //    eventos = eventos.Where(c => Convert.ToDouble(c.lat.Replace(".", ",")) <= maxlat && Convert.ToDouble(c.lat.Replace(".", ",")) >= minlat).ToList();
+                //    eventos = eventos.Where(c => Convert.ToDouble(c.lng.Replace(".", ",")) <= maxlng && Convert.ToDouble(c.lng.Replace(".", ",")) >= minlng).ToList();
+                //}
+                //else
+                //{
+                //    eventos = new List<Events>();
+                //}
                 return Json(
                 eventos,
                 JsonRequestBehavior.AllowGet);
