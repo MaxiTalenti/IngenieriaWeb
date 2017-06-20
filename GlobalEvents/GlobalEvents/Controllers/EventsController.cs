@@ -507,21 +507,19 @@ namespace GlobalEvents.Controllers
                 double maxlat = Convert.ToDouble(lat.Replace(".", ",")) + 0.4;
                 double minlat = Convert.ToDouble(lat.Replace(".", ",")) - 0.4;
                 //context.Configuration.LazyLoadingEnabled = false;
-                var eventos = context.Events.Where(u => u.Estado == EventState.Habilitado).Select(x=> new {lat = x.lat, lng = x.lng, NombreEvent = x.NombreEvento }).ToList();
-
-                // &&
-                ////u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
-                //if (eventos.Count > 0)
-                //{
-                //    eventos = eventos.Where(c => Convert.ToDouble(c.lat.Replace(".", ",")) <= maxlat && Convert.ToDouble(c.lat.Replace(".", ",")) >= minlat).ToList();
-                //    eventos = eventos.Where(c => Convert.ToDouble(c.lng.Replace(".", ",")) <= maxlng && Convert.ToDouble(c.lng.Replace(".", ",")) >= minlng).ToList();
-                //}
-                //else
-                //{
-                //    eventos = new List<Events>();
-                //}
+                var eventos = context.Events.Where(u => u.Estado == EventState.Habilitado && u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
+                if (eventos.Count > 0)
+                {
+                    eventos = eventos.Where(c => Convert.ToDouble(c.lat.Replace(".", ",")) <= maxlat && Convert.ToDouble(c.lat.Replace(".", ",")) >= minlat).ToList();
+                    eventos = eventos.Where(c => Convert.ToDouble(c.lng.Replace(".", ",")) <= maxlng && Convert.ToDouble(c.lng.Replace(".", ",")) >= minlng).ToList();
+                }
+                else
+                {
+                    eventos = new List<Events>();
+                }
+                var Data = eventos.Select(x => new { lat = x.lat, lng = x.lng, NombreEvento = x.NombreEvento }).ToList();
                 return Json(
-                eventos,
+                Data,
                 JsonRequestBehavior.AllowGet);
             }
         }
