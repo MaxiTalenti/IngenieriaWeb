@@ -160,4 +160,16 @@ namespace RepositorioClases
         Me_Gusta = 2
     }
 
+
+    public partial class SearchEvents
+    {
+        public string lat { get; set; }
+        public string lng { get; set; }
+        [Display(Name = "Fecha Desde")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FechaDesde { get; set; }
+        [Display(Name = "Fecha Hasta")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FechaHasta { get; set; }
+    }
 }

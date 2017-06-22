@@ -492,14 +492,24 @@ namespace GlobalEvents.Controllers
         }
 
         [MyAuthorize]
-        public ActionResult MapView()
+        public ActionResult MapView(SearchEvents search)
         {
-            return View();
+            if (search.FechaDesde.Year < 2000)
+            {
+                search.FechaDesde = DateTime.Now;
+                search.FechaHasta = DateTime.Now;
+            }
+            
+            return View(search);
         }
 
 
-        public JsonResult GetEventsForMap(int? id, string lat, string lng)
+        public JsonResult GetEventsForMap(int? id, string lat, string lng, DateTime? fechadesde, DateTime? fechahasta)
         {
+            string fechaDesde = Convert.ToDateTime(fechadesde).ToShortDateString() + " 0:00:00";
+            fechadesde = Convert.ToDateTime(fechaDesde);
+            string fechaHasta = Convert.ToDateTime(fechahasta).ToShortDateString() + " 23:59:59";
+            fechahasta = Convert.ToDateTime(fechaHasta);
             using (Modelo context = new Modelo())
             {
                 double maxlng = Convert.ToDouble(lng.Replace(".", ",")) + 0.4;
@@ -507,7 +517,7 @@ namespace GlobalEvents.Controllers
                 double maxlat = Convert.ToDouble(lat.Replace(".", ",")) + 0.4;
                 double minlat = Convert.ToDouble(lat.Replace(".", ",")) - 0.4;
                 //context.Configuration.LazyLoadingEnabled = false;
-                var eventos = context.Events.Where(u => u.Estado == EventState.Habilitado && u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
+                var eventos = context.Events.Where(u => u.Estado == EventState.Habilitado && u.FechaInicio >= fechadesde && u.FechaInicio <= fechahasta).ToList();
                 if (eventos.Count > 0)
                 {
                     eventos = eventos.Where(c => Convert.ToDouble(c.lat.Replace(".", ",")) <= maxlat && Convert.ToDouble(c.lat.Replace(".", ",")) >= minlat).ToList();
