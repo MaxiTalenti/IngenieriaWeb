@@ -527,7 +527,7 @@ namespace GlobalEvents.Controllers
                 {
                     eventos = new List<Events>();
                 }
-                var Data = eventos.Select(x => new { lat = x.lat, lng = x.lng, NombreEvento = x.NombreEvento }).ToList();
+                var Data = eventos.Select(x => new { lat = x.lat, lng = x.lng, NombreEvento = x.NombreEvento, FechaInicio = x.FechaInicio, FechaFin = x.FechaFin }).ToList();
                 return Json(
                 Data,
                 JsonRequestBehavior.AllowGet);
