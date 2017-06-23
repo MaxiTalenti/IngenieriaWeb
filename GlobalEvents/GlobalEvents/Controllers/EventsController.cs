@@ -517,7 +517,9 @@ namespace GlobalEvents.Controllers
                 //    eventos = new List<Events>();
                 //}
                 //var Data = eventos.Select(x => new { lat = x.lat, lng = x.lng, NombreEvento = x.NombreEvento }).ToList();
-                var eventos = context.Events.Where(u => u.Estado == EventState.Habilitado).Select(x => new { lat = x.lat, lng = x.lng, NombreEvent = x.NombreEvento }).ToList();
+                var eventos = context.Events
+                .Where(u => u.Estado == EventState.Habilitado && u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year)
+                .Select(x => new { lat = x.lat, lng = x.lng, NombreEvent = x.NombreEvento }).ToList();
                 return Json(
                 eventos,
                 JsonRequestBehavior.AllowGet);
