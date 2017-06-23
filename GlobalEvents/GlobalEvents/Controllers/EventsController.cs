@@ -492,24 +492,14 @@ namespace GlobalEvents.Controllers
         }
 
         [MyAuthorize]
-        public ActionResult MapView(SearchEvents search)
+        public ActionResult MapView()
         {
-            if (search.FechaDesde.Year < 2000)
-            {
-                search.FechaDesde = DateTime.Now;
-                search.FechaHasta = DateTime.Now;
-            }
-            
-            return View(search);
+            return View();
         }
 
 
-        public JsonResult GetEventsForMap(int? id, string lat, string lng, DateTime? fechadesde, DateTime? fechahasta)
+        public JsonResult GetEventsForMap(int? id, string lat, string lng)
         {
-            string fechaDesde = Convert.ToDateTime(fechadesde).ToShortDateString() + " 0:00:00";
-            fechadesde = Convert.ToDateTime(fechaDesde);
-            string fechaHasta = Convert.ToDateTime(fechahasta).ToShortDateString() + " 23:59:59";
-            fechahasta = Convert.ToDateTime(fechaHasta);
             using (Modelo context = new Modelo())
             {
                 double maxlng = Convert.ToDouble(lng.Replace(".", ",")) + 0.4;
@@ -517,7 +507,7 @@ namespace GlobalEvents.Controllers
                 double maxlat = Convert.ToDouble(lat.Replace(".", ",")) + 0.4;
                 double minlat = Convert.ToDouble(lat.Replace(".", ",")) - 0.4;
                 //context.Configuration.LazyLoadingEnabled = false;
-                var eventos = context.Events.Where(u => u.Estado == EventState.Habilitado && u.FechaInicio >= fechadesde && u.FechaInicio <= fechahasta).ToList();
+                var eventos = context.Events.Where(u => u.Estado == EventState.Habilitado && u.FechaInicio.Day == DateTime.Now.Day && u.FechaInicio.Month == DateTime.Now.Month && u.FechaInicio.Year == DateTime.Now.Year).ToList();
                 if (eventos.Count > 0)
                 {
                     eventos = eventos.Where(c => Convert.ToDouble(c.lat.Replace(".", ",")) <= maxlat && Convert.ToDouble(c.lat.Replace(".", ",")) >= minlat).ToList();
@@ -527,7 +517,7 @@ namespace GlobalEvents.Controllers
                 {
                     eventos = new List<Events>();
                 }
-                var Data = eventos.Select(x => new { lat = x.lat, lng = x.lng, NombreEvento = x.NombreEvento, FechaInicio = x.FechaInicio, FechaFin = x.FechaFin }).ToList();
+                var Data = eventos.Select(x => new { lat = x.lat, lng = x.lng, NombreEvento = x.NombreEvento }).ToList();
                 return Json(
                 Data,
                 JsonRequestBehavior.AllowGet);

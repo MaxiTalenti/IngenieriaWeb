@@ -321,7 +321,6 @@
     <Content Include="Views\Events\AsistenciaEvento.cshtml" />
     <Content Include="Views\Shared\ErroresVarios.cshtml" />
     <Content Include="Views\Events\Closed.cshtml" />
-    <Content Include="Views\Events\MapPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
