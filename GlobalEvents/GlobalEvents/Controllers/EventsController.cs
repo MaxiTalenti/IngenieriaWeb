@@ -11,6 +11,7 @@ using GlobalEvents.Filters;
 using WebMatrix.WebData;
 using ViewModels;
 using System.Web.Security;
+using static ViewModels.EventViewModel;
 
 namespace GlobalEvents.Controllers
 {
@@ -115,6 +116,60 @@ namespace GlobalEvents.Controllers
             List<Events> Lista = EventsService.ObtenerEventos(null, false, false)
                 .Where(z => z.FechaFin < DateTime.Now).ToList();
             return View(Lista);
+        }
+
+        [HttpGet]
+        [MyAuthorize]
+        public ActionResult GetIntereses(Intereses state)
+        {
+            List<EventVM> Lista = new List<EventVM>();
+            if (state == Intereses.Asistire)
+            {
+                Lista = EventsService.ObtenerEventosAsistidos(WebSecurity.CurrentUserId).Select(x => new EventVM()
+                {
+                    Descripcion = x.Descripcion,
+                    Destacado = x.Destacado,
+                    Direccion = x.Direccion,
+                    Estado = x.Estado,
+                    FechaFin = x.FechaFin,
+                    FechaInicio = x.FechaInicio,
+                    HoraFin = x.HoraFin,
+                    HoraInicio = x.HoraInicio,
+                    Id = x.Id,
+                    IdCategoria = x.IdCategoria,
+                    IdUser = x.IdUser,
+                    lat = x.lat,
+                    lng = x.lng,
+                    NombreEvento = x.NombreEvento,
+                    RutaImagen = x.RutaImagen
+                }).ToList(); ;
+            }
+            else
+            {
+                Lista = EventsService.ObtenerEventosDeseados(WebSecurity.CurrentUserId).Select(x => new EventVM()
+                {
+                    Descripcion = x.Descripcion,
+                    Destacado = x.Destacado,
+                    Direccion = x.Direccion,
+                    Estado = x.Estado,
+                    FechaFin = x.FechaFin,
+                    FechaInicio = x.FechaInicio,
+                    HoraFin = x.HoraFin,
+                    HoraInicio = x.HoraInicio,
+                    Id = x.Id,
+                    IdCategoria = x.IdCategoria,
+                    IdUser = x.IdUser,
+                    lat = x.lat,
+                    lng = x.lng,
+                    NombreEvento = x.NombreEvento,
+                    RutaImagen = x.RutaImagen
+                }).ToList(); ;
+            }
+
+            EventVMList model = new EventVMList();
+            model.List = Lista;
+            model.Tipo = state;
+            return View("Intereses", model);
         }
 
         // GET: Events/Details/5

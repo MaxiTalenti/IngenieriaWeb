@@ -131,6 +131,12 @@ namespace ViewModels
 
     }
 
+    public class EventVMList
+    {
+        public List<EventViewModel.EventVM> List { get; set; }
+        public Intereses Tipo { get; set; }
+    }
+
     public class EventosModeracionModel
     {
         public int ReporteId { get; set; }

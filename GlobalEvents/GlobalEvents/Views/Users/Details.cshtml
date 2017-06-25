@@ -64,11 +64,11 @@
                                             <i class="fa fa-comment" aria-hidden="true" title="Comentarios realizados"></i>
                                         </th>
                                         <th>
-                                            <i class="fa fa-calendar-o" aria-hidden="true" title="Eventos asistidos"></i>
+                                            <a href="@Url.Action("GetIntereses", "Events", new {state = RepositorioClases.Intereses.Asistire })"> <i class="fa fa-calendar-o" aria-hidden="true" title="Eventos asistidos"></i>
                                         </th>
                                         <th>
-                                            <i class="fa fa-star" aria-hidden="true" title="Eventos deseados"></i>
-                                        </th>
+                                            <a href="@Url.Action("GetIntereses", "Events", new {state = RepositorioClases.Intereses.Me_Gusta })"><i class="fa fa-star" aria-hidden="true" title="Eventos deseados"></i>
+</th>
                                     </tr>
                                 </thead>
                                 <tr>

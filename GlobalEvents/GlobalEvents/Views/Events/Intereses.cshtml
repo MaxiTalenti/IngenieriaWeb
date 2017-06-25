@@ -1,0 +1,50 @@
+﻿@model ViewModels.EventVMList
+
+<div class="card">
+    <div class="card-content">
+            <table class="table striped centered">
+                @if (Model.Tipo == RepositorioClases.Intereses.Asistire)
+                {
+                    <div class="card-title center-align">Eventos asistidos</div>
+                }
+                else
+                {
+                    <div class="card-title center-align">Eventos que te interesan</div>
+                }
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>
+                            Evento
+                        </th>
+                        <th>
+                            Fecha
+                        </th>
+
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+            @foreach (var item in Model.List)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreEvento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaInicio)
+                        </td>
+
+                        <td>
+                            <div class="col s2 right-align">
+                                <a href="~/Events/Details/@item.Id" class="btn btn-default">
+                                    <i class="fa fa-search fa-fw black-text"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+    </div>
+</div>
+
+@Html.ActionLink("Volver","Details", "Users", new { id = WebSecurity.CurrentUserId }, null) 
