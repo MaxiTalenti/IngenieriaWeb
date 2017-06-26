@@ -120,12 +120,12 @@ namespace GlobalEvents.Controllers
 
         [HttpGet]
         [MyAuthorize]
-        public ActionResult GetIntereses(Intereses state)
+        public ActionResult GetIntereses(Intereses state, long userid)
         {
             List<EventVM> Lista = new List<EventVM>();
             if (state == Intereses.Asistire)
             {
-                Lista = EventsService.ObtenerEventosAsistidos(WebSecurity.CurrentUserId).Select(x => new EventVM()
+                Lista = EventsService.ObtenerEventosAsistidos((int)userid).Select(x => new EventVM()
                 {
                     Descripcion = x.Descripcion,
                     Destacado = x.Destacado,
@@ -169,6 +169,7 @@ namespace GlobalEvents.Controllers
             EventVMList model = new EventVMList();
             model.List = Lista;
             model.Tipo = state;
+            model.IdUser = userid;
             return View("Intereses", model);
         }
 
