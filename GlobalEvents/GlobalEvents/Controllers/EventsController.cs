@@ -310,6 +310,8 @@ namespace GlobalEvents.Controllers
                         TimeSpan Inicio = TimeSpan.Parse(HoraInicio);
                         TimeSpan Fin = TimeSpan.Parse(HoraFin);
 
+                        Rolls.VerificarUsuarioParaDestacar(WebSecurity.CurrentUserId);
+
                         Events evento = new Events()
                         {
                             Descripcion = events.Descripcion,
@@ -330,7 +332,7 @@ namespace GlobalEvents.Controllers
                                         EventState.Pendiente_De_Aprobacion,
                             Destacado = Rolls.ObtenerSiEventoEsDestacado(WebSecurity.CurrentUserId)
                         };
-
+                        
                         EventsService.Create(evento, file);
                         return RedirectToAction("Details", "Events", new { id = EventsService.ObtenerEventos(WebSecurity.CurrentUserId).Max(z => z.Id) });
                     }
